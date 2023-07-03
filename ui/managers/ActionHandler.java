@@ -1,4 +1,4 @@
-package managers;
+package ui.managers;
 
 import ui.Frame;
 

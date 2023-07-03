@@ -1,10 +1,11 @@
 package ui.panels;
 
 import ui.Frame;
-import ui.Panel;
 import ui.panels.components.impl.Button;
+import ui.panels.components.impl.ComponentList;
 import ui.panels.components.impl.Label;
 
+import java.awt.Component;
 import java.awt.Graphics2D;
 
 public class HomePanel extends Panel {
@@ -23,6 +24,12 @@ public class HomePanel extends Panel {
         button.getStyle().setAlignment("center");
         button.getStyle().setAction("help");
         addComponent(button);
+        ComponentList list = new ComponentList(getFrame(), 10, 100, 200, 200);
+        for(int i = 0;i<10;i++) {
+            Button b = new Button(getFrame(), "Button " + i, 0, 0, 200, 35);
+            list.addComponent(b);
+        }
+        addComponent(list);
     }
 
     @Override

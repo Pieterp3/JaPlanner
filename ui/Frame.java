@@ -3,8 +3,10 @@ package ui;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
-import managers.IOManager;
+
 import ui.listeners.PrimaryListener;
+import ui.managers.IOManager;
+import ui.panels.Panel;
 
 public class Frame extends JFrame {
     private Panel activePanel;
@@ -26,6 +28,7 @@ public class Frame extends JFrame {
         addMouseListener(primaryListener);
         addMouseMotionListener(primaryListener);
         addWindowListener(primaryListener);
+        addMouseWheelListener(primaryListener);
     }
 
     public void beginEnter() {

@@ -81,6 +81,14 @@ public class Style {
         setAttribute("y", Integer.toString(y));
     }
     
+    public void setYOffset(int y) {
+        setAttribute("yOffset", Integer.toString(y));
+    }
+
+    public void setXOffset(int x) {
+        setAttribute("xOffset", Integer.toString(x));
+    }
+
     public void setAction(String action) {
         setAttribute("action", action);
     }
@@ -115,6 +123,10 @@ public class Style {
 
     public void setBorderDisabledColor(Color borderDisabledColor) {
         setAttribute("borderDisabledColor", Integer.toHexString(borderDisabledColor.getRGB()).substring(2));
+    }
+
+    public void setPadding(int padding) {
+        setAttribute("padding", Integer.toString(padding));
     }
 
     public void setDisabledColor(Color disabledColor) {
@@ -196,6 +208,14 @@ public class Style {
         return getIntAttribute("y");
     }
 
+    public int getXOffset() {
+        return getIntAttribute("xOffset");
+    }
+
+    public int getYOffset() {
+        return getIntAttribute("yOffset");
+    }
+
     public Color getColor() {
         return getColorAttribute("color");
     }
@@ -230,6 +250,10 @@ public class Style {
 
     public Color getBorderPressColor() {
         return getColorAttribute("borderPressColor");
+    }
+
+    public int getPadding() {
+        return getIntAttribute("padding");
     }
 
     public Color getBorderDisabledColor() {

@@ -48,11 +48,11 @@ public abstract class DrawnComponent {
     }
 
     public int getX() {
-        return style.getX();
+        return style.getX() + style.getXOffset();
     }
 
     public int getY() {
-        return style.getY();
+        return style.getY() + style.getYOffset();
     }
 
     public int getWidth() {

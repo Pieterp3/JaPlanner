@@ -1,4 +1,4 @@
-package managers;
+package ui.managers;
 
 import ui.Frame;
 import ui.panels.components.DrawnComponent;
@@ -84,6 +84,10 @@ public class MouseManager {
 
     public void move(int x, int y) {
         setMousePosition(x, y);
+    }
+
+    public void scroll(int wheelRotation) {
+        frame.getActivePanel().scroll(wheelRotation);
     }
 
 }

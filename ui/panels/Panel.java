@@ -1,9 +1,11 @@
 // Written by: Pieter Barone
-package ui;
+package ui.panels;
 
 import javax.swing.JPanel;
 
+import ui.Frame;
 import ui.panels.components.DrawnComponent;
+import ui.panels.components.interfaces.Scrollable;
 
 import java.util.List;
 import java.awt.Graphics2D;
@@ -49,6 +51,14 @@ public abstract class Panel extends JPanel {
             c.draw(g);
         }
         finishPanelDrawing(g);
+    }
+
+    public void scroll(int scroll) {
+        for (DrawnComponent c : components) {
+            if (c instanceof Scrollable) {
+                ((Scrollable) c).scroll(scroll);
+            }
+        }
     }
     
     public Frame getFrame() {   

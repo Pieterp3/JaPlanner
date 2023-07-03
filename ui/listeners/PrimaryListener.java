@@ -1,14 +1,13 @@
 package ui.listeners;
 
 import ui.Frame;
+import ui.managers.ActionHandler;
+import ui.managers.KeyManager;
+import ui.managers.MouseManager;
 
 import java.awt.event.*;
 
-import managers.KeyManager;
-import managers.ActionHandler;
-import managers.MouseManager;
-
-public class PrimaryListener implements MouseListener, KeyListener, MouseMotionListener, WindowListener, ActionListener {
+public class PrimaryListener implements MouseListener, KeyListener, MouseMotionListener, WindowListener, ActionListener, MouseWheelListener {
 
     private MouseManager mouseManager;
     private long mousePressedTime;
@@ -121,6 +120,11 @@ public class PrimaryListener implements MouseListener, KeyListener, MouseMotionL
     @Override
     public void actionPerformed(ActionEvent e) {
         actionHandler.processAction(e.getActionCommand());
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        mouseManager.scroll(e.getWheelRotation());
     }
     
 }
