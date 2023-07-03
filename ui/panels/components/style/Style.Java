@@ -1,8 +1,10 @@
-// Version: 1.0
 package ui.panels.components.style;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.awt.Color;
+import java.awt.Font;
+import ui.panels.components.DrawnComponent;
 
 public class Style {
 
@@ -12,6 +14,10 @@ public class Style {
     public Style(DrawnComponent component) {
         this.component = component;
         StyleDefaults.initializeStyle(this);
+    }
+
+    public DrawnComponent getComponent() {
+        return component;
     }
 
     // Direct access to attributes
@@ -58,6 +64,14 @@ public class Style {
     }
 
     // Setters for common attributes
+
+    public void addDefaultBorder() {
+        setHasBorder(true);
+        setBorderWidth(2);
+        setBorderColor(Color.BLACK);
+        setBorderHoverColor(Color.BLACK.brighter());
+        setBorderPressColor(Color.BLACK.darker());
+    }
 
     public void setX(int x) {
         setAttribute("x", Integer.toString(x));

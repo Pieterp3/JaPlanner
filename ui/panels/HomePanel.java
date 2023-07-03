@@ -1,11 +1,11 @@
 package ui.panels;
 
-import ui.panels.components.Button;
 import ui.Frame;
 import ui.Panel;
-import ui.panels.components.Label;
+import ui.panels.components.impl.Button;
+import ui.panels.components.impl.Label;
+
 import java.awt.Graphics2D;
-import ui.panels.components.style.*;
 
 public class HomePanel extends Panel {
 
@@ -14,7 +14,8 @@ public class HomePanel extends Panel {
     }
     
     protected void init() {
-        Label label = new Label(getFrame(), "Peerless Estimator", getWidth(), 10);
+        Label label = new Label(getFrame(), "Peerless Estimator", 0, 20);
+        label.getStyle().setWidth(getWidth());
         label.getStyle().setAlignment("center");
         label.getStyle().setFont("Arial", -1, 16);
         addComponent(label);
@@ -36,7 +37,7 @@ public class HomePanel extends Panel {
 
     @Override
     public void processAction(String command) {
-        System.out.println("Processing action: " + command + " in home panel");
+        System.out.println("Processing action: '" + command + "' in home panel");
     }
 
     @Override

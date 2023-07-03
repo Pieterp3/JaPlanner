@@ -1,49 +1,28 @@
-package ui.panels.components;
-
-import java.awt.Color;
-import java.awt.Font;
+package ui.panels.components.style;
 
 public enum StyleDefaults {
-    FONT("Font", "Arial"),
-    FONT_SIZE("Font Size", "12"),
-    FONT_STYLE("Font Style", Integer.toString(Font.PLAIN)),
-    COLOR("Color", "000"),
-    BACKGROUND_COLOR("Background color", "FFF"),
-    BORDER_COLOR("Border color", "000"),
-    BORDER_THICKNESS("Border thickness", 1),
-    BORDER("Border", "false"),
-    X("X", "0"),
-    Y("Y", "0"),
-    WIDTH("Width", "0"),
-    HEIGHT("Height", "0"),
-    ALIGNMENT("Alignment", "LEFT"),
-    OPAQUE("Opaque", "true"),
-    DISABLED("Disabled", "false"),
-    );
-
-    private static final String defaultText = "Button";
-    private static final int defaultWidth = 60;
-    private static final int defaultHeight = 18;
-    private static final int defaultX = 0;
-    private static final int defaultY = 0;
-
-    private static final int defaultBorderWidth = 3;
-    private static final boolean defaultBorder = true;
-    private static final boolean defaultEnabled = true;
-    private static final Color defaultDisabledColor = Color.white;
-    private static final boolean defaultOpaque = true;
-
-    private static final Color defaultFontColor = Color.white;
-    private static final Color defaultBackgroundColor = Color.black;
-    private static final Color defaultBorderColor = Color.gray;
-    
-    private static final Color defaultHoverColor = Color.black;
-    private static final Color defaultBackgroundHoverColor = Color.black;
-    private static final Color defaultBorderHoverColor = Color.gray;
-
-    private static final Color defaultPressColor = Color.lightGray;
-    private static final Color defaultBackgroundPressColor = Color.black;
-    private static final Color defaultBorderPressColor = Color.gray;
+    FONT("font", "Arial"),
+    FONT_SIZE("fontSize", "12"),
+    FONT_STYLE("fontStyle", "0"),
+    BORDER_THICKNESS("borderThickness", "1"),
+    BORDER("border", "false"),
+    X("x", "0"),
+    Y("y", "0"),
+    WIDTH("width", "0"),
+    HEIGHT("height", "0"),
+    ALIGNMENT("alignment", "LEFT"),
+    OPAQUE("opaque", "true"),
+    DISABLED("disabled", "false"),
+    DISABLED_COLOR("disabledColor", "FFF"),
+    COLOR("color", "000"),
+    BACKGROUND_COLOR("backgroundColor", "FFF"),
+    BORDER_COLOR("borderColor", "000"),
+    HOVER_COLOR("hoverColor", "000"),
+    BACKGROUND_HOVER_COLOR("backgroundHoverColor", "FFF"),
+    BORDER_HOVER_COLOR("borderHoverColor", "000"),
+    PRESS_COLOR("pressColor", "000"),
+    BACKGROUND_PRESS_COLOR("backgroundPressColor", "FFF"),
+    BORDER_PRESS_COLOR("borderPressColor", "000");
 
     private String name, value;
 
@@ -54,7 +33,7 @@ public enum StyleDefaults {
 
     public static String getDefaultValue(String name) {
         for (StyleDefaults styleDefault : StyleDefaults.values()) {
-            if (styleDefault.name().equalsIgnoreCase(name)) {
+            if (styleDefault.name.equalsIgnoreCase(name)) {
                 return styleDefault.value;
             }
         }
@@ -63,7 +42,7 @@ public enum StyleDefaults {
 
     public static void initializeStyle(Style style) {
         for (StyleDefaults styleDefault : StyleDefaults.values()) {
-            style.setAttribute(styleDefault.name(), styleDefault.value);
+            style.setAttribute(styleDefault.name, styleDefault.value);
         }
     }
 }

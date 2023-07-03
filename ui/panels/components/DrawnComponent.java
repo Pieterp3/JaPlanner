@@ -1,10 +1,7 @@
 package ui.panels.components;
 
 import java.awt.Graphics2D;
-import java.awt.Color;
-import java.util.HashMap;
-import java.util.Map;
-import java.awt.Font;
+import ui.panels.components.style.Style;
 import ui.Frame;
 
 public abstract class DrawnComponent {
@@ -30,9 +27,9 @@ public abstract class DrawnComponent {
         }
     }
 
-    public Style getStyle() {
+   public Style getStyle() {
         return style;
-    }
+   }
 
     protected Frame getFrame() {
         return frame;
