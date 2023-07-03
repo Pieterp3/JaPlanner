@@ -1,24 +1,36 @@
 package ui.listeners;
-import ui.Panel;
+
+import ui.Frame;
 
 import java.awt.event.*;
+
+import managers.KeyManager;
+import managers.ActionHandler;
 import managers.MouseManager;
 
 public class PrimaryListener implements MouseListener, KeyListener, MouseMotionListener, WindowListener, ActionListener {
 
     private MouseManager mouseManager;
     private long mousePressedTime;
-    private Panel panel;
+    private ActionHandler actionHandler;
+    private KeyManager keyManager;
+    private Frame frame;
+    private long lastClick;
 
-    public PrimaryListener(Panel panel) {
+    public PrimaryListener(Frame frame) {
         super();
-        mouseManager = new MouseManager();
-        this.panel = panel;
+        mouseManager = new MouseManager(frame);
+        keyManager = new KeyManager(frame);
+        this.actionHandler = new ActionHandler(frame);
+        this.frame = frame;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        mouseManager.click(e.getPoint());
+        if (System.currentTimeMillis() - lastClick > 5) {
+            mouseManager.click(e.getPoint().x, e.getPoint().y);
+            lastClick = System.currentTimeMillis();
+        }
     }
 
     @Override
@@ -29,83 +41,86 @@ public class PrimaryListener implements MouseListener, KeyListener, MouseMotionL
     @Override
     public void mouseReleased(MouseEvent e) {
         if (System.currentTimeMillis() - mousePressedTime < 500) {
-            mouseManager.click(e.getPoint());
+            if (System.currentTimeMillis() - lastClick > 5) {
+                mouseManager.click(e.getPoint().x, e.getPoint().y);
+                lastClick = System.currentTimeMillis();
+            }
         }
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
+        mouseManager.setMouseInFrame(true);
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
+        mouseManager.setMouseInFrame(true);
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
+        keyManager.keyTyped(e.getKeyCode());
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // TODO Auto-generated method stub
+        keyManager.press(e.getKeyCode());
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
+        keyManager.release(e.getKeyCode());
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        mouseManager.drag(mouseManager.getMousePosition(), e.getPoint());
+        mouseManager.drag(mouseManager.getMouseX(), mouseManager.getMouseY(), e.getPoint().x, e.getPoint().y);
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        mouseManager.setMousePosition(e.getPoint());
+        mouseManager.setMousePosition(e.getPoint().x, e.getPoint().y);
     }
 
     @Override
     public void windowOpened(WindowEvent e) {
-        // TODO Auto-generated method stub
+        frame.beginEnter();
     }
 
     @Override
     public void windowClosing(WindowEvent e) {
-        panel.beginExit();
+        frame.beginExit();
     }
 
     @Override
     public void windowClosed(WindowEvent e) {
-        // TODO Auto-generated method stub
+        frame.exit();
     }
 
     @Override
     public void windowIconified(WindowEvent e) {
-        // TODO Auto-generated method stub
+        frame.setIconState(true);
     }
 
     @Override
     public void windowDeiconified(WindowEvent e) {
-        // TODO Auto-generated method stub
+        frame.setIconState(true);
     }
 
     @Override
     public void windowActivated(WindowEvent e) {
-        // TODO Auto-generated method stub
+        frame.setActive(true);
     }
 
     @Override
     public void windowDeactivated(WindowEvent e) {
-        // TODO Auto-generated method stub
+        frame.setActive(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
+        actionHandler.processAction(e.getActionCommand());
     }
     
 }
