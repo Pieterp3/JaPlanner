@@ -1,6 +1,9 @@
-import ui.*;
-import ui.panels.*;
-import java.util.*;
+package planner;
+
+import planner.ui.Frame;
+import planner.ui.components.Panel;
+import planner.ui.components.impl.HomePanel;
+import planner.structures.List;
 
 public class Main {
     private static Frame frame;
@@ -11,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
         frame = new Frame();
         engine = new Engine(frame);
-        panels = new ArrayList<Panel>();
+        panels = new List<Panel>();
         panels.add(new HomePanel(frame));
 
         //Last panel added is the active panel for dev purposes.
