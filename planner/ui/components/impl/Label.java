@@ -1,11 +1,10 @@
 package ui.components.impl;
 
 import ui.Frame;
-import ui.components.ArtAssistant;
 import ui.components.DrawnComponent;
 import ui.components.style.Style;
 
-import java.awt.*;
+import ui.graphics.Graphics;
 
 public class Label extends DrawnComponent {
 
@@ -22,13 +21,13 @@ public class Label extends DrawnComponent {
     }
 
     @Override
-    public void draw(Graphics2D g) {
+    public void draw(Graphics g) {
         Style style = getStyle();
         if (style.isDisabled()) return;
-        ArtAssistant.attemptBackground(g, style, getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
-        ArtAssistant.attemptBorder(g, style, getX(), getY(), getWidth(), getHeight(), isHovered());
+        g.drawBackground(getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
+        g.attemptBorder(getX(), getY(), getWidth(), getHeight(), isHovered());
         g.setColor(style.getColor());
-        ArtAssistant.drawStandardText(g, style, getX(), getY(), getWidth(), getHeight());
+        g.drawStandardText(getX(), getY(), getWidth(), getHeight());
     }
 
     @Override
@@ -38,7 +37,7 @@ public class Label extends DrawnComponent {
 
     @Override
     public void setHoveredCursor(int x, int y) {
-        getFrame().setCursor(Cursor.DEFAULT_CURSOR);
+        getFrame().setCursor(Frame.DEFAULT_CURSOR);
     }
     
 }

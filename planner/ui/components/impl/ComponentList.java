@@ -1,24 +1,22 @@
 package ui.components.impl;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import ui.Frame;
-import ui.components.ArtAssistant;
 import ui.components.DrawnComponent;
 import ui.components.interfaces.ContainerComponent;
 import ui.components.interfaces.Scrollable;
 import ui.components.style.Style;
 
+import ui.graphics.Color;
+import ui.graphics.Graphics;
+
+import structures.Map;
+import structures.List;
+
+
 
 public class ComponentList extends DrawnComponent implements Scrollable, ContainerComponent {
     
-    private static final Map<String, String> ARROW_MAP = new HashMap<String, String>() {{
+    private static final Map<String, String> ARROW_MAP = new Map<String, String>() {{
         put("up", "↑");
         put("down", "↓");
         put("left", "←");
@@ -35,7 +33,7 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
 
     public ComponentList(Frame frame, int x, int y, int width, int height) {
         super(frame);
-        components = new ArrayList<DrawnComponent>();
+        components = new List<DrawnComponent>();
         scrollIndex = 0;
         initStyle(getStyle(), x, y, width, height);
     }
@@ -77,17 +75,17 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
     }
 
     @Override
-    public void draw(Graphics2D g) {
+    public void draw(Graphics g) {
         Style style = getStyle();
         if (style.isDisabled()) return;
-        ArtAssistant.attemptBackground(g, style, getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
-        ArtAssistant.attemptBorder(g, style, getX(), getY(), getWidth(), getHeight(), isHovered());
+        g.drawBackground(style, getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
+        g.attemptBorder(style, getX(), getY(), getWidth(), getHeight(), isHovered());
         for (int i = scrollIndex; i < components.size(); i++) { components.get(i).draw(g); }
         if (components.size() > 1) {
             scrollButton1.draw(g);
             scrollButton2.draw(g);
         }
-        ArtAssistant.drawScrollbar(g, style, scrollButton1.getStyle(), getX(), getY(), getWidth(), getHeight(), scrollIndex, components.size());
+        g.drawScrollbar(style, scrollButton1.getStyle(), getX(), getY(), getWidth(), getHeight(), scrollIndex, components.size());
     }
 
     public void scroll(int amount) {
@@ -109,7 +107,6 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
         repositionComponents();
     }
 
-    @Override
     public List<DrawnComponent> getComponents() {
         return components;
     }
@@ -211,7 +208,7 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
                 return;
             }
         }
-        getFrame().setCursor(Cursor.DEFAULT_CURSOR);
+        getFrame().setCursor(Frame.DEFAULT_CURSOR);
     }
 
 }

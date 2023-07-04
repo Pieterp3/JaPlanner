@@ -1,10 +1,10 @@
 package ui.components;
 
-import java.awt.Graphics2D;
-
 import ui.Frame;
 import ui.Panel;
 import ui.components.style.Style;
+
+import ui.graphics.Graphics;
 
 public abstract class DrawnComponent {
     
@@ -18,7 +18,11 @@ public abstract class DrawnComponent {
         this.frame = frame;
     }
 
-    public abstract void draw(Graphics2D g);
+    public void updateGraphicsStyle(Graphics g) {
+        g.setStyle(getStyle());
+    }
+
+    public abstract void draw(Graphics g);
     public abstract void click(int x, int y);
     public abstract void setHoveredCursor(int x, int y);
 

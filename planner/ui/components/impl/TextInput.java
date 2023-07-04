@@ -1,7 +1,6 @@
 package ui.components.impl;
 
 import ui.Frame;
-import ui.components.ArtAssistant;
 import ui.components.DrawnComponent;
 import ui.components.interfaces.Dragable;
 import ui.components.interfaces.RecievesText;
@@ -9,10 +8,8 @@ import ui.components.style.Style;
 import ui.managers.ClipboardManager;
 import ui.managers.KeyManager;
 
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
+import ui.graphics.Graphics;
+import ui.graphics.Color;
 
 public class TextInput extends DrawnComponent implements RecievesText, Dragable {
   
@@ -20,7 +17,7 @@ public class TextInput extends DrawnComponent implements RecievesText, Dragable 
     private int cursorPosition = 0;
     private long lastCursorUpdate = 0;
     private boolean cursorVisible = false;
-    private Graphics2D currentGraphics;
+    private Graphics currentGraphics;
     private int selectedStartIndex, selectedStopIndex;
 
     public TextInput(Frame frame, String text, int x, int y, int width, int height, String placeholder) {
@@ -43,12 +40,12 @@ public class TextInput extends DrawnComponent implements RecievesText, Dragable 
     }
     
     @Override
-    public void draw(Graphics2D g) {
+    public void draw(Graphics g) {
         Style style = getStyle();
         if (style.isDisabled()) return;
         currentGraphics = g;
-        ArtAssistant.attemptBackground(g, style, getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
-        ArtAssistant.attemptBorder(g, style, getX(), getY(), getWidth(), getHeight(), isHovered());
+        g.drawBackground(getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
+        g.attemptBorder(getX(), getY(), getWidth(), getHeight(), isHovered());
 
         //Draw background behind selected text
         if (selectedStartIndex != selectedStopIndex) {
@@ -57,15 +54,15 @@ public class TextInput extends DrawnComponent implements RecievesText, Dragable 
             int wallOffset = borderThickness + padding;
             int textX = getX() + wallOffset;
             int textY = getY() + wallOffset;
-            int textHeight = g.getFontMetrics().getHeight();
+            int textHeight = g.getFontHeight();
             int startIndex = Math.min(selectedStartIndex, selectedStopIndex);
             int stopIndex = Math.max(selectedStartIndex, selectedStopIndex);
             String text = style.getText();
             String selectedText = text.substring(startIndex, stopIndex);
-            int selectedTextWidth = g.getFontMetrics().stringWidth(selectedText);
+            int selectedTextWidth = g.getStringWidth(selectedText);
             g.setColor(style.getSelectedTextColor());
-            int drawY = textY + getHeight() / 2 + g.getFontMetrics().getHeight() / 2 - g.getFontMetrics().getDescent() - textHeight - 1;
-            g.fillRect(textX + g.getFontMetrics().stringWidth(text.substring(0, startIndex)), drawY, selectedTextWidth, textHeight);
+            int drawY = textY + getHeight() / 2 + g.getFontHeight() / 2 - g.getFontDescent() - textHeight - 1;
+            g.fillRect(textX + g.getStringWidth(text.substring(0, startIndex)), drawY, selectedTextWidth, textHeight);
         }
 
 
@@ -77,7 +74,7 @@ public class TextInput extends DrawnComponent implements RecievesText, Dragable 
             g.setColor(style.getColor());
         }
         
-        ArtAssistant.drawText(g, style, getX(), getY(), getWidth(), getHeight(), text);
+        g.drawText(getX(), getY(), getWidth(), getHeight(), text);
         drawCursor(g, text, style);
     }
 
@@ -111,7 +108,7 @@ public class TextInput extends DrawnComponent implements RecievesText, Dragable 
             Math.min(getStyle().getText().length(), getSelectedStopIndex()));
     }
 
-    private void drawCursor(Graphics2D g, String text, Style style) {
+    private void drawCursor(Graphics g, String text, Style style) {
         if (getPanel().getFocusableComponent() != this) return;
         if (System.currentTimeMillis() - lastCursorUpdate > 500) {
             cursorVisible = !cursorVisible;
@@ -120,7 +117,7 @@ public class TextInput extends DrawnComponent implements RecievesText, Dragable 
         if (!cursorVisible) return;
         g.setColor(style.getColor());
         int endIndex = Math.min(cursorPosition, text.length());
-        int x = getX() + g.getFontMetrics().stringWidth(text.substring(0, endIndex)) - 2;
+        int x = getX() + g.getStringWidth(text.substring(0, endIndex)) - 2;
         int padding = style.getPadding();
         int borderThickness = style.getBorderWidth();
         int wallOffset = borderThickness + padding;
@@ -141,12 +138,12 @@ public class TextInput extends DrawnComponent implements RecievesText, Dragable 
         int wallOffset = borderThickness + padding;
         int textX = getX() + wallOffset;
         int textY = getY() + wallOffset;
-        int textWidth = currentGraphics.getFontMetrics().stringWidth(text);
-        int textHeight = currentGraphics.getFontMetrics().getHeight();
+        int textWidth = currentGraphics.getStringWidth(text);
+        int textHeight = currentGraphics.getFontHeight();
         if (x >= textX && x <= textX + textWidth && y >= textY && y <= textY + textHeight) {
             int index = x - textX;
             for (int i = 0; i < text.length(); i++) {
-                int charWidth = currentGraphics.getFontMetrics().charWidth(text.charAt(i));
+                int charWidth = currentGraphics.getFontCharWidth(text.charAt(i));
                 if (index < charWidth) {
                     cursorPosition = i;
                     break;
@@ -205,17 +202,17 @@ public class TextInput extends DrawnComponent implements RecievesText, Dragable 
         KeyManager listener = getFrame().getListener().getKeyManager();
         int keyModifier = listener.getModifier();
         ClipboardManager clipboardManager = getFrame().getClipboardManager();
-        if (keyModifier == RecievesText.CONTROL) {
-            if (keyCode == KeyEvent.VK_C) {
+        if (keyModifier == KeyManager.CONTROL) {
+            if (keyCode == KeyManager.C) {
                 if (hasSelectedText()) 
                     clipboardManager.copy(getSelectedText());
                 else
                     clipboardManager.copy(getStyle().getText());
                 return true;
-            } else if (keyCode == KeyEvent.VK_V) {
+            } else if (keyCode == KeyManager.V) {
                 clipboardManager.paste();
                 return true;
-            } else if (keyCode == KeyEvent.VK_X) {
+            } else if (keyCode == KeyManager.X) {
                 if (hasSelectedText()) {
                     clipboardManager.copy(getSelectedText());
                     String newText = getStyle().getText().substring(0, Math.max(0, getSelectedStartIndex())) + 
@@ -230,14 +227,14 @@ public class TextInput extends DrawnComponent implements RecievesText, Dragable 
                 cursorPosition = 0;
                 return true;
             }
-        } else if (keyModifier == RecievesText.SHIFT) {
-            if (keyCode == KeyEvent.VK_LEFT) {
+        } else if (keyModifier == KeyManager.SHIFT) {
+            if (keyCode == KeyManager.LEFT) {
                 String text = getStyle().getText().substring(0, cursorPosition);
                 int lastWhitespace = text.lastIndexOf(" ");
                 if (lastWhitespace == -1) lastWhitespace = 0;
                 cursorPosition = lastWhitespace;
                 return true;
-            } else if (keyCode == KeyEvent.VK_RIGHT) {
+            } else if (keyCode == KeyManager.RIGHT) {
                 String text = getStyle().getText().substring(cursorPosition);
                 int nextWhitespace = text.indexOf(" ");
                 if (nextWhitespace == -1) nextWhitespace = text.length();
@@ -253,23 +250,23 @@ public class TextInput extends DrawnComponent implements RecievesText, Dragable 
         if (getStyle().isDisabled()) return;
         if (checkShortcuts(keyCode)) return;
         //if (getFrame().checkShortcuts(keyCode)) return;//TODO implement program wide shortcuts in frame
-        if (keyCode == KeyEvent.VK_ENTER) {
+        if (keyCode == KeyManager.ENTER) {
             getPanel().setFocusableComponent(null);
-        } else if (KeyEvent.getKeyText(keyCode).length() == 1) {
-            sendText(KeyEvent.getKeyText(keyCode));
-        } else if (keyCode == KeyEvent.VK_BACK_SPACE) {
+        } else if (KeyManager.getKeyText(keyCode).length() == 1) {
+            sendText(KeyManager.getKeyText(keyCode));
+        } else if (keyCode == KeyManager.BACKSPACE) {
             backspace();
-        } else if (keyCode == KeyEvent.VK_DELETE) {
+        } else if (keyCode == KeyManager.DELETE) {
             delete();
-        } else if (keyCode == KeyEvent.VK_LEFT) {
+        } else if (keyCode == KeyManager.LEFT) {
             cursorPosition = Math.max(0, cursorPosition-1);
-        } else if (keyCode == KeyEvent.VK_RIGHT) {
+        } else if (keyCode == KeyManager.RIGHT) {
             cursorPosition = Math.min(getStyle().getText().length(), cursorPosition+1);
-        } else if (keyCode == RecievesText.END) {
+        } else if (keyCode == KeyManager.END) {
             cursorPosition = getStyle().getText().length();
-        } else if (keyCode == RecievesText.HOME) {
+        } else if (keyCode == KeyManager.HOME) {
             cursorPosition = 0;
-        } else if (keyCode == RecievesText.SPACE) {
+        } else if (keyCode == KeyManager.SPACE) {
             sendText(" ");
         }
     }
@@ -295,14 +292,14 @@ public class TextInput extends DrawnComponent implements RecievesText, Dragable 
             return;
         }
         String newText = currentText.substring(0, cursorPosition) + text + currentText.substring(cursorPosition);
-        if (currentGraphics.getFontMetrics().stringWidth(newText) > getWidth()) return;
+        if (currentGraphics.getStringWidth(newText) > getWidth()) return;
         getStyle().setText(newText);
         cursorPosition += text.length();
     }
 
     @Override
     public void setHoveredCursor(int x, int y) {
-        getFrame().setCursor(Cursor.TEXT_CURSOR);
+        getFrame().setCursor(Frame.TEXT_CURSOR);
     }
 
     @Override
@@ -316,12 +313,12 @@ public class TextInput extends DrawnComponent implements RecievesText, Dragable 
         int wallOffset = borderThickness + padding;
         int textX = getX() + wallOffset;
         int textY = getY() + wallOffset;
-        int textWidth = currentGraphics.getFontMetrics().stringWidth(text);
-        int textHeight = currentGraphics.getFontMetrics().getHeight();
+        int textWidth = currentGraphics.getStringWidth(text);
+        int textHeight = currentGraphics.getFontHeight();
         if (x >= textX && x <= textX + textWidth && y >= textY && y <= textY + textHeight) {
             int index = x - textX;
             for (int i = 0; i < text.length(); i++) {
-                int charWidth = currentGraphics.getFontMetrics().charWidth(text.charAt(i));
+                int charWidth = currentGraphics.getFontCharWidth(text.charAt(i));
                 if (index < charWidth) {
                     selectedStartIndex = i;
                     selectedStopIndex = i;
@@ -344,12 +341,12 @@ public class TextInput extends DrawnComponent implements RecievesText, Dragable 
         int wallOffset = borderThickness + padding;
         int textX = getX() + wallOffset;
         int textY = getY() + wallOffset;
-        int textWidth = currentGraphics.getFontMetrics().stringWidth(text);
-        int textHeight = currentGraphics.getFontMetrics().getHeight();
+        int textWidth = currentGraphics.getStringWidth(text);
+        int textHeight = currentGraphics.getFontHeight();
         if (x >= textX && x <= textX + textWidth && y >= textY && y <= textY + textHeight) {
             int index = x - textX;
             for (int i = 0; i < text.length(); i++) {
-                int charWidth = currentGraphics.getFontMetrics().charWidth(text.charAt(i));
+                int charWidth = currentGraphics.getFontCharWidth(text.charAt(i));
                 if (index < charWidth) {
                     selectedStopIndex = i;
                     cursorPosition = i;
@@ -372,12 +369,12 @@ public class TextInput extends DrawnComponent implements RecievesText, Dragable 
         int wallOffset = borderThickness + padding;
         int textX = getX() + wallOffset;
         int textY = getY() + wallOffset;
-        int textWidth = currentGraphics.getFontMetrics().stringWidth(text);
-        int textHeight = currentGraphics.getFontMetrics().getHeight();
+        int textWidth = currentGraphics.getStringWidth(text);
+        int textHeight = currentGraphics.getFontHeight();
         if (x >= textX && x <= textX + textWidth && y >= textY && y <= textY + textHeight) {
             int index = x - textX;
             for (int i = 0; i < text.length(); i++) {
-                int charWidth = currentGraphics.getFontMetrics().charWidth(text.charAt(i));
+                int charWidth = currentGraphics.getFontCharWidth(text.charAt(i));
                 if (index < charWidth) {
                     selectedStopIndex = i;
                     cursorPosition = i;

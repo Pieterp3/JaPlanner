@@ -1,6 +1,8 @@
 package structures;
 
-public class List<T> {
+import java.util.Iterator;
+
+public class List<T> implements Iterable<T> {
 
     private ListNode<T> head;
     private ListNode<T> tail;
@@ -260,6 +262,11 @@ public class List<T> {
         current1.setData(current2.getData());
         current2.setData(temp);
 
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ListIterator<T>(head);
     }
     
 }

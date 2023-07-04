@@ -7,8 +7,6 @@ import ui.components.impl.ComponentList;
 import ui.components.impl.Label;
 import ui.components.impl.TextInput;
 
-import java.awt.Graphics2D;
-
 public class HomePanel extends Panel {
 
     public HomePanel(Frame frame) {
@@ -51,12 +49,12 @@ public class HomePanel extends Panel {
     }
 
     @Override
-    public void preComponentDrawing(Graphics2D g) {
+    public void preComponentDrawing() {
         
     }
 
     @Override
-    public void finishPanelDrawing(Graphics2D g) {
+    public void finishPanelDrawing() {
         
     }
     

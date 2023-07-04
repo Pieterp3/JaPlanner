@@ -32,7 +32,7 @@ public class ClipboardManager {
         copy(text);
         Focusable focus = frame.getActivePanel().getFocusableComponent();
         if (focus instanceof RecievesText) {
-            ((RecievesText) focus).sendKeycode(RecievesText.DELETE);
+            ((RecievesText) focus).sendKeycode(KeyManager.DELETE);
         }
     }
 

@@ -85,7 +85,7 @@ public class Style {
     }
 
     public void setAttributes(Map<String, String> attributes) {
-        for (String key : attributes.keySet()) {
+        for (String key : attributes.getKeys()) {
             setAttribute(key, attributes.get(key));
         }
     }
@@ -103,9 +103,9 @@ public class Style {
     public void addDefaultBorder() {
         setHasBorder(true);
         setBorderWidth(2);
-        setBorderColor(Color.BLACK);
-        setBorderHoverColor(Color.BLACK.brighter());
-        setBorderPressColor(Color.BLACK.darker());
+        setBorderColor(Color.black);
+        setBorderHoverColor(Color.black.brighter());
+        setBorderPressColor(Color.black.darker());
     }
 
     public void setX(int x) {

@@ -110,7 +110,26 @@ public class Color {
         return getAwtColor().getRGB();
     }
 
+    public Color brighter() {
+        return new Color(getAwtColor().brighter());
+    }
 
+    public Color darker() {
+        return new Color(getAwtColor().darker());
+    }
 
+    public static final Color black = new Color(java.awt.Color.black);
+    public static final Color white = new Color(java.awt.Color.white);
+    public static final Color red = new Color(java.awt.Color.red);
+    public static final Color green = new Color(java.awt.Color.green);
+    public static final Color blue = new Color(java.awt.Color.blue);
+    public static final Color yellow = new Color(java.awt.Color.yellow);
+    public static final Color orange = new Color(java.awt.Color.orange);
+    public static final Color pink = new Color(java.awt.Color.pink);
+    public static final Color magenta = new Color(java.awt.Color.magenta);
+    public static final Color cyan = new Color(java.awt.Color.cyan);
+    public static final Color gray = new Color(java.awt.Color.gray);
+    public static final Color lightGray = new Color(java.awt.Color.lightGray);
+    public static final Color darkGray = new Color(java.awt.Color.darkGray);
 
 }

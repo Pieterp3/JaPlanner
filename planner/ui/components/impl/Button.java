@@ -1,11 +1,11 @@
 package ui.components.impl;
 
 import ui.Frame;
-import ui.components.ArtAssistant;
 import ui.components.DrawnComponent;
 import ui.components.style.Style;
 
-import java.awt.*;
+import ui.graphics.Color;
+import ui.graphics.Graphics;
 
 public class Button extends DrawnComponent {
 
@@ -13,9 +13,9 @@ public class Button extends DrawnComponent {
         super(frame);
         Style s = getStyle();
         s.setColor(Color.black);
-        s.setBackgroundColor(Color.WHITE);
-        s.setBackgroundHoverColor(Color.LIGHT_GRAY);
-        s.setBackgroundPressColor(Color.GRAY);
+        s.setBackgroundColor(Color.white);
+        s.setBackgroundHoverColor(Color.lightGray);
+        s.setBackgroundPressColor(Color.gray);
         s.addDefaultBorder();
         s.setAlignment("center");
         s.setText("Button");
@@ -39,14 +39,14 @@ public class Button extends DrawnComponent {
     }
 
     @Override
-    public void draw(Graphics2D g) {
+    public void draw(Graphics g) {
         Style style = getStyle();
         if (style.isDisabled()) return;
-        ArtAssistant.attemptBackground(g, style, getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
-        ArtAssistant.attemptBorder(g, style, getX(), getY(), getWidth(), getHeight(), isHovered());
+        g.drawBackground(style, getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
+        g.attemptBorder(style, getX(), getY(), getWidth(), getHeight(), isHovered());
         Color textColor = isHovered() ? isPressed() ? style.getPressColor() : style.getHoverColor() : style.getColor();
         g.setColor(textColor);
-        ArtAssistant.drawStandardText(g, style, getX(), getY(), getWidth(), getHeight());
+        g.drawStandardText(style, getX(), getY(), getWidth(), getHeight());
     }
 
     @Override
@@ -60,7 +60,7 @@ public class Button extends DrawnComponent {
 
     @Override
     public void setHoveredCursor(int x, int y) {
-        getFrame().setCursor(Cursor.HAND_CURSOR);
+        getFrame().setCursor(Frame.HAND_CURSOR);
     }
     
 }

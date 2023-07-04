@@ -1,14 +1,15 @@
 package ui;
 
-import java.awt.Cursor;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JFrame;
 
 import ui.managers.ClipboardManager;
 import ui.managers.IOManager;
 
-public class Frame extends JFrame {
+import structures.List;
+
+public class Frame {
+
+    private JFrame frame;
     private Panel activePanel;
     private List<Panel> panelHistory;
     private PrimaryListener primaryListener;
@@ -16,32 +17,36 @@ public class Frame extends JFrame {
     private boolean active;
     private boolean isIcon;
     private ClipboardManager clipboardManager;
+    public static final int DEFAULT_CURSOR = 0;
+    public static final int HAND_CURSOR = 12;
+    public static final int TEXT_CURSOR = 2;
     
     public Frame() {
-        setTitle("Java Floor Planner");
+        frame = new JFrame();
+        frame.setTitle("Java Floor Planner");
         ioManager = new IOManager(this);
-        panelHistory = new ArrayList<Panel>();
-        setSize(800, 600);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        panelHistory = new List<Panel>();
+        frame.setSize(800, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         primaryListener = new PrimaryListener(this);
-        addKeyListener(primaryListener);
-        addMouseListener(primaryListener);
-        addMouseMotionListener(primaryListener);
-        addWindowListener(primaryListener);
-        addMouseWheelListener(primaryListener);
+        frame.addKeyListener(primaryListener);
+        frame.addMouseListener(primaryListener);
+        frame.addMouseMotionListener(primaryListener);
+        frame.addWindowListener(primaryListener);
+        frame.addMouseWheelListener(primaryListener);
         clipboardManager = new ClipboardManager(this);
     }
 
     public void beginEnter() {
         System.out.println("Entering...");
-        requestFocus();
+        frame.requestFocus();
     }
 
     public void beginExit() {
-        setVisible(false);
+        frame.setVisible(false);
         ioManager.save();
-        dispose();
+        frame.dispose();
     }
 
     public boolean isIcon() {
@@ -51,19 +56,18 @@ public class Frame extends JFrame {
     public void setActivePanel(Panel activePanel) {
         if (this.activePanel != null) {
             panelHistory.add(this.activePanel);
-            remove(this.activePanel);
+            frame.remove(this.activePanel.getPanel());
         }
         this.activePanel = activePanel;
-        add(activePanel);
+        frame.add(activePanel.getPanel());
     }
 
     public Panel getActivePanel() {
         return activePanel;
     }
 
-    @Override
     public void repaint() {
-        super.repaint();
+        frame.repaint();
         if (activePanel != null) {
             activePanel.repaint();
         }
@@ -107,9 +111,20 @@ public class Frame extends JFrame {
         return clipboardManager;
     }
 
-    @Override
     public void setCursor(int cursor) {
-        super.setCursor(Cursor.getPredefinedCursor(cursor));
+        frame.setCursor(java.awt.Cursor.getPredefinedCursor(cursor));
+    }
+
+    public void setVisible(boolean b) {
+        frame.setVisible(b);
+    }
+
+    public int getWidth() {
+        return frame.getWidth();
+    }
+
+    public int getHeight() {
+        return frame.getHeight();
     }
 
 }

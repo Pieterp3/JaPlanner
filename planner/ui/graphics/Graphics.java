@@ -8,12 +8,13 @@ public class Graphics {
     
     private Graphics2D g;
     private int strokeSize = 1;
-
-    public Graphics(Graphics2D g) {
+    private Style style;
+    
+    public void updateGraphics(Graphics2D g) {
         this.g = g;
     }
 
-    public void drawBackground(Style style, int x, int y, int width, int height, boolean isHovered, boolean isPressed) {
+    public void drawBackground(int x, int y, int width, int height, boolean isHovered, boolean isPressed) {
         if (!style.isOpaque()) { return; }
         Color backgroundColor = isHovered ? isPressed ? style.getBackgroundPressColor() : style.getBackgroundHoverColor() : style.getBackgroundColor();
         setColor(backgroundColor);
@@ -26,7 +27,7 @@ public class Graphics {
         drawString(text, x + (width / 2) - (textWidth / 2), y + (height / 2) + (textHeight / 2) - g.getFontMetrics().getDescent());
     }
 
-    public void attemptBorder(Style style, int x, int y, int width, int height, boolean isHovered) {
+    public void attemptBorder(int x, int y, int width, int height, boolean isHovered) {
         if (!style.hasBorder()) { return; }
         Color borderColor = isHovered ? style.getBorderHoverColor() : style.getBorderColor();
         setColor(borderColor);
@@ -34,7 +35,7 @@ public class Graphics {
         drawRect(x, y, width, height);
     }
 
-    public void drawText(Style style, int x, int y, int width, int height, String text) {
+    public void drawText(int x, int y, int width, int height, String text) {
         setFont(style.getFont());
         int textWidth = g.getFontMetrics().stringWidth(text);
         String alignment = style.getAlignment();
@@ -55,11 +56,11 @@ public class Graphics {
         drawString(text, x, drawY);
     }
 
-    public void drawStandardText(Style style, int x, int y, int width, int height) {
-        drawText(style, x, y, width, height, style.getText());
+    public void drawStandardText(int x, int y, int width, int height) {
+        drawText(x, y, width, height, style.getText());
     }
 
-    public void drawScrollbar(Style style, Style buttonStyle, int x, int y, int width, int height, 
+    public void drawScrollbar(Style buttonStyle, int x, int y, int width, int height, 
             int scrollIndex, int compCount) {
         int scrollbarSize = style.getScrollbarSize();
         int scrollerSize = Math.min((scrollbarSize * 3), width - (scrollbarSize * 2));
@@ -122,6 +123,26 @@ public class Graphics {
 
     public void drawString(String text, int x, int y) {
         g.drawString(text, x, y);
+    }
+
+    public int getFontHeight() {
+        return g.getFontMetrics().getHeight();
+    }
+
+    public int getStringWidth(String text) {
+        return g.getFontMetrics().stringWidth(text);
+    }
+
+    public int getFontDescent() {
+        return g.getFontMetrics().getDescent();
+    }
+
+    public int getFontCharWidth(char charAt) {
+        return g.getFontMetrics().charWidth(charAt);
+    }
+
+    public void setStyle(Style style) {
+        this.style = style;
     }
 
 }

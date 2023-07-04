@@ -8,30 +8,35 @@ import ui.components.interfaces.ContainerComponent;
 import ui.components.interfaces.Dragable;
 import ui.components.interfaces.Focusable;
 import ui.components.interfaces.Scrollable;
+import ui.graphics.Graphics;
 
-import java.util.List;
-import java.awt.Cursor;
-import java.awt.Graphics2D;
-import java.util.ArrayList;
+import structures.List;
 
-/**
- * A Panel is a JPanel that is used to display a certain part of the frame
- * at a time. It is used to separate the different parts of the frame into
- * different sections.
- * 
- */
-public abstract class Panel extends JPanel {
+public abstract class Panel {
     
+    private JPanel panel;
     private Frame frame;
+    private Graphics g = new Graphics();
     private List<DrawnComponent> components;
     private Focusable focusedComponent;
 
     public Panel(Frame frame, String name) {
-        super();
-        setName(name);
+        panel = new JPanel() {
+            @Override
+            public void paintComponent(java.awt.Graphics g2) {
+                super.paintComponent(g2);
+                g.updateGraphics((java.awt.Graphics2D) g2);
+                preComponentDrawing();
+                for (DrawnComponent c : components) {
+                    c.draw(g);
+                }
+                finishPanelDrawing();
+            }
+        };
+        panel.setName(name);
         this.frame = frame;
-        setBounds(0, 0, frame.getWidth(), frame.getHeight());
-        components = new ArrayList<DrawnComponent>();
+        panel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+        components = new List<DrawnComponent>();
         init();
     }
 
@@ -39,22 +44,15 @@ public abstract class Panel extends JPanel {
     protected abstract void init();
     public abstract void processAction(String command);
     public abstract void keyTyped(int c);
-    public abstract void preComponentDrawing(Graphics2D g);
-    public abstract void finishPanelDrawing(Graphics2D g);
+    public abstract void preComponentDrawing();
+    public abstract void finishPanelDrawing();
+
+    public Graphics getGraphics() {
+        return g;
+    }
 
     public void addComponent(DrawnComponent c) {
         components.add(c);
-    }
-
-    @Override
-    public void paintComponent(java.awt.Graphics g2) {
-        super.paintComponent(g2);
-        Graphics2D g = (Graphics2D) g2;
-        preComponentDrawing(g);
-        for (DrawnComponent c : components) {
-            c.draw(g);
-        }
-        finishPanelDrawing(g);
     }
 
     public void setFocusableComponent(Focusable c) {
@@ -81,7 +79,7 @@ public abstract class Panel extends JPanel {
             }
         }
         if (foundHover == null) {
-            frame.setCursor(Cursor.DEFAULT_CURSOR);
+            frame.setCursor(Frame.DEFAULT_CURSOR);
         } else if (foundHover instanceof Focusable) {
             focusedComponent = (Focusable) foundHover;
         }
@@ -117,5 +115,29 @@ public abstract class Panel extends JPanel {
 
     public Focusable getFocusableComponent() {
         return focusedComponent;
+    }
+
+    public int getWidth() {
+        return panel.getWidth();
+    }
+    
+    public int getHeight() {
+        return panel.getHeight();
+    }
+
+    public int getX() {
+        return panel.getX();
+    }
+
+    public int getY() {
+        return panel.getY();
+    }
+
+    public JPanel getPanel() {
+        return panel;
+    }
+
+    public void repaint() {
+        panel.repaint();
     }
 }
