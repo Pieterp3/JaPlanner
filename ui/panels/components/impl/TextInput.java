@@ -1,6 +1,9 @@
 package ui.panels.components.impl;
 
 import ui.Frame;
+import ui.listeners.PrimaryListener;
+import ui.managers.ClipboardManager;
+import ui.managers.KeyManager;
 import ui.panels.components.ArtAssistant;
 import ui.panels.components.DrawnComponent;
 import ui.panels.components.interfaces.RecievesText;
@@ -17,6 +20,7 @@ public class TextInput extends DrawnComponent implements RecievesText {
     private long lastCursorUpdate = 0;
     private boolean cursorVisible = false;
     private Graphics2D currentGraphics;
+    private String selectedText;
 
     public TextInput(Frame frame, String text, int x, int y, int width, int height, String placeholder) {
         super(frame);
@@ -28,6 +32,7 @@ public class TextInput extends DrawnComponent implements RecievesText {
         getStyle().setAction(text);
         getStyle().addDefaultBorder();
         getStyle().setPlaceholderColor(Color.gray);
+        getStyle().setPadding(2);
         this.placeholder = placeholder;
     }
 
@@ -44,13 +49,13 @@ public class TextInput extends DrawnComponent implements RecievesText {
         ArtAssistant.attemptBorder(g, style, getX(), getY(), getWidth(), getHeight(), isHovered());
         String text = style.getText();
         if (text == null || text.isEmpty()) {
+            text = placeholder;
             g.setColor(style.getPlaceholderColor());
-            ArtAssistant.drawText(g, style, getX(), getY(), getWidth(), getHeight(), placeholder);
-            drawCursor(g, placeholder, style);
-            return;
+        } else {
+            g.setColor(style.getColor());
         }
-        g.setColor(style.getColor());
-        ArtAssistant.drawStandardText(g, style, getX(), getY(), getWidth(), getHeight());
+        
+        ArtAssistant.drawText(g, style, getX(), getY(), getWidth(), getHeight(), text);
         drawCursor(g, text, style);
     }
 
@@ -62,8 +67,12 @@ public class TextInput extends DrawnComponent implements RecievesText {
         }
         if (!cursorVisible) return;
         g.setColor(style.getColor());
-        int x = getX() + 4 + g.getFontMetrics().stringWidth(text.substring(0, cursorPosition));
-        int y = getY() + 4;
+        int x = getX() + g.getFontMetrics().stringWidth(text.substring(0, cursorPosition)) - 2;
+        int padding = style.getPadding();
+        int borderThickness = style.getBorderWidth();
+        int wallOffset = borderThickness + padding;
+        x += wallOffset;
+        int y = getY() + wallOffset;
         g.fillRect(x, y, 1, getHeight() - 8);
     }
 
@@ -97,10 +106,42 @@ public class TextInput extends DrawnComponent implements RecievesText {
         }
     }
 
+    private boolean checkShortcuts(int keyCode) {
+        KeyManager listener = getFrame().getListener().getKeyManager();
+        int keyModifier = listener.getModifier();
+        ClipboardManager clipboardManager = getFrame().getClipboardManager();
+        //TODO implement selected text in shortcuts
+        if (keyModifier == RecievesText.CONTROL) {
+            if (keyCode == KeyEvent.VK_C) {
+                clipboardManager.copy(getStyle().getText());
+                return true;
+            } else if (keyCode == KeyEvent.VK_V) {
+                clipboardManager.paste();
+                cursorPosition += clipboardManager.getPaste().length();
+                return true;
+            } else if (keyCode == KeyEvent.VK_X) {
+                clipboardManager.cut(getStyle().getText());
+                getStyle().setText("");
+                cursorPosition = 0;
+                return true;
+            }
+        } else if (keyModifier == RecievesText.SHIFT) {
+            if (keyCode == KeyEvent.VK_LEFT) {
+                cursorPosition = 0;//TODO previous whitespace index or beginning of line
+                return true;
+            } else if (keyCode == KeyEvent.VK_RIGHT) {
+                cursorPosition = getStyle().getText().length();//TODO next whitespace index or end of line
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public void sendKeycode(int keyCode) {
         if (getStyle().isDisabled()) return;
-        System.out.println(KeyEvent.getKeyText(keyCode));
+        if (checkShortcuts(keyCode)) return;
+        //if (getFrame().checkShortcuts(keyCode)) return;//TODO implement program wide shortcuts in frame
         if (keyCode == KeyEvent.VK_ENTER) {
             getFrame().setActiveTextComponent(null);
         } else if (KeyEvent.getKeyText(keyCode).length() == 1) {
@@ -113,6 +154,10 @@ public class TextInput extends DrawnComponent implements RecievesText {
             cursorPosition = Math.max(0, cursorPosition-1);
         } else if (keyCode == KeyEvent.VK_RIGHT) {
             cursorPosition = Math.min(getStyle().getText().length(), cursorPosition+1);
+        } else if (keyCode == RecievesText.END) {
+            cursorPosition = getStyle().getText().length();
+        } else if (keyCode == RecievesText.HOME) {
+            cursorPosition = 0;
         }
     }
 

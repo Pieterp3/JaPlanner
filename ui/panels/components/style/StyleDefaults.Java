@@ -1,7 +1,7 @@
 package ui.panels.components.style;
 
 public enum StyleDefaults {
-    FONT("font", "Arial"),
+    FONT("font", "Courier New"),
     FONT_SIZE("fontSize", "12"),
     FONT_STYLE("fontStyle", "0"),
     BORDER_THICKNESS("borderThickness", "1"),

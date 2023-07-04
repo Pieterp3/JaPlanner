@@ -1,6 +1,7 @@
 package ui.managers;
 
 import ui.Frame;
+import ui.panels.components.interfaces.RecievesText;
 
 public class KeyManager {
     
@@ -45,6 +46,15 @@ public class KeyManager {
         } else {
             frame.getActivePanel().keyTyped(keyCode);
         }
+    }
+
+    public int getModifier() {
+        for (int i = 0; i < RecievesText.modifiers.length; i++) {
+            if (isHeld(RecievesText.modifiers[i])) {
+                return RecievesText.modifiers[i];
+            }
+        }
+        return -1;
     }
 
 

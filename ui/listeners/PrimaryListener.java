@@ -5,6 +5,7 @@ import ui.managers.ActionHandler;
 import ui.managers.KeyManager;
 import ui.managers.MouseManager;
 
+import java.awt.RenderingHints.Key;
 import java.awt.event.*;
 
 public class PrimaryListener implements MouseListener, KeyListener, MouseMotionListener, WindowListener, ActionListener, MouseWheelListener {
@@ -125,6 +126,10 @@ public class PrimaryListener implements MouseListener, KeyListener, MouseMotionL
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
         mouseManager.scroll(e.getWheelRotation());
+    }
+
+    public KeyManager getKeyManager() {
+        return keyManager;
     }
     
 }

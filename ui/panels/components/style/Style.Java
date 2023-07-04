@@ -40,14 +40,26 @@ public class Style {
     }
 
     private Color getColorAttribute(String key) {
+        String attr = getAttribute(key);
+        if (attr == null) {
+            return Color.black;
+        }
         return Color.decode("0x" + getAttribute(key));
     }
 
     private float getFloatAttribute(String key) {
+        String attr = getAttribute(key);
+        if (attr == null) {
+            return 0;
+        }
         return Float.parseFloat(getAttribute(key));
     }
 
     private boolean getBooleanAttribute(String key) {
+        String attr = getAttribute(key);
+        if (attr == null) {
+            return false;
+        }
         return Boolean.parseBoolean(getAttribute(key));
     }
 

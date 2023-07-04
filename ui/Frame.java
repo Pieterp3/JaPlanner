@@ -5,6 +5,7 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import ui.listeners.PrimaryListener;
+import ui.managers.ClipboardManager;
 import ui.managers.IOManager;
 import ui.panels.Panel;
 import ui.panels.components.interfaces.RecievesText;
@@ -17,6 +18,7 @@ public class Frame extends JFrame {
     private boolean active;
     private boolean isIcon;
     private RecievesText recievesText;
+    private ClipboardManager clipboardManager;
     
     public Frame() {
         setTitle("Java Floor Planner");
@@ -31,6 +33,7 @@ public class Frame extends JFrame {
         addMouseMotionListener(primaryListener);
         addWindowListener(primaryListener);
         addMouseWheelListener(primaryListener);
+        clipboardManager = new ClipboardManager(this);
     }
 
     public void beginEnter() {
@@ -107,6 +110,12 @@ public class Frame extends JFrame {
         return recievesText;
     }
 
+    public PrimaryListener getListener() {
+        return primaryListener;
+    }
 
+    public ClipboardManager getClipboardManager() {
+        return clipboardManager;
+    }
 
 }
