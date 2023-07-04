@@ -63,7 +63,7 @@ public class MouseManager {
         boolean setActiveTextComponent = false;
         for (DrawnComponent c : frame.getActivePanel().getDrawnComponents()) {
             if (c.contains(x, y)) {
-                c.click();
+                c.click(x, y);
                 if (c instanceof RecievesText) {
                     frame.setActiveTextComponent((RecievesText) c);
                     setActiveTextComponent = true;

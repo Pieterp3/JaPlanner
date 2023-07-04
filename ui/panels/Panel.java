@@ -9,6 +9,7 @@ import ui.panels.components.interfaces.ContainerComponent;
 import ui.panels.components.interfaces.Scrollable;
 
 import java.util.List;
+import java.awt.Cursor;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
@@ -67,10 +68,16 @@ public abstract class Panel extends JPanel {
     }
 
     public void mouseMoved(int x, int y) {
+        boolean foundHover = false;
         for (DrawnComponent c : components) {
-            c.checkHover(x, y);
-            if (c instanceof ContainerComponent)
-                ((ContainerComponent) c).mouseMoved(x, y);
+            if (c.checkHover(x, y)) foundHover = true;
+            if (c instanceof ContainerComponent) {
+                ContainerComponent cc = (ContainerComponent) c;
+                if (cc.mouseMoved(x, y)) foundHover = true;
+            }
+        }
+        if (!foundHover) {
+            frame.setCursor(Cursor.DEFAULT_CURSOR);
         }
     }
 

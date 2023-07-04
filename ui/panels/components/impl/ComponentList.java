@@ -1,6 +1,7 @@
 package ui.panels.components.impl;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,6 +55,7 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
         style.setBackgroundHoverColor(Color.darkGray);
         style.setResizesHorizontally(true);
         style.setResizesVertically(false);
+        style.setScrollMultiplier(1);
         
         int sbSize = 15;
         style.setScrollbarColor(Color.gray);
@@ -62,13 +64,13 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
 
         scrollButton1 = new Button(getFrame(), getArrow("up")) {
             @Override
-            public void click() {
+            public void click(int x, int y) {
                 scroll(-1);
             }
         };
         scrollButton2 = new Button(getFrame(), getArrow("down")){
             @Override
-            public void click() {
+            public void click(int x, int y) {
                 scroll(1);
             }
         };
@@ -89,9 +91,9 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
     }
 
     public void scroll(int amount) {
-        scrollIndex += amount;
+        scrollIndex += (amount * getStyle().getScrollMultiplier());
         if (scrollIndex < 0) scrollIndex = 0;
-        if (scrollIndex > components.size()-1) scrollIndex = components.size()-1;
+        if (scrollIndex > components.size() - 1) scrollIndex = components.size() - 1;
         repositionComponents();
     }
 
@@ -113,10 +115,6 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
     }
 
     //Prefers Vertical scrolling but defaults to horizontal
-    //TODO add a display for scrollbar and arrow buttons
-    //TODO add a way to change the scroll amount
-    //Sets max width or height depending on scroll direction
-        //Max is size of scroller - padding
     //Stops components from being drawn over the edge of the list
     public void repositionComponents() {
         int padding = getStyle().getPadding();
@@ -181,27 +179,39 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
     }
 
     @Override
-    public void click() {
+    public void click(int x, int y) {
         for (DrawnComponent comp : components) {
             if (comp.isHovered()) {
-                comp.click();
+                comp.click(x, y);
                 break;
             }
         }
         if (scrollButton1.isHovered()) {
-            scrollButton1.click();
+            scrollButton1.click(x, y);
         } else if (scrollButton2.isHovered()) {
-            scrollButton2.click();
+            scrollButton2.click(x, y);
         }
     }
 
     @Override
-    public void mouseMoved(int x, int y) {
+    public boolean mouseMoved(int x, int y) {
         for (DrawnComponent comp : components) {
-            comp.checkHover(x, y);
+            if (comp.checkHover(x, y)) return true;
         }
-        scrollButton1.checkHover(x, y);
-        scrollButton2.checkHover(x, y);
+        if (scrollButton1.checkHover(x, y)) return true;
+        if (scrollButton2.checkHover(x, y)) return true;
+        return false;
+    }
+
+    @Override
+    public void setHoveredCursor(int x, int y) {
+        for (DrawnComponent comp : components) {
+            if (comp.isHovered()) {
+                comp.setHoveredCursor(x, y);
+                return;
+            }
+        }
+        getFrame().setCursor(Cursor.DEFAULT_CURSOR);
     }
 
 }

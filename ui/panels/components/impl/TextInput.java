@@ -9,6 +9,7 @@ import ui.panels.components.interfaces.RecievesText;
 import ui.panels.components.style.Style;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
@@ -38,6 +39,7 @@ public class TextInput extends DrawnComponent implements RecievesText {
     public TextInput(Frame frame) {
         this(frame, "", 0, 0, 220, 36, "Placeholder");
     }
+    
     //TODO cursors
     @Override
     public void draw(Graphics2D g) {
@@ -93,7 +95,7 @@ public class TextInput extends DrawnComponent implements RecievesText {
     }
 
     @Override
-    public void click() {
+    public void click(int x, int y) {
         if (getStyle().isDisabled()) return;
         if (currentGraphics == null) return;
         String text = getStyle().getText();
@@ -186,5 +188,10 @@ public class TextInput extends DrawnComponent implements RecievesText {
         String newText = currentText.substring(0, cursorPosition) + text + currentText.substring(cursorPosition);
         getStyle().setText(newText);
         cursorPosition += text.length();
+    }
+
+    @Override
+    public void setHoveredCursor(int x, int y) {
+        getFrame().setCursor(Cursor.TEXT_CURSOR);
     }
 }

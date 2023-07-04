@@ -412,4 +412,14 @@ public class Style {
         setSize(width, height);
     }
 
+    public void setScrollMultiplier(int i) {
+        setIntAttribute("scrollMultiplier", i);
+    }
+
+    public int getScrollMultiplier() {
+        return getIntAttribute("scrollMultiplier");
+    }
+
+    
+
 }

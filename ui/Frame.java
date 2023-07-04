@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Cursor;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
@@ -116,6 +117,11 @@ public class Frame extends JFrame {
 
     public ClipboardManager getClipboardManager() {
         return clipboardManager;
+    }
+
+    @Override
+    public void setCursor(int cursor) {
+        super.setCursor(Cursor.getPredefinedCursor(cursor));
     }
 
 }

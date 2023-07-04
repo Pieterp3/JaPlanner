@@ -7,7 +7,7 @@ import ui.Frame;
 public abstract class DrawnComponent {
     
     private Style style;
-    private boolean beingHovered = false;
+    private boolean beingHovered = false; 
     private boolean beingClicked = false;
     private Frame frame;
 
@@ -17,14 +17,17 @@ public abstract class DrawnComponent {
     }
 
     public abstract void draw(Graphics2D g);
-    public abstract void click();
+    public abstract void click(int x, int y);
+    public abstract void setHoveredCursor(int x, int y);
 
-    public void checkHover(int mouseX, int mouseY) {
+    public boolean checkHover(int mouseX, int mouseY) {
         if (mouseX >= getX() && mouseX <= getX() + getWidth() && mouseY >= getY() && mouseY <= getY() + getHeight()) {
             beingHovered = true;
-        } else {
-            beingHovered = false;
+            setHoveredCursor(mouseX, mouseY);
+            return true;
         }
+        beingHovered = false;
+        return false;
     }
 
    public Style getStyle() {

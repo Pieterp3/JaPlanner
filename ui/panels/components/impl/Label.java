@@ -32,8 +32,13 @@ public class Label extends DrawnComponent {
     }
 
     @Override
-    public void click() {
+    public void click(int x, int y) {
         // Do nothing
+    }
+
+    @Override
+    public void setHoveredCursor(int x, int y) {
+        getFrame().setCursor(Cursor.DEFAULT_CURSOR);
     }
     
 }

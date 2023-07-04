@@ -8,5 +8,5 @@ public interface ContainerComponent {
     public void addComponent(DrawnComponent component);
     public void removeComponent(DrawnComponent component);
     public List<DrawnComponent> getComponents();
-    public void mouseMoved(int x, int y);
+    public boolean mouseMoved(int x, int y);
 }

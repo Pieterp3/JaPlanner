@@ -50,12 +50,17 @@ public class Button extends DrawnComponent {
     }
 
     @Override
-    public void click() {
+    public void click(int x, int y) {
         if (getStyle().isDisabled()) return;
         String action = getStyle().getAction();
         if (action != null) {
             getFrame().getActivePanel().processAction(action);
         }
+    }
+
+    @Override
+    public void setHoveredCursor(int x, int y) {
+        getFrame().setCursor(Cursor.HAND_CURSOR);
     }
     
 }
