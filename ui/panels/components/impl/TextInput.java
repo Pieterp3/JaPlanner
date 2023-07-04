@@ -200,10 +200,10 @@ public class TextInput extends DrawnComponent implements RecievesText {
             cursorPosition = getStyle().getText().length();
         } else if (keyCode == RecievesText.HOME) {
             cursorPosition = 0;
+        } else if (keyCode == RecievesText.SPACE) {
+            sendText(" ");
         }
     }
-
-    //TODO enable repeated keys for held keys
 
     @Override
     public void sendText(String text) {

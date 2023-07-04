@@ -16,15 +16,18 @@ public class KeyManager {
 
     public void press(int keyCode) {
         if (keyCode == 0) return;
+        long lastPress = keyPresses[keyCode];
+        if (System.currentTimeMillis() - lastPress < 100) return;
+        keyTyped(keyCode);
         keyPresses[keyCode] = System.currentTimeMillis();
     }
 
     public void release(int keyCode) {
-        if (keyCode == 0) return;
-        keyReleases[keyCode] = System.currentTimeMillis();
-        if (keyReleases[keyCode] - keyPresses[keyCode] < 500) {
-            keyTyped(keyCode);
-        }
+        // if (keyCode == 0) return;
+        // keyReleases[keyCode] = System.currentTimeMillis();
+        // if (keyReleases[keyCode] - keyPresses[keyCode] < 500) {
+        //     keyTyped(keyCode);
+        // }
     }
 
     public boolean isHeld(int keyCode) {
