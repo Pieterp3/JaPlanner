@@ -163,10 +163,16 @@ public class TextInput extends DrawnComponent implements RecievesText {
             }
         } else if (keyModifier == RecievesText.SHIFT) {
             if (keyCode == KeyEvent.VK_LEFT) {
-                cursorPosition = 0;//TODO previous whitespace index or beginning of line
+                String text = getStyle().getText().substring(0, cursorPosition);
+                int lastWhitespace = text.lastIndexOf(" ");
+                if (lastWhitespace == -1) lastWhitespace = 0;
+                cursorPosition = lastWhitespace;
                 return true;
             } else if (keyCode == KeyEvent.VK_RIGHT) {
-                cursorPosition = getStyle().getText().length();//TODO next whitespace index or end of line
+                String text = getStyle().getText().substring(cursorPosition);
+                int nextWhitespace = text.indexOf(" ");
+                if (nextWhitespace == -1) nextWhitespace = text.length();
+                cursorPosition += nextWhitespace;
                 return true;
             }
         }
