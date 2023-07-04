@@ -83,8 +83,10 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
     //Stops components from being drawn over the edge of the list
     public void repositionComponents() {
         int padding = getStyle().getPadding();
-        int compWidth = getWidth() - (padding * 2);
-        int compHeight = getHeight() - (padding * 2);
+        int border = getStyle().getBorderWidth();
+        int wallOffset = padding + border;
+        int compWidth = getWidth() - (wallOffset * 2);
+        int compHeight = getHeight() - (wallOffset * 2);
         int topY = padding + getY();
         int leftX = padding + getX();
         int endValue = getStyle().getResizesVertically() ? getHeight()+getY() : getWidth()+getX();
