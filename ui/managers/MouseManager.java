@@ -2,12 +2,16 @@ package ui.managers;
 
 import ui.Frame;
 import ui.panels.components.DrawnComponent;
-import ui.panels.components.interfaces.RecievesText;
+import ui.panels.components.interfaces.Focusable;
 
 public class MouseManager {
     
     private int mouseX, mouseY;
-    private int lastX, lastY;
+    private int lastPressedX, lastPressedY;
+    private int dragStartX, dragStartY;
+    private int dragEndX, dragEndY;
+    private long lastClick;
+    private boolean isPressed;
     private boolean mouseInFrame;
     private Frame frame;
 
@@ -49,45 +53,48 @@ public class MouseManager {
     }
 
     public int getLastPressedX() {
-        return lastX;
+        return lastPressedX;
     }
 
     public int getLastPressedY() {
-        return lastY;
+        return lastPressedY;
     }
 
     public void click(int x, int y) {
-        setLastPressedPosition(x,y);//Call before fixY because setLastPressedPosition uses the unmodified y value
+        if (System.currentTimeMillis() - lastClick < 5) {
+            return;
+        }
+        lastClick = System.currentTimeMillis();
+        setLastPressedPosition(x,y);
         y=fixY(y);
         x=fixX(x);
         boolean setActiveTextComponent = false;
         for (DrawnComponent c : frame.getActivePanel().getDrawnComponents()) {
             if (c.contains(x, y)) {
                 c.click(x, y);
-                if (c instanceof RecievesText) {
-                    frame.setActiveTextComponent((RecievesText) c);
+                if (c instanceof Focusable) {
+                    frame.getActivePanel().setFocusableComponent((Focusable) c);
                     setActiveTextComponent = true;
                 }
             }
         }
         if (!setActiveTextComponent) {
-            frame.setActiveTextComponent(null);
+            frame.getActivePanel().setFocusableComponent(null);
         }
     }
 
     public void setLastPressedPosition(int x, int y) {
         y=fixY(y);
         x=fixX(x);
-        lastX = x;
-        lastY = y;
+        lastPressedX = x;
+        lastPressedY = y;
     }
 
-    public void drag(int fromX, int fromY, int toX, int toY) {
-        fromY=fixY(fromY);
+    public void drag(int toX, int toY) {
         toY=fixY(toY);
-        fromX=fixX(fromX);
         toX=fixX(toX);
         setLastPressedPosition(toX, toY);
+        frame.getActivePanel().drag(toX, toY);
     }
 
     public void move(int x, int y) {
@@ -96,6 +103,44 @@ public class MouseManager {
 
     public void scroll(int wheelRotation) {
         frame.getActivePanel().scroll(wheelRotation);
+    }
+
+    /*
+     * Just Used for dragging
+     */
+    public void press(int x, int y) {
+        isPressed = true;
+        dragStartX = fixX(x);
+        dragStartY = fixY(y);
+    }
+
+    /*
+     * Just used for dragging
+     */
+    public void release(int x, int y) {
+        isPressed = false;
+        dragEndX = fixX(x);
+        dragEndY = fixY(y);
+    }
+
+    public boolean isDragging() {
+        return isPressed;
+    }
+
+    public int getDragStartX() {
+        return dragStartX;
+    }
+
+    public int getDragStartY() {
+        return dragStartY;
+    }
+
+    public int getDragEndX() {
+        return dragEndX;
+    }
+
+    public int getDragEndY() {
+        return dragEndY;
     }
 
 }

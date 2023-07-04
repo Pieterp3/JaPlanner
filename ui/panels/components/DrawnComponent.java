@@ -1,6 +1,8 @@
 package ui.panels.components;
 
 import java.awt.Graphics2D;
+
+import ui.panels.Panel;
 import ui.panels.components.style.Style;
 import ui.Frame;
 
@@ -34,6 +36,10 @@ public abstract class DrawnComponent {
         return style;
    }
 
+   public Panel getPanel() {
+        return frame.getActivePanel();
+   }
+   
     protected Frame getFrame() {
         return frame;
     }

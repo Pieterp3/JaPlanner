@@ -34,11 +34,13 @@ public class PrimaryListener implements MouseListener, KeyListener, MouseMotionL
 
     @Override
     public void mousePressed(MouseEvent e) {
+        mouseManager.press(e.getPoint().x, e.getPoint().y);
         mousePressedTime = System.currentTimeMillis();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        mouseManager.release(e.getPoint().x, e.getPoint().y);
         if (System.currentTimeMillis() - mousePressedTime < 500) {
             if (System.currentTimeMillis() - lastClick > 5) {
                 mouseManager.click(e.getPoint().x, e.getPoint().y);
@@ -74,7 +76,7 @@ public class PrimaryListener implements MouseListener, KeyListener, MouseMotionL
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        mouseManager.drag(mouseManager.getMouseX(), mouseManager.getMouseY(), e.getPoint().x, e.getPoint().y);
+        mouseManager.drag(e.getPoint().x, e.getPoint().y);
     }
 
     @Override

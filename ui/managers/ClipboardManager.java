@@ -1,6 +1,7 @@
 package ui.managers;
 
 import ui.Frame;
+import ui.panels.components.interfaces.Focusable;
 import ui.panels.components.interfaces.RecievesText;
 
 public class ClipboardManager {
@@ -8,7 +9,6 @@ public class ClipboardManager {
     private Frame frame;
 
     public ClipboardManager(Frame frame) {
-        super();
         this.frame = frame;
     }
 
@@ -21,14 +21,19 @@ public class ClipboardManager {
     }
 
     public void paste() {
-        if (clipboard != null) {
-            frame.getActiveTextComponent().sendText(clipboard);
+        if (clipboard == null) return;
+        Focusable focus = frame.getActivePanel().getFocusableComponent();
+        if (focus instanceof RecievesText) {
+            ((RecievesText) focus).sendText(clipboard);
         }
     }
 
     public void cut(String text) {
         copy(text);
-        frame.getActiveTextComponent().sendKeycode(RecievesText.DELETE);
+        Focusable focus = frame.getActivePanel().getFocusableComponent();
+        if (focus instanceof RecievesText) {
+            ((RecievesText) focus).sendKeycode(RecievesText.DELETE);
+        }
     }
 
 }

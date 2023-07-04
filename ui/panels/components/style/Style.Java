@@ -63,6 +63,7 @@ public class Style {
         return Float.parseFloat(getAttribute(key));
     }
 
+    @SuppressWarnings("unused")
     private void setFloatAttribute(String key, float value) {
         setAttribute(key, Float.toString(value));
     }

@@ -76,7 +76,7 @@ public class TextInput extends DrawnComponent implements RecievesText {
     }
 
     private void drawCursor(Graphics2D g, String text, Style style) {
-        if (getFrame().getActiveTextComponent() != this) return;
+        if (getPanel().getFocusableComponent() != this) return;
         if (System.currentTimeMillis() - lastCursorUpdate > 500) {
             cursorVisible = !cursorVisible;
             lastCursorUpdate = System.currentTimeMillis();
@@ -116,9 +116,9 @@ public class TextInput extends DrawnComponent implements RecievesText {
                 }
                 index -= charWidth;
             }
-            getFrame().setActiveTextComponent(this);
+            getPanel().setFocusableComponent(this);
         } else {
-            getFrame().setActiveTextComponent(null);
+            getPanel().setFocusableComponent(null);
         }
     }
 
@@ -185,7 +185,7 @@ public class TextInput extends DrawnComponent implements RecievesText {
         if (checkShortcuts(keyCode)) return;
         //if (getFrame().checkShortcuts(keyCode)) return;//TODO implement program wide shortcuts in frame
         if (keyCode == KeyEvent.VK_ENTER) {
-            getFrame().setActiveTextComponent(null);
+            getPanel().setFocusableComponent(null);
         } else if (KeyEvent.getKeyText(keyCode).length() == 1) {
             sendText(KeyEvent.getKeyText(keyCode));
         } else if (keyCode == KeyEvent.VK_BACK_SPACE) {

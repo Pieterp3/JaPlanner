@@ -1,6 +1,6 @@
 package ui.panels.components.interfaces;
 
-public interface RecievesText {
+public interface RecievesText extends Focusable {
     public final int BACKSPACE = 8;
     public final int ENTER = 10;
     public final int SHIFT = 16;

@@ -1,6 +1,7 @@
 package ui.managers;
 
 import ui.Frame;
+import ui.panels.components.interfaces.Focusable;
 import ui.panels.components.interfaces.RecievesText;
 
 public class KeyManager {
@@ -44,8 +45,9 @@ public class KeyManager {
 
     public void keyTyped(int keyCode) {
         if (keyCode == 0) return;
-        if (frame.getActiveTextComponent() != null) {
-            frame.getActiveTextComponent().sendKeycode(keyCode);
+        Focusable focus = frame.getActivePanel().getFocusableComponent();
+        if (focus instanceof RecievesText) {
+            ((RecievesText) focus).sendKeycode(keyCode);
         } else {
             frame.getActivePanel().keyTyped(keyCode);
         }

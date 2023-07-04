@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import ui.Frame;
 import ui.panels.components.DrawnComponent;
 import ui.panels.components.interfaces.ContainerComponent;
+import ui.panels.components.interfaces.Focusable;
 import ui.panels.components.interfaces.Scrollable;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public abstract class Panel extends JPanel {
     
     private Frame frame;
     private List<DrawnComponent> components;
+    private Focusable focusedComponent;
 
     public Panel(Frame frame, String name) {
         super();
@@ -55,11 +57,13 @@ public abstract class Panel extends JPanel {
         finishPanelDrawing(g);
     }
 
+    public void setFocusableComponent(Focusable c) {
+        focusedComponent = c;
+    }
+
     public void scroll(int scroll) {
-        for (DrawnComponent c : components) {
-            if (c instanceof Scrollable) {
-                ((Scrollable) c).scroll(scroll);
-            }
+        if (focusedComponent != null && focusedComponent instanceof Scrollable) {
+            ((Scrollable) focusedComponent).scroll(scroll);
         }
     }
     
@@ -68,20 +72,30 @@ public abstract class Panel extends JPanel {
     }
 
     public void mouseMoved(int x, int y) {
-        boolean foundHover = false;
+        DrawnComponent foundHover = null;
         for (DrawnComponent c : components) {
-            if (c.checkHover(x, y)) foundHover = true;
+            if (c.checkHover(x, y)) foundHover = c;
             if (c instanceof ContainerComponent) {
                 ContainerComponent cc = (ContainerComponent) c;
-                if (cc.mouseMoved(x, y)) foundHover = true;
+                if (cc.mouseMoved(x, y)) foundHover = c;
             }
         }
-        if (!foundHover) {
+        if (foundHover == null) {
             frame.setCursor(Cursor.DEFAULT_CURSOR);
+        } else if (foundHover instanceof Focusable) {
+            focusedComponent = (Focusable) foundHover;
         }
     }
 
     public List<DrawnComponent> getDrawnComponents() {
         return components;
+    }
+
+    public void drag(int toX, int toY) {
+
+    }
+
+    public Focusable getFocusableComponent() {
+        return focusedComponent;
     }
 }
