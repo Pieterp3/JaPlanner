@@ -132,6 +132,14 @@ public class Style {
         setColorAttribute("color", color);
     }
 
+    public void setSelectedTextColor(Color color) {
+        setColorAttribute("selectedTextColor", color);
+    }
+
+    public Color getSelectedTextColor() {
+        return getColorAttribute("selectedTextColor");
+    }
+
     public void setAlignment(String alignment) {
         setAttribute("alignment", alignment);
     }

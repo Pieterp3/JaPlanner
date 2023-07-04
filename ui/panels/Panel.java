@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import ui.Frame;
 import ui.panels.components.DrawnComponent;
 import ui.panels.components.interfaces.ContainerComponent;
+import ui.panels.components.interfaces.Dragable;
 import ui.panels.components.interfaces.Focusable;
 import ui.panels.components.interfaces.Scrollable;
 
@@ -87,12 +88,32 @@ public abstract class Panel extends JPanel {
         }
     }
 
+    public void beginDrags(int x, int y) {
+        for (DrawnComponent c : components) {
+            if (c instanceof Dragable) {
+                ((Dragable) c).setDragStart(x, y);
+            }
+        }
+    }
+
+    public void drop(int x, int y) {
+        for (DrawnComponent c : components) {
+            if (c instanceof Dragable) {
+                ((Dragable) c).drop(x, y);
+            }
+        }
+    }
+
     public List<DrawnComponent> getDrawnComponents() {
         return components;
     }
 
-    public void drag(int toX, int toY) {
-
+    public void drag(int startX, int startY, int toX, int toY) {   
+        for (DrawnComponent c : components) {
+            if (c instanceof Dragable) {
+                ((Dragable) c).drag(toX, toY);
+            }
+        }
     }
 
     public Focusable getFocusableComponent() {

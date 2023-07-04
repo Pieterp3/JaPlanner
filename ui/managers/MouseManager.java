@@ -9,9 +9,7 @@ public class MouseManager {
     private int mouseX, mouseY;
     private int lastPressedX, lastPressedY;
     private int dragStartX, dragStartY;
-    private int dragEndX, dragEndY;
     private long lastClick;
-    private boolean isPressed;
     private boolean mouseInFrame;
     private Frame frame;
 
@@ -94,7 +92,7 @@ public class MouseManager {
         toY=fixY(toY);
         toX=fixX(toX);
         setLastPressedPosition(toX, toY);
-        frame.getActivePanel().drag(toX, toY);
+        frame.getActivePanel().drag(dragStartX, dragStartY, toX, toY);
     }
 
     public void move(int x, int y) {
@@ -109,22 +107,14 @@ public class MouseManager {
      * Just Used for dragging
      */
     public void press(int x, int y) {
-        isPressed = true;
-        dragStartX = fixX(x);
-        dragStartY = fixY(y);
+        frame.getActivePanel().beginDrags(dragStartX = fixX(x), dragStartY = fixY(y));
     }
 
     /*
      * Just used for dragging
      */
     public void release(int x, int y) {
-        isPressed = false;
-        dragEndX = fixX(x);
-        dragEndY = fixY(y);
-    }
-
-    public boolean isDragging() {
-        return isPressed;
+        frame.getActivePanel().drop(fixX(x), fixY(y));
     }
 
     public int getDragStartX() {
@@ -134,13 +124,5 @@ public class MouseManager {
     public int getDragStartY() {
         return dragStartY;
     }
-
-    public int getDragEndX() {
-        return dragEndX;
-    }
-
-    public int getDragEndY() {
-        return dragEndY;
-    }
-
+    
 }
