@@ -1,37 +1,41 @@
-package ui.components;
+package ui.graphics;
 
 import java.awt.Graphics2D;
 
 import ui.components.style.Style;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-
-public class ArtAssistant {
+public class Graphics {
     
-    public static void attemptBackground(Graphics2D g, Style style, int x, int y, int width, int height, boolean isHovered, boolean isPressed) {
+    private Graphics2D g;
+    private int strokeSize = 1;
+
+    public Graphics(Graphics2D g) {
+        this.g = g;
+    }
+
+    public void drawBackground(Style style, int x, int y, int width, int height, boolean isHovered, boolean isPressed) {
         if (!style.isOpaque()) { return; }
         Color backgroundColor = isHovered ? isPressed ? style.getBackgroundPressColor() : style.getBackgroundHoverColor() : style.getBackgroundColor();
-        g.setColor(backgroundColor);
-        g.fillRect(x, y, width, height);
+        setColor(backgroundColor);
+        fillRect(x, y, width, height);
     }
 
-    public static void drawCenteredText(Graphics2D g, int x, int y, int width, int height, String text) {
+    public void drawCenteredText(int x, int y, int width, int height, String text) {
         int textWidth = g.getFontMetrics().stringWidth(text);
         int textHeight = g.getFontMetrics().getHeight();
-        g.drawString(text, x + (width / 2) - (textWidth / 2), y + (height / 2) + (textHeight / 2) - g.getFontMetrics().getDescent());
+        drawString(text, x + (width / 2) - (textWidth / 2), y + (height / 2) + (textHeight / 2) - g.getFontMetrics().getDescent());
     }
 
-    public static void attemptBorder(Graphics2D g, Style style, int x, int y, int width, int height, boolean isHovered) {
+    public void attemptBorder(Style style, int x, int y, int width, int height, boolean isHovered) {
         if (!style.hasBorder()) { return; }
         Color borderColor = isHovered ? style.getBorderHoverColor() : style.getBorderColor();
-        g.setColor(borderColor);
-        g.setStroke(new BasicStroke(style.getBorderWidth()));
-        g.drawRect(x, y, width, height);
+        setColor(borderColor);
+        setStroke(style.getBorderWidth());
+        drawRect(x, y, width, height);
     }
 
-    public static void drawText(Graphics2D g, Style style, int x, int y, int width, int height, String text) {
-        g.setFont(style.getFont());
+    public void drawText(Style style, int x, int y, int width, int height, String text) {
+        setFont(style.getFont());
         int textWidth = g.getFontMetrics().stringWidth(text);
         String alignment = style.getAlignment();
         int padding = style.getPadding();
@@ -48,14 +52,14 @@ public class ArtAssistant {
             x += (style.getBorderWidth() * (alignment.equals("left") ? 1 : -1));
         }
         int drawY = y + height / 2 + g.getFontMetrics().getHeight() / 2 - g.getFontMetrics().getDescent();
-        g.drawString(text, x, drawY);
+        drawString(text, x, drawY);
     }
 
-    public static void drawStandardText(Graphics2D g, Style style, int x, int y, int width, int height) {
-        drawText(g, style, x, y, width, height, style.getText());
+    public void drawStandardText(Style style, int x, int y, int width, int height) {
+        drawText(style, x, y, width, height, style.getText());
     }
 
-    public static void drawScrollbar(Graphics2D g, Style style, Style buttonStyle, int x, int y, int width, int height, 
+    public void drawScrollbar(Style style, Style buttonStyle, int x, int y, int width, int height, 
             int scrollIndex, int compCount) {
         int scrollbarSize = style.getScrollbarSize();
         int scrollerSize = Math.min((scrollbarSize * 3), width - (scrollbarSize * 2));
@@ -86,11 +90,38 @@ public class ArtAssistant {
             scrollerWidth = (scrollbarWidth * scrollerSize) / width;
             scrollerHeight = scrollbarHeight;
         }
-        g.setColor(style.getScrollbarColor());
-        g.fillRect(scrollbarX, scrollbarY, scrollbarWidth, scrollbarHeight);
-        g.setColor(style.getScrollerBackgroundColor());
-        g.fillRect(scrollerX, scrollerY, scrollerWidth, scrollerHeight);
-        g.setColor(buttonStyle.getBorderColor());
-        g.drawRect(scrollbarX, scrollbarY, scrollbarWidth, scrollbarHeight);
+        setColor(style.getScrollbarColor());
+        fillRect(scrollbarX, scrollbarY, scrollbarWidth, scrollbarHeight);
+        setColor(style.getScrollerBackgroundColor());
+        fillRect(scrollerX, scrollerY, scrollerWidth, scrollerHeight);
+        setColor(buttonStyle.getBorderColor());
+        drawRect(scrollbarX, scrollbarY, scrollbarWidth, scrollbarHeight);
     }
+
+    public void setFont(java.awt.Font font) {
+        g.setFont(font);
+    }
+
+    public void setStroke(int size) {
+        if (size == strokeSize) { return; }
+        g.setStroke(new java.awt.BasicStroke(size));
+        strokeSize = size;
+    }
+
+    public void setColor(Color color) {
+        g.setColor(color.getAwtColor());
+    }
+
+    public void drawRect(int x, int y, int width, int height) {
+        g.drawRect(x, y, width, height);
+    }
+
+    public void fillRect(int x, int y, int width, int height) {
+        g.fillRect(x, y, width, height);
+    }
+
+    public void drawString(String text, int x, int y) {
+        g.drawString(text, x, y);
+    }
+
 }

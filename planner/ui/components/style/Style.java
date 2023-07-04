@@ -1,16 +1,14 @@
 package ui.components.style;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import ui.components.DrawnComponent;
+import structures.Map;
+import ui.graphics.Color;
 
-import java.awt.Color;
 import java.awt.Font;
 
 public class Style {
 
-    private Map<String, String> attributes = new HashMap<String, String>();
+    private Map<String, String> attributes = new Map<String, String>();
     private DrawnComponent component;
     
     public Style(DrawnComponent component) {
