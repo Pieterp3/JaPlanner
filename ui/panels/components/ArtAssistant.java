@@ -53,4 +53,43 @@ public class ArtAssistant {
     public static void drawStandardText(Graphics2D g, Style style, int x, int y, int width, int height) {
         drawText(g, style, x, y, width, height, style.getText());
     }
+
+    public static void drawScrollbar(Graphics2D g, Style style, Style buttonStyle, int x, int y, int width, int height, 
+            int scrollIndex, int compCount) {
+        int scrollbarSize = style.getScrollbarSize();
+        int scrollerSize = Math.min((scrollbarSize * 3), width - (scrollbarSize * 2));
+        int scrollbarX,scrollbarY;
+        int scrollbarWidth, scrollbarHeight;
+        int scrollerX, scrollerY, scrollerWidth, scrollerHeight;
+        int innerScrollSize;
+        int borderWidth = style.getBorderWidth();
+        int buttonBorderWidth = buttonStyle.getBorderWidth();
+        if (style.getResizesVertically()) {
+            scrollbarWidth = scrollbarSize;
+            scrollbarHeight = height - (scrollbarSize * 2) - (borderWidth * 2) - (buttonBorderWidth * 2);
+            scrollbarX = x + width - scrollbarSize - borderWidth;
+            scrollbarY = y + scrollbarSize + borderWidth + buttonBorderWidth;
+            scrollerX = scrollbarX;
+            innerScrollSize = (scrollbarHeight - (scrollbarSize * 2) - borderWidth - (buttonBorderWidth * 2));
+            scrollerY = scrollbarY + (innerScrollSize * scrollIndex) / (compCount - 1);
+            scrollerWidth = scrollbarWidth;
+            scrollerHeight = (scrollbarHeight * scrollerSize) / width;
+        } else {
+            scrollbarWidth = width - (scrollbarSize * 2) - (borderWidth * 2) - (buttonBorderWidth * 2);
+            scrollbarHeight = scrollbarSize;
+            scrollbarX = x + scrollbarSize + borderWidth + buttonBorderWidth;
+            scrollbarY = y + height - scrollbarSize - borderWidth;
+            scrollerY = scrollbarY;
+            innerScrollSize = (scrollbarWidth - (scrollbarSize * 2) - borderWidth - (buttonBorderWidth * 2));
+            scrollerX = scrollbarX + (innerScrollSize * scrollIndex) / (compCount - 1);
+            scrollerWidth = (scrollbarWidth * scrollerSize) / width;
+            scrollerHeight = scrollbarHeight;
+        }
+        g.setColor(style.getScrollbarColor());
+        g.fillRect(scrollbarX, scrollbarY, scrollbarWidth, scrollbarHeight);
+        g.setColor(style.getScrollerBackgroundColor());
+        g.fillRect(scrollerX, scrollerY, scrollerWidth, scrollerHeight);
+        g.setColor(buttonStyle.getBorderColor());
+        g.drawRect(scrollbarX, scrollbarY, scrollbarWidth, scrollbarHeight);
+    }
 }

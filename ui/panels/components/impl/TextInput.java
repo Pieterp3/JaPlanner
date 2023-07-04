@@ -1,7 +1,6 @@
 package ui.panels.components.impl;
 
 import ui.Frame;
-import ui.listeners.PrimaryListener;
 import ui.managers.ClipboardManager;
 import ui.managers.KeyManager;
 import ui.panels.components.ArtAssistant;
@@ -59,6 +58,22 @@ public class TextInput extends DrawnComponent implements RecievesText {
         drawCursor(g, text, style);
     }
 
+    public String getPlaceholder() {
+        return placeholder;
+    }
+
+    public void setPlaceholder(String placeholder) {
+        this.placeholder = placeholder;
+    }
+
+    public int getCursorPosition() {
+        return cursorPosition;
+    }
+
+    public String getSelectedText() {
+        return selectedText;
+    }
+
     private void drawCursor(Graphics2D g, String text, Style style) {
         if (getFrame().getActiveTextComponent() != this) return;
         if (System.currentTimeMillis() - lastCursorUpdate > 500) {
@@ -67,7 +82,8 @@ public class TextInput extends DrawnComponent implements RecievesText {
         }
         if (!cursorVisible) return;
         g.setColor(style.getColor());
-        int x = getX() + g.getFontMetrics().stringWidth(text.substring(0, cursorPosition)) - 2;
+        int endIndex = Math.min(cursorPosition, text.length());
+        int x = getX() + g.getFontMetrics().stringWidth(text.substring(0, endIndex)) - 2;
         int padding = style.getPadding();
         int borderThickness = style.getBorderWidth();
         int wallOffset = borderThickness + padding;
@@ -117,7 +133,6 @@ public class TextInput extends DrawnComponent implements RecievesText {
                 return true;
             } else if (keyCode == KeyEvent.VK_V) {
                 clipboardManager.paste();
-                cursorPosition += clipboardManager.getPaste().length();
                 return true;
             } else if (keyCode == KeyEvent.VK_X) {
                 clipboardManager.cut(getStyle().getText());
@@ -160,6 +175,8 @@ public class TextInput extends DrawnComponent implements RecievesText {
             cursorPosition = 0;
         }
     }
+
+    //TODO enable repeated keys for held keys
 
     @Override
     public void sendText(String text) {

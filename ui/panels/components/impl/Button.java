@@ -34,6 +34,10 @@ public class Button extends DrawnComponent {
         getStyle().setAction(text);
     }
 
+    public Button(Frame frame, String arrow) {
+        this(frame, arrow, 0, 0, 220, 36);
+    }
+
     @Override
     public void draw(Graphics2D g) {
         Style style = getStyle();

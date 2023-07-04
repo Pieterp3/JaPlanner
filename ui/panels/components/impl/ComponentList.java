@@ -3,7 +3,9 @@ package ui.panels.components.impl;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import ui.Frame;
 import ui.panels.components.ArtAssistant;
@@ -15,8 +17,20 @@ import ui.panels.components.interfaces.ContainerComponent;
 
 public class ComponentList extends DrawnComponent implements Scrollable, ContainerComponent {
     
+    private static final Map<String, String> ARROW_MAP = new HashMap<String, String>() {{
+        put("up", "↑");
+        put("down", "↓");
+        put("left", "←");
+        put("right", "→");
+    }};
+
+    private static String getArrow(String direction) {
+        return ARROW_MAP.get(direction);
+    }
+
     private List<DrawnComponent> components;
     private int scrollIndex;
+    private Button scrollButton1, scrollButton2;
 
     public ComponentList(Frame frame, int x, int y, int width, int height) {
         super(frame);
@@ -38,8 +52,26 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
         style.setPadding(2);
         style.setBackgroundColor(Color.darkGray);
         style.setBackgroundHoverColor(Color.darkGray);
-        style.setResizesHorizontally(false);
-        style.setResizesVertically(true);
+        style.setResizesHorizontally(true);
+        style.setResizesVertically(false);
+        
+        int sbSize = 15;
+        style.setScrollbarColor(Color.gray);
+        style.setScrollerBackgroundColor(Color.lightGray);
+        style.setScrollbarSize(sbSize);
+
+        scrollButton1 = new Button(getFrame(), getArrow("up")) {
+            @Override
+            public void click() {
+                scroll(-1);
+            }
+        };
+        scrollButton2 = new Button(getFrame(), getArrow("down")){
+            @Override
+            public void click() {
+                scroll(1);
+            }
+        };
     }
 
     @Override
@@ -49,6 +81,11 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
         ArtAssistant.attemptBackground(g, style, getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
         ArtAssistant.attemptBorder(g, style, getX(), getY(), getWidth(), getHeight(), isHovered());
         for (int i = scrollIndex; i < components.size(); i++) { components.get(i).draw(g); }
+        if (components.size() > 1) {
+            scrollButton1.draw(g);
+            scrollButton2.draw(g);
+        }
+        ArtAssistant.drawScrollbar(g, style, scrollButton1.getStyle(), getX(), getY(), getWidth(), getHeight(), scrollIndex, components.size());
     }
 
     public void scroll(int amount) {
@@ -84,18 +121,38 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
     public void repositionComponents() {
         int padding = getStyle().getPadding();
         int border = getStyle().getBorderWidth();
+        int scrollbarSize = getStyle().getScrollbarSize();
         int wallOffset = padding + border;
-        int compWidth = getWidth() - (wallOffset * 2);
-        int compHeight = getHeight() - (wallOffset * 2);
-        int topY = padding + getY();
-        int leftX = padding + getX();
-        int endValue = getStyle().getResizesVertically() ? getHeight()+getY() : getWidth()+getX();
+        int compWidth = getWidth() - (wallOffset * 2) - scrollbarSize - padding;
+        int compHeight = getHeight() - (wallOffset * 2) - scrollbarSize - padding;
+        int topY = wallOffset + getY();
+        int leftX = wallOffset + getX();
+        int endValue = getStyle().getResizesVertically() ? getHeight() + getY() : getWidth() + getX();
+
+        int scrollbarX, scrollbarY;
+        if (getStyle().getResizesVertically()) {
+            scrollbarX = getX() + getWidth() - scrollbarSize - border;
+            scrollbarY = getY() + border;
+            int scrollbarY2 = getY() + getHeight() - scrollbarSize - border;
+            scrollButton1.getStyle().setBounds(scrollbarX, scrollbarY, scrollbarSize, scrollbarSize);
+            scrollButton2.getStyle().setBounds(scrollbarX, scrollbarY2, scrollbarSize, scrollbarSize);
+            scrollButton1.getStyle().setText(getArrow("up"));
+            scrollButton2.getStyle().setText(getArrow("down"));
+        } else {
+            scrollbarX = getX() + border;
+            scrollbarY = getY() + getHeight() - scrollbarSize - border;
+            int scrollbarX2 = getX() + getWidth() - scrollbarSize - border;
+            scrollButton1.getStyle().setBounds(scrollbarX, scrollbarY, scrollbarSize, scrollbarSize);
+            scrollButton2.getStyle().setBounds(scrollbarX2, scrollbarY, scrollbarSize, scrollbarSize);
+            scrollButton1.getStyle().setText(getArrow("left"));
+            scrollButton2.getStyle().setText(getArrow("right"));
+        }
         for(int i = scrollIndex;i<components.size();i++) {
             DrawnComponent comp = components.get(i);
             Style style = comp.getStyle();
             if (getStyle().getResizesVertically()) {
                 style.setHeight(Math.min(comp.getHeight(), compHeight));
-                int bottomY = topY + comp.getHeight();
+                int bottomY = topY + comp.getHeight() - border;
                 if (bottomY > endValue) {
                     comp.getStyle().setDisabled(true);
                     continue;
@@ -105,10 +162,10 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
                 style.setY(topY);
                 style.setX(leftX);
                 style.setWidth(compWidth);
-                topY += comp.getHeight() + padding;
+                topY += comp.getHeight() + wallOffset;
             } else {
                 style.setWidth(Math.min(comp.getWidth(), compWidth));
-                int rightX = leftX + comp.getWidth();
+                int rightX = leftX + comp.getWidth() - border;
                 if (rightX > endValue) {
                     comp.getStyle().setDisabled(true);
                     continue;
@@ -118,7 +175,7 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
                 style.setX(leftX);
                 style.setHeight(compHeight);
                 style.setY(topY);
-                leftX += comp.getWidth() + padding;
+                leftX += comp.getWidth() + wallOffset;
             }
         }
     }
@@ -131,6 +188,11 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
                 break;
             }
         }
+        if (scrollButton1.isHovered()) {
+            scrollButton1.click();
+        } else if (scrollButton2.isHovered()) {
+            scrollButton2.click();
+        }
     }
 
     @Override
@@ -138,6 +200,8 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
         for (DrawnComponent comp : components) {
             comp.checkHover(x, y);
         }
+        scrollButton1.checkHover(x, y);
+        scrollButton2.checkHover(x, y);
     }
 
 }

@@ -5,7 +5,6 @@ import ui.managers.ActionHandler;
 import ui.managers.KeyManager;
 import ui.managers.MouseManager;
 
-import java.awt.RenderingHints.Key;
 import java.awt.event.*;
 
 public class PrimaryListener implements MouseListener, KeyListener, MouseMotionListener, WindowListener, ActionListener, MouseWheelListener {

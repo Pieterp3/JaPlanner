@@ -39,12 +39,20 @@ public class Style {
         return (int) getFloatAttribute(key);
     }
 
+    private void setIntAttribute(String key, int value) {
+        setAttribute(key, Integer.toString(value));
+    }
+
     private Color getColorAttribute(String key) {
         String attr = getAttribute(key);
         if (attr == null) {
             return Color.black;
         }
         return Color.decode("0x" + getAttribute(key));
+    }
+
+    private void setColorAttribute(String key, Color value) {
+        setAttribute(key, Integer.toHexString(value.getRGB()).substring(2));
     }
 
     private float getFloatAttribute(String key) {
@@ -55,12 +63,20 @@ public class Style {
         return Float.parseFloat(getAttribute(key));
     }
 
+    private void setFloatAttribute(String key, float value) {
+        setAttribute(key, Float.toString(value));
+    }
+
     private boolean getBooleanAttribute(String key) {
         String attr = getAttribute(key);
         if (attr == null) {
             return false;
         }
         return Boolean.parseBoolean(getAttribute(key));
+    }
+
+    private void setBooleanAttribute(String key, boolean value) {
+        setAttribute(key, Boolean.toString(value));
     }
 
     public Map<String, String> getAttributes() {
@@ -92,19 +108,19 @@ public class Style {
     }
 
     public void setX(int x) {
-        setAttribute("x", Integer.toString(x));
+        setIntAttribute("x", x);
     }
 
     public void setY(int y) {
-        setAttribute("y", Integer.toString(y));
+        setIntAttribute("y", y);
     }
     
     public void setYOffset(int y) {
-        setAttribute("yOffset", Integer.toString(y));
+        setIntAttribute("yOffset", y);
     }
 
     public void setXOffset(int x) {
-        setAttribute("xOffset", Integer.toString(x));
+        setIntAttribute("xOffset", x);
     }
 
     public void setAction(String action) {
@@ -112,7 +128,7 @@ public class Style {
     }
 
     public void setColor(Color color) {
-        setAttribute("color", Integer.toHexString(color.getRGB()).substring(2));
+        setColorAttribute("color", color);
     }
 
     public void setAlignment(String alignment) {
@@ -120,88 +136,88 @@ public class Style {
     }
 
     public void setResizesVertically(boolean resizesVertically) {
-        setAttribute("resizesVertically", resizesVertically + "");
+        setBooleanAttribute("resizesVertically", resizesVertically);
     }
 
 
     public void setResizesHorizontally(boolean resizesHorizontally) {
-        setAttribute("resizesHorizontally", resizesHorizontally + "");
+        setBooleanAttribute("resizesHorizontally", resizesHorizontally);
     }
 
     public void setDisabled(boolean disabled) {
-        setAttribute("disabled", Boolean.toString(disabled));
+        setBooleanAttribute("disabled", disabled);
     }
 
     public void setBackgroundHoverColor(Color backgroundHoverColor) {
-        setAttribute("backgroundHoverColor", Integer.toHexString(backgroundHoverColor.getRGB()).substring(2));
+        setColorAttribute("backgroundHoverColor", backgroundHoverColor);
     }
 
     public void setBackgroundPressColor(Color backgroundPressColor) {
-        setAttribute("backgroundPressColor", Integer.toHexString(backgroundPressColor.getRGB()).substring(2));
+        setColorAttribute("backgroundPressColor", backgroundPressColor);
     }
 
     public void setBorderHoverColor(Color borderHoverColor) {
-        setAttribute("borderHoverColor", Integer.toHexString(borderHoverColor.getRGB()).substring(2));
+        setColorAttribute("borderHoverColor", borderHoverColor);
     }
 
     public void setBorderPressColor(Color borderPressColor) {
-        setAttribute("borderPressColor", Integer.toHexString(borderPressColor.getRGB()).substring(2));
+        setColorAttribute("borderPressColor", borderPressColor);
     }
 
     public void setBorderDisabledColor(Color borderDisabledColor) {
-        setAttribute("borderDisabledColor", Integer.toHexString(borderDisabledColor.getRGB()).substring(2));
+        setColorAttribute("borderDisabledColor", borderDisabledColor);
     }
 
     public void setPadding(int padding) {
-        setAttribute("padding", Integer.toString(padding));
+        setIntAttribute("padding", padding);
     }
 
     public void setDisabledColor(Color disabledColor) {
-        setAttribute("disabledColor", Integer.toHexString(disabledColor.getRGB()).substring(2));
+        setColorAttribute("disabledColor", disabledColor);
     }
 
     public void setHoverColor(Color hoverColor) {
-        setAttribute("hoverColor", Integer.toHexString(hoverColor.getRGB()).substring(2));
+        setColorAttribute("hoverColor", hoverColor);
     }
 
     public void setPressColor(Color pressColor) {
-        setAttribute("pressColor", Integer.toHexString(pressColor.getRGB()).substring(2));
+        setColorAttribute("pressColor", pressColor);
     }
 
     public void setOpaque(boolean opaque) {
-        setAttribute("opaque", Boolean.toString(opaque));
+        setBooleanAttribute("opaque", opaque);
     }
 
     public void setBackgroundColor(Color backgroundColor) {
-        setAttribute("backgroundColor", Integer.toHexString(backgroundColor.getRGB()).substring(2));
+        setColorAttribute("backgroundColor", backgroundColor);
     }
 
     public void setWidth(int width) {
-        setAttribute("width", Integer.toString(width));
+        setIntAttribute("width", width);
     }
 
     public void setHeight(int height) {
-        setAttribute("height", Integer.toString(height));
+        setIntAttribute("height", height);
     }
 
     public void setFont(Font font) {
         setAttribute("font", font.getName());
-        setAttribute("fontSize", Float.toString(font.getSize()));
-        setAttribute("fontStyle", Float.toString(font.getStyle()));
+        setIntAttribute("fontSize", font.getSize());
+        setIntAttribute("fontStyle", font.getStyle());
     }
 
     public void setFont(String fontName, int fontStyle, int fontSize) {
         setAttribute("font", fontName);
-        setAttribute("fontSize", Integer.toString(fontSize));
-        setAttribute("fontStyle", Integer.toString(fontStyle));
+        setIntAttribute("fontSize", fontSize);
+        setIntAttribute("fontStyle", fontStyle);
     }
 
     public void setFontSize(int fontSize) {
-        setAttribute("fontSize", Integer.toString(fontSize));
+        setIntAttribute("fontSize", fontSize);
     }
 
     public void setFontStyle(int fontStyle) {
-        setAttribute("fontStyle", Integer.toString(fontStyle));
+        setIntAttribute("fontStyle", fontStyle);
     }
 
     public void setFontName(String fontName) {
@@ -213,24 +229,22 @@ public class Style {
     }
 
     public void setBorderWidth(int borderWidth) {
-        setAttribute("borderWidth", Integer.toString(borderWidth));
+        setIntAttribute("borderWidth", borderWidth);
     }
 
-    
     public void setPlaceholderColor(Color gray) {
-        setAttribute("placeholderColor", Integer.toHexString(gray.getRGB()).substring(2));
+        setColorAttribute("placeholderColor", gray);
     }
 
     public void setBorderColor(Color borderColor) { 
-        setAttribute("borderColor", Integer.toHexString(borderColor.getRGB()).substring(2));
+        setColorAttribute("borderColor", borderColor);
     }
     
     public void setHasBorder(boolean border) {
-        setAttribute("hasBorder", Boolean.toString(border));
+        setBooleanAttribute("hasBorder", border);
     }
 
-    //Setters for common attributes
-
+    //Getters for common attributes
     
     public int getX() {
         return getIntAttribute("x");
@@ -357,6 +371,45 @@ public class Style {
 
     public boolean hasBorder() {
         return getBooleanAttribute("hasBorder");
+    }
+
+    public void setScrollbarColor(Color gray) {
+        setColorAttribute("scrollbarColor", gray);
+    }
+
+    public void setScrollerBackgroundColor(Color lightgray) {
+        setColorAttribute("scrollerBackgroundColor", lightgray);
+    }
+
+    public void setScrollbarSize(int size) {
+        setIntAttribute("scrollbarSize", size);
+    }
+
+    public int getScrollbarSize() {
+        return getIntAttribute("scrollbarSize");
+    }
+
+    public Color getScrollbarColor() {
+        return getColorAttribute("scrollbarColor");
+    }
+
+    public Color getScrollerBackgroundColor() {
+        return getColorAttribute("scrollerBackgroundColor");
+    }
+
+    public void setSize(int width, int height) {
+        setWidth(width);
+        setHeight(height);
+    }
+
+    public void setLocation(int x, int y) {
+        setX(x);
+        setY(y);
+    }
+
+    public void setBounds(int x, int y, int width, int height) {
+        setLocation(x, y);
+        setSize(width, height);
     }
 
 }
