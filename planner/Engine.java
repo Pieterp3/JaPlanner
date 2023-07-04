@@ -1,15 +1,4 @@
-package planner;
-/**
- * Engine.java
- * 
- * This class is the main engine of the program. It is responsible for
- * maintaining the game loop, updating the game state and rendering the game
- * state to the screen.
- * 
- * 
- */
-
-import planner.ui.Frame;
+import ui.Frame;
 
 public class Engine {
    
