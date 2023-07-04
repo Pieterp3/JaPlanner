@@ -1,6 +1,5 @@
-package ui.listeners;
+package ui;
 
-import ui.Frame;
 import ui.managers.ActionHandler;
 import ui.managers.KeyManager;
 import ui.managers.MouseManager;

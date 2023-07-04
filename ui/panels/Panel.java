@@ -4,11 +4,11 @@ package ui.panels;
 import javax.swing.JPanel;
 
 import ui.Frame;
-import ui.panels.components.DrawnComponent;
-import ui.panels.components.interfaces.ContainerComponent;
-import ui.panels.components.interfaces.Dragable;
-import ui.panels.components.interfaces.Focusable;
-import ui.panels.components.interfaces.Scrollable;
+import ui.components.DrawnComponent;
+import ui.components.interfaces.ContainerComponent;
+import ui.components.interfaces.Dragable;
+import ui.components.interfaces.Focusable;
+import ui.components.interfaces.Scrollable;
 
 import java.util.List;
 import java.awt.Cursor;

@@ -1,10 +1,10 @@
 package ui.panels;
 
 import ui.Frame;
-import ui.panels.components.impl.Button;
-import ui.panels.components.impl.ComponentList;
-import ui.panels.components.impl.Label;
-import ui.panels.components.impl.TextInput;
+import ui.components.impl.Button;
+import ui.components.impl.ComponentList;
+import ui.components.impl.Label;
+import ui.components.impl.TextInput;
 
 import java.awt.Graphics2D;
 

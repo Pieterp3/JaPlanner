@@ -1,8 +1,8 @@
 package ui.managers;
 
 import ui.Frame;
-import ui.panels.components.interfaces.Focusable;
-import ui.panels.components.interfaces.RecievesText;
+import ui.components.interfaces.Focusable;
+import ui.components.interfaces.RecievesText;
 
 public class ClipboardManager {
     private String clipboard;

@@ -1,4 +1,4 @@
-package ui.panels.components.style;
+package ui.components.style;
 
 public enum StyleDefaults {
     FONT("font", "Courier New"),

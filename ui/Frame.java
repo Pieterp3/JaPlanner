@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 
-import ui.listeners.PrimaryListener;
 import ui.managers.ClipboardManager;
 import ui.managers.IOManager;
 import ui.panels.Panel;

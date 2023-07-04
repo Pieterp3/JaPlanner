@@ -1,8 +1,8 @@
-package ui.panels.components.interfaces;
+package ui.components.interfaces;
 
 import java.util.List;
 
-import ui.panels.components.DrawnComponent;
+import ui.components.DrawnComponent;
 
 public interface ContainerComponent {
     public void addComponent(DrawnComponent component);

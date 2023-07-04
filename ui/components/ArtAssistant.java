@@ -1,10 +1,11 @@
-package ui.panels.components;
+package ui.components;
 
 import java.awt.Graphics2D;
+
+import ui.components.style.Style;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
-
-import ui.panels.components.style.Style;
 
 public class ArtAssistant {
     

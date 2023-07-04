@@ -1,10 +1,12 @@
-package ui.panels.components.style;
+package ui.components.style;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import ui.components.DrawnComponent;
+
 import java.awt.Color;
 import java.awt.Font;
-import ui.panels.components.DrawnComponent;
 
 public class Style {
 

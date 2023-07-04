@@ -1,9 +1,9 @@
-package ui.panels.components.impl;
+package ui.components.impl;
 
 import ui.Frame;
-import ui.panels.components.ArtAssistant;
-import ui.panels.components.DrawnComponent;
-import ui.panels.components.style.Style;
+import ui.components.ArtAssistant;
+import ui.components.DrawnComponent;
+import ui.components.style.Style;
 
 import java.awt.*;
 

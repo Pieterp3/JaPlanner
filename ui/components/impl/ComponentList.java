@@ -1,4 +1,4 @@
-package ui.panels.components.impl;
+package ui.components.impl;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 import ui.Frame;
-import ui.panels.components.ArtAssistant;
-import ui.panels.components.DrawnComponent;
-import ui.panels.components.interfaces.Scrollable;
-import ui.panels.components.style.Style;
-import ui.panels.components.interfaces.ContainerComponent;
+import ui.components.ArtAssistant;
+import ui.components.DrawnComponent;
+import ui.components.interfaces.ContainerComponent;
+import ui.components.interfaces.Scrollable;
+import ui.components.style.Style;
 
 
 public class ComponentList extends DrawnComponent implements Scrollable, ContainerComponent {

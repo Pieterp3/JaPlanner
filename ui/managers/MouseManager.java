@@ -1,8 +1,8 @@
 package ui.managers;
 
 import ui.Frame;
-import ui.panels.components.DrawnComponent;
-import ui.panels.components.interfaces.Focusable;
+import ui.components.DrawnComponent;
+import ui.components.interfaces.Focusable;
 
 public class MouseManager {
     

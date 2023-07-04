@@ -1,13 +1,13 @@
-package ui.panels.components.impl;
+package ui.components.impl;
 
 import ui.Frame;
+import ui.components.ArtAssistant;
+import ui.components.DrawnComponent;
+import ui.components.interfaces.Dragable;
+import ui.components.interfaces.RecievesText;
+import ui.components.style.Style;
 import ui.managers.ClipboardManager;
 import ui.managers.KeyManager;
-import ui.panels.components.ArtAssistant;
-import ui.panels.components.DrawnComponent;
-import ui.panels.components.interfaces.Dragable;
-import ui.panels.components.interfaces.RecievesText;
-import ui.panels.components.style.Style;
 
 import java.awt.Color;
 import java.awt.Cursor;

@@ -1,4 +1,4 @@
-package ui.panels.components.interfaces;
+package ui.components.interfaces;
 
 public interface Clickable {
 
