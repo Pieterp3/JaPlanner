@@ -40,7 +40,6 @@ public class TextInput extends DrawnComponent implements RecievesText {
         this(frame, "", 0, 0, 220, 36, "Placeholder");
     }
     
-    //TODO cursors
     @Override
     public void draw(Graphics2D g) {
         Style style = getStyle();
@@ -100,7 +99,27 @@ public class TextInput extends DrawnComponent implements RecievesText {
         if (currentGraphics == null) return;
         String text = getStyle().getText();
         if (text == null) text = "";
-        cursorPosition = text.length();//TODO cursor position
+        int padding = getStyle().getPadding();
+        int borderThickness = getStyle().getBorderWidth();
+        int wallOffset = borderThickness + padding;
+        int textX = getX() + wallOffset;
+        int textY = getY() + wallOffset;
+        int textWidth = currentGraphics.getFontMetrics().stringWidth(text);
+        int textHeight = currentGraphics.getFontMetrics().getHeight();
+        if (x >= textX && x <= textX + textWidth && y >= textY && y <= textY + textHeight) {
+            int index = x - textX;
+            for (int i = 0; i < text.length(); i++) {
+                int charWidth = currentGraphics.getFontMetrics().charWidth(text.charAt(i));
+                if (index < charWidth) {
+                    cursorPosition = i;
+                    break;
+                }
+                index -= charWidth;
+            }
+            getFrame().setActiveTextComponent(this);
+        } else {
+            getFrame().setActiveTextComponent(null);
+        }
     }
 
     private void backspace() {
