@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 
 import ui.Frame;
 import ui.panels.components.DrawnComponent;
+import ui.panels.components.interfaces.ContainerComponent;
 import ui.panels.components.interfaces.Scrollable;
 
 import java.util.List;
@@ -68,6 +69,8 @@ public abstract class Panel extends JPanel {
     public void mouseMoved(int x, int y) {
         for (DrawnComponent c : components) {
             c.checkHover(x, y);
+            if (c instanceof ContainerComponent)
+                ((ContainerComponent) c).mouseMoved(x, y);
         }
     }
 

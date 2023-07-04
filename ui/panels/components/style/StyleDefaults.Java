@@ -16,15 +16,15 @@ public enum StyleDefaults {
     ALIGNMENT("alignment", "LEFT"),
     OPAQUE("opaque", "true"),
     DISABLED("disabled", "false"),
-    DISABLED_COLOR("disabledColor", "FFF"),
+    DISABLED_COLOR("disabledColor", "FFFFFF"),
     COLOR("color", "000"),
-    BACKGROUND_COLOR("backgroundColor", "FFF"),
+    BACKGROUND_COLOR("backgroundColor", "FFFFFF"),
     BORDER_COLOR("borderColor", "000"),
     HOVER_COLOR("hoverColor", "000"),
-    BACKGROUND_HOVER_COLOR("backgroundHoverColor", "FFF"),
+    BACKGROUND_HOVER_COLOR("backgroundHoverColor", "FFFFFF"),
     BORDER_HOVER_COLOR("borderHoverColor", "000"),
     PRESS_COLOR("pressColor", "000"),
-    BACKGROUND_PRESS_COLOR("backgroundPressColor", "FFF"),
+    BACKGROUND_PRESS_COLOR("backgroundPressColor", "FFFFFF"),
     BORDER_PRESS_COLOR("borderPressColor", "000");
 
     private String name, value;
@@ -45,7 +45,7 @@ public enum StyleDefaults {
 
     public static void initializeStyle(Style style) {
         for (StyleDefaults styleDefault : StyleDefaults.values()) {
-            style.setAttribute(styleDefault.name, styleDefault.value);
+            style.assignDefaultAttribute(styleDefault.name, styleDefault.value);
         }
     }
 }

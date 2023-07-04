@@ -21,27 +21,33 @@ public class Style {
     }
 
     // Direct access to attributes
-    public void setAttribute(String key, String value) {
+    private void setAttribute(String key, String value) {
         attributes.put(key, value);
     }
 
-    public String getAttribute(String key) {
+    public void assignDefaultAttribute(String name, String value) {
+        if (!hasAttribute(name)) {
+            setAttribute(name, value);
+        }
+    }
+
+    private String getAttribute(String key) {
         return attributes.get(key);
     }
 
-    public int getIntAttribute(String key) {
+    private int getIntAttribute(String key) {
         return (int) getFloatAttribute(key);
     }
 
-    public Color getColorAttribute(String key) {
+    private Color getColorAttribute(String key) {
         return Color.decode("0x" + getAttribute(key));
     }
 
-    public float getFloatAttribute(String key) {
+    private float getFloatAttribute(String key) {
         return Float.parseFloat(getAttribute(key));
     }
 
-    public boolean getBooleanAttribute(String key) {
+    private boolean getBooleanAttribute(String key) {
         return Boolean.parseBoolean(getAttribute(key));
     }
 
@@ -99,6 +105,15 @@ public class Style {
 
     public void setAlignment(String alignment) {
         setAttribute("alignment", alignment);
+    }
+
+    public void setResizesVertically(boolean resizesVertically) {
+        setAttribute("resizesVertically", resizesVertically + "");
+    }
+
+
+    public void setResizesHorizontally(boolean resizesHorizontally) {
+        setAttribute("resizesHorizontally", resizesHorizontally + "");
     }
 
     public void setDisabled(boolean disabled) {
@@ -189,6 +204,11 @@ public class Style {
         setAttribute("borderWidth", Integer.toString(borderWidth));
     }
 
+    
+    public void setPlaceholderColor(Color gray) {
+        setAttribute("placeholderColor", Integer.toHexString(gray.getRGB()).substring(2));
+    }
+
     public void setBorderColor(Color borderColor) { 
         setAttribute("borderColor", Integer.toHexString(borderColor.getRGB()).substring(2));
     }
@@ -224,6 +244,10 @@ public class Style {
         return getAttribute("alignment");
     }
 
+    public Color getPlaceholderColor() {
+        return getColorAttribute("placeholderColor");
+    }
+
     public boolean isOpaque() {
         return getBooleanAttribute("opaque");
     }
@@ -250,6 +274,13 @@ public class Style {
 
     public Color getBorderPressColor() {
         return getColorAttribute("borderPressColor");
+    }
+
+    public boolean getResizesVertically() {
+        return getBooleanAttribute("resizesVertically");
+    }
+    public boolean getResizesHorizontally() {
+        return getBooleanAttribute("resizesHorizontally");
     }
 
     public int getPadding() {
@@ -315,4 +346,5 @@ public class Style {
     public boolean hasBorder() {
         return getBooleanAttribute("hasBorder");
     }
+
 }

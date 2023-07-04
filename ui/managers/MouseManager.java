@@ -2,6 +2,7 @@ package ui.managers;
 
 import ui.Frame;
 import ui.panels.components.DrawnComponent;
+import ui.panels.components.interfaces.RecievesText;
 
 public class MouseManager {
     
@@ -59,11 +60,18 @@ public class MouseManager {
         setLastPressedPosition(x,y);//Call before fixY because setLastPressedPosition uses the unmodified y value
         y=fixY(y);
         x=fixX(x);
+        boolean setActiveTextComponent = false;
         for (DrawnComponent c : frame.getActivePanel().getDrawnComponents()) {
             if (c.contains(x, y)) {
                 c.click();
-                break;
+                if (c instanceof RecievesText) {
+                    frame.setActiveTextComponent((RecievesText) c);
+                    setActiveTextComponent = true;
+                }
             }
+        }
+        if (!setActiveTextComponent) {
+            frame.setActiveTextComponent(null);
         }
     }
 

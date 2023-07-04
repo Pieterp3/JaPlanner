@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import ui.listeners.PrimaryListener;
 import ui.managers.IOManager;
 import ui.panels.Panel;
+import ui.panels.components.interfaces.RecievesText;
 
 public class Frame extends JFrame {
     private Panel activePanel;
@@ -15,6 +16,7 @@ public class Frame extends JFrame {
     private IOManager ioManager;
     private boolean active;
     private boolean isIcon;
+    private RecievesText recievesText;
     
     public Frame() {
         setTitle("Java Floor Planner");
@@ -95,6 +97,14 @@ public class Frame extends JFrame {
     public void setIconState(boolean isIcon) {
         this.isIcon = isIcon;
         System.out.println("Window is now " + (isIcon ? "iconified" : "not iconified") + ".");
+    }
+
+    public void setActiveTextComponent(RecievesText c) {
+        this.recievesText = c;
+    }
+
+    public RecievesText getActiveTextComponent() {
+        return recievesText;
     }
 
 

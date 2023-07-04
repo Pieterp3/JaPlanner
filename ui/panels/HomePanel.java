@@ -4,8 +4,8 @@ import ui.Frame;
 import ui.panels.components.impl.Button;
 import ui.panels.components.impl.ComponentList;
 import ui.panels.components.impl.Label;
+import ui.panels.components.impl.TextInput;
 
-import java.awt.Component;
 import java.awt.Graphics2D;
 
 public class HomePanel extends Panel {
@@ -30,6 +30,8 @@ public class HomePanel extends Panel {
             list.addComponent(b);
         }
         addComponent(list);
+        TextInput input = new TextInput(getFrame(), "", 10, 310, 200, 40, "Placeholder");
+        addComponent(input);
     }
 
     @Override
@@ -39,7 +41,7 @@ public class HomePanel extends Panel {
 
     @Override
     public void keyTyped(int keyCode) {
-        System.out.println("Key typed: " + keyCode);
+        System.out.println("HomePanel Key typed: " + keyCode);
     }
 
     @Override

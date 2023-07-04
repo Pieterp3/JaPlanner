@@ -24,6 +24,7 @@ public class Label extends DrawnComponent {
     @Override
     public void draw(Graphics2D g) {
         Style style = getStyle();
+        if (style.isDisabled()) return;
         ArtAssistant.attemptBackground(g, style, getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
         ArtAssistant.attemptBorder(g, style, getX(), getY(), getWidth(), getHeight(), isHovered());
         g.setColor(style.getColor());
