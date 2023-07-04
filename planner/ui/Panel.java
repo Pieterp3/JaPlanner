@@ -28,7 +28,7 @@ public abstract class Panel {
                 g.updateGraphics((java.awt.Graphics2D) g2);
                 preComponentDrawing();
                 for (DrawnComponent c : components) {
-                    c.draw(g);
+                    c.updateGraphicsStyle(g);
                 }
                 finishPanelDrawing();
             }

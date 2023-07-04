@@ -1,6 +1,6 @@
 1. Read and load style defaults from xml or JSON on start
-2. Call common drawing methods in DrawnComponent class and complete drawing in extending classes
-3. Change TextInput->UserInput
+=
+=
 4. Add a basic login system
 5. Create Drawn Components
     a. ItemChooser
@@ -40,8 +40,8 @@
     u. shapeBorderStyle
 10. Add spellcheck to text type text inputs
 11. Create Text DrawComponent to create a custom drawn font and allow easy modifying
-12. Add Point and Dimension classes
-13. Create custom graphics class
+=
+=
 14. Create window managers
 15. Ctrl-s & Ctrl-o to frame as global hotkeys to save/load frame states
 16. Allow Dragging on scroller

@@ -21,9 +21,7 @@ public class Label extends DrawnComponent {
     }
 
     @Override
-    public void draw(Graphics g) {
-        Style style = getStyle();
-        if (style.isDisabled()) return;
+    public void draw(Graphics g, Style style) {
         g.drawBackground(getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
         g.attemptBorder(getX(), getY(), getWidth(), getHeight(), isHovered());
         g.setColor(style.getColor());

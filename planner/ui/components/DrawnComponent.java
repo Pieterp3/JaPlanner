@@ -12,6 +12,7 @@ public abstract class DrawnComponent {
     private boolean beingHovered = false; 
     private boolean beingClicked = false;
     private Frame frame;
+    protected Graphics g;
 
     public DrawnComponent(Frame frame) {
         this.style = new Style(this);
@@ -19,10 +20,14 @@ public abstract class DrawnComponent {
     }
 
     public void updateGraphicsStyle(Graphics g) {
-        g.setStyle(getStyle());
+        this.g = g;
+        Style style = getStyle();
+        if (style.isDisabled()) return;
+        g.setStyle(style);
+        draw(g, style);
     }
 
-    public abstract void draw(Graphics g);
+    public abstract void draw(Graphics g, Style style);
     public abstract void click(int x, int y);
     public abstract void setHoveredCursor(int x, int y);
 

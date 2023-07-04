@@ -75,15 +75,15 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
     }
 
     @Override
-    public void draw(Graphics g) {
-        Style style = getStyle();
-        if (style.isDisabled()) return;
+    public void draw(Graphics g, Style style) {
         g.drawBackground(getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
         g.attemptBorder(getX(), getY(), getWidth(), getHeight(), isHovered());
-        for (int i = scrollIndex; i < components.size(); i++) { components.get(i).draw(g); }
+        for (int i = scrollIndex; i < components.size(); i++) { 
+            components.get(i).draw(g, components.get(i).getStyle()); 
+        }
         if (components.size() > 1) {
-            scrollButton1.draw(g);
-            scrollButton2.draw(g);
+            scrollButton1.draw(g, scrollButton1.getStyle());
+            scrollButton2.draw(g, scrollButton2.getStyle());
         }
         g.drawScrollbar(scrollButton1.getStyle(), getX(), getY(), getWidth(), getHeight(), scrollIndex, components.size());
     }

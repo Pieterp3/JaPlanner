@@ -39,9 +39,7 @@ public class Button extends DrawnComponent {
     }
 
     @Override
-    public void draw(Graphics g) {
-        Style style = getStyle();
-        if (style.isDisabled()) return;
+    public void draw(Graphics g, Style style) {
         g.drawBackground(getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
         g.attemptBorder(getX(), getY(), getWidth(), getHeight(), isHovered());
         Color textColor = isHovered() ? isPressed() ? style.getPressColor() : style.getHoverColor() : style.getColor();

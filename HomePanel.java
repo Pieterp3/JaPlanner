@@ -5,7 +5,7 @@ import ui.Panel;
 import ui.components.impl.Button;
 import ui.components.impl.ComponentList;
 import ui.components.impl.Label;
-import ui.components.impl.TextInput;
+import ui.components.impl.UserInput;
 
 public class HomePanel extends Panel {
 
@@ -29,7 +29,7 @@ public class HomePanel extends Panel {
             list.addComponent(b);
         }
         addComponent(list);
-        TextInput input = new TextInput(getFrame(), "", 10, 310, 200, 40, "Placeholder");
+        UserInput input = new UserInput(getFrame(), "", 10, 310, 200, 40, "Placeholder");
         addComponent(input);
     }
 
