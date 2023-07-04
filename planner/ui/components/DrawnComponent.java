@@ -2,8 +2,8 @@ package ui.components;
 
 import java.awt.Graphics2D;
 
-import ui.panels.Panel;
 import ui.Frame;
+import ui.Panel;
 import ui.components.style.Style;
 
 public abstract class DrawnComponent {

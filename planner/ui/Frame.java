@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 
 import ui.managers.ClipboardManager;
 import ui.managers.IOManager;
-import ui.panels.Panel;
 
 public class Frame extends JFrame {
     private Panel activePanel;
