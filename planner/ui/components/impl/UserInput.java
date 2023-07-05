@@ -1,5 +1,6 @@
 package ui.components.impl;
 
+import structures.Map;
 import ui.Frame;
 import ui.components.DrawnComponent;
 import ui.components.interfaces.Dragable;
@@ -21,16 +22,18 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
 
     public UserInput(Frame frame, String text, int x, int y, int width, int height, String placeholder) {
         super(frame);
-        getStyle().setText(text);
-        getStyle().setX(x);
-        getStyle().setY(y);
-        getStyle().setWidth(width);
-        getStyle().setHeight(height);
-        getStyle().setAction(text);
+        getStyle().setAttributes(new Map<>(){{
+            put("text", text);
+            put("x", x);
+            put("y", y);
+            put("width", width);
+            put("height", height);
+            put("action", text);
+            put("padding", 2);
+        }});
         getStyle().addDefaultBorder();
-        getStyle().setPlaceholderColor(Color.gray);
-        getStyle().setSelectedTextColor(Color.gray);
-        getStyle().setPadding(2);
+        getStyle().setColorAttribute("placeholder", Color.gray);
+        getStyle().setColorAttribute("selectedTextColor", Color.gray);
         this.placeholder = placeholder;
     }
 
@@ -44,34 +47,39 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
         g.attemptBorder(getX(), getY(), getWidth(), getHeight(), isHovered());
 
         //Draw background behind selected text
+        String text = getText();
         if (selectedStartIndex != selectedStopIndex) {
-            int padding = style.getPadding();
-            int borderThickness = style.getBorderWidth();
+            int padding = style.getIntAttribute("padding");
+            int borderThickness = style.getIntAttribute("borderWidth");
             int wallOffset = borderThickness + padding;
             int textX = getX() + wallOffset;
             int textY = getY() + wallOffset;
             int textHeight = g.getFontHeight();
             int startIndex = Math.min(selectedStartIndex, selectedStopIndex);
             int stopIndex = Math.max(selectedStartIndex, selectedStopIndex);
-            String text = style.getText();
             String selectedText = text.substring(startIndex, stopIndex);
             int selectedTextWidth = g.getStringWidth(selectedText);
-            g.setColor(style.getSelectedTextColor());
+            g.setColor(style.getColorAttribute("selectedTextColor"));
             int drawY = textY + getHeight() / 2 + g.getFontHeight() / 2 - g.getFontDescent() - textHeight - 1;
             g.fillRect(textX + g.getStringWidth(text.substring(0, startIndex)), drawY, selectedTextWidth, textHeight);
         }
-
-
-        String text = style.getText();
         if (text == null || text.isEmpty()) {
             text = placeholder;
-            g.setColor(style.getPlaceholderColor());
+            g.setColor(style.getColorAttribute("placeholderColor"));
         } else {
-            g.setColor(style.getColor());
+            g.setColor(style.getColorAttribute("color"));
         }
         
         g.drawText(getX(), getY(), getWidth(), getHeight(), text);
         drawCursor(g, text, style);
+    }
+
+    public String getText() {
+        return getStyle().getAttribute("text");
+    }
+
+    public void setText(String text) {
+        getStyle().setAttribute("text", text);
     }
 
     public String getPlaceholder() {
@@ -100,8 +108,8 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
 
     public String getSelectedText() {
         if (!hasSelectedText()) return null;
-        return getStyle().getText().substring(Math.max(0, getSelectedStartIndex()), 
-            Math.min(getStyle().getText().length(), getSelectedStopIndex()));
+        return getText().substring(Math.max(0, getSelectedStartIndex()), 
+            Math.min(getText().length(), getSelectedStopIndex()));
     }
 
     private void drawCursor(Graphics g, String text, Style style) {
@@ -111,11 +119,11 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
             lastCursorUpdate = System.currentTimeMillis();
         }
         if (!cursorVisible) return;
-        g.setColor(style.getColor());
+        g.setColor(style.getColorAttribute("color"));
         int endIndex = Math.min(cursorPosition, text.length());
         int x = getX() + g.getStringWidth(text.substring(0, endIndex)) - 2;
-        int padding = style.getPadding();
-        int borderThickness = style.getBorderWidth();
+        int padding = style.getIntAttribute("padding");
+        int borderThickness = style.getIntAttribute("borderWidth");
         int wallOffset = borderThickness + padding;
         x += wallOffset;
         int y = getY() + wallOffset;
@@ -125,12 +133,12 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
     @Override
     public void click(int x, int y) {
         resetSelectedText();
-        if (getStyle().isDisabled()) return;
+        if (getStyle().getBooleanAttribute("disabled")) return;
         if (g == null) return;
-        String text = getStyle().getText();
+        String text = getText();
         if (text == null) text = "";
-        int padding = getStyle().getPadding();
-        int borderThickness = getStyle().getBorderWidth();
+        int padding = getStyle().getIntAttribute("padding");
+        int borderThickness = getStyle().getIntAttribute("borderWidth");
         int wallOffset = borderThickness + padding;
         int textX = getX() + wallOffset;
         int textY = getY() + wallOffset;
@@ -153,20 +161,20 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
     }
 
     private void backspace() {
-        if (getStyle().isDisabled()) return;
-        String currentText = getStyle().getText();
+        if (getStyle().getBooleanAttribute("disabled")) return;
+        String currentText = getText();
         if (currentText == null) return;
         if (getSelectedText() != null) {
             String newText = currentText.substring(0, Math.max(0, getSelectedStartIndex())) + 
                         currentText.substring(getSelectedStopIndex());
-            getStyle().setText(newText);
+            setText(newText);
             cursorPosition = Math.max(0, getSelectedStartIndex());
             resetSelectedText();
             return;
         }
         if (cursorPosition > 0) {
             String newText = currentText.substring(0, cursorPosition - 1) + currentText.substring(cursorPosition);
-            getStyle().setText(newText);
+            setText(newText);
             cursorPosition--;
         }
     }
@@ -177,20 +185,20 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
     }
 
     private void delete() {
-        if (getStyle().isDisabled()) return;
-        String currentText = getStyle().getText();
+        if (getStyle().getBooleanAttribute("disabled")) return;
+        String currentText = getText();
         if (currentText == null) return;
         if (getSelectedText() != null) {
             String newText = currentText.substring(0, Math.max(0, getSelectedStartIndex())) + 
                         currentText.substring(getSelectedStopIndex());
-            getStyle().setText(newText);
+            setText(newText);
             cursorPosition = Math.max(0, getSelectedStartIndex());
             resetSelectedText();
             return;
         }
         if (cursorPosition < currentText.length()) {
             String newText = currentText.substring(0, cursorPosition) + currentText.substring(cursorPosition + 1);
-            getStyle().setText(newText);
+            setText(newText);
         }
     }
 
@@ -203,7 +211,7 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
                 if (hasSelectedText()) 
                     clipboardManager.copy(getSelectedText());
                 else
-                    clipboardManager.copy(getStyle().getText());
+                    clipboardManager.copy(getText());
                 return true;
             } else if (keyCode == KeyManager.V) {
                 clipboardManager.paste();
@@ -211,27 +219,27 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
             } else if (keyCode == KeyManager.X) {
                 if (hasSelectedText()) {
                     clipboardManager.copy(getSelectedText());
-                    String newText = getStyle().getText().substring(0, Math.max(0, getSelectedStartIndex())) + 
-                        getStyle().getText().substring(getSelectedStopIndex());
-                    getStyle().setText(newText);
+                    String newText = getText().substring(0, Math.max(0, getSelectedStartIndex())) + 
+                        getText().substring(getSelectedStopIndex());
+                    setText(newText);
                     cursorPosition = Math.max(0, getSelectedStartIndex());
                     resetSelectedText();
                     return true;
                 }
-                clipboardManager.cut(getStyle().getText());
-                getStyle().setText("");
+                clipboardManager.cut(getText());
+                setText("");
                 cursorPosition = 0;
                 return true;
             }
         } else if (keyModifier == KeyManager.SHIFT) {
             if (keyCode == KeyManager.LEFT) {
-                String text = getStyle().getText().substring(0, cursorPosition);
+                String text = getText().substring(0, cursorPosition);
                 int lastWhitespace = text.lastIndexOf(" ");
                 if (lastWhitespace == -1) lastWhitespace = 0;
                 cursorPosition = lastWhitespace;
                 return true;
             } else if (keyCode == KeyManager.RIGHT) {
-                String text = getStyle().getText().substring(cursorPosition);
+                String text = getText().substring(cursorPosition);
                 int nextWhitespace = text.indexOf(" ");
                 if (nextWhitespace == -1) nextWhitespace = text.length();
                 cursorPosition += nextWhitespace;
@@ -243,7 +251,7 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
 
     @Override
     public void sendKeycode(int keyCode) {
-        if (getStyle().isDisabled()) return;
+        if (getStyle().getBooleanAttribute("disabled")) return;
         if (checkShortcuts(keyCode)) return;
         //if (getFrame().checkShortcuts(keyCode)) return;//TODO implement program wide shortcuts in frame
         if (keyCode == KeyManager.ENTER) {
@@ -257,9 +265,9 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
         } else if (keyCode == KeyManager.LEFT) {
             cursorPosition = Math.max(0, cursorPosition-1);
         } else if (keyCode == KeyManager.RIGHT) {
-            cursorPosition = Math.min(getStyle().getText().length(), cursorPosition+1);
+            cursorPosition = Math.min(getText().length(), cursorPosition+1);
         } else if (keyCode == KeyManager.END) {
-            cursorPosition = getStyle().getText().length();
+            cursorPosition = getText().length();
         } else if (keyCode == KeyManager.HOME) {
             cursorPosition = 0;
         } else if (keyCode == KeyManager.SPACE) {
@@ -269,9 +277,9 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
 
     @Override
     public void sendText(String text) {
-        if (getStyle().isDisabled()) return;
+        if (getStyle().getBooleanAttribute("disabled")) return;
         if (g == null) return;
-        String currentText = getStyle().getText();
+        String currentText = getText();
         if (currentText == null) currentText = "";
         if (text.length() > 1) {
             for (int i = 0; i < text.length(); i++) {
@@ -282,14 +290,14 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
         if(hasSelectedText()) {
             String newText = currentText.substring(0, Math.max(0, getSelectedStartIndex())) + 
                         text + currentText.substring(getSelectedStopIndex());
-            getStyle().setText(newText);
+            setText(newText);
             cursorPosition = Math.max(0, getSelectedStartIndex()) + text.length();
             resetSelectedText();
             return;
         }
         String newText = currentText.substring(0, cursorPosition) + text + currentText.substring(cursorPosition);
         if (g.getStringWidth(newText) > getWidth()) return;
-        getStyle().setText(newText);
+        setText(newText);
         cursorPosition += text.length();
     }
 
@@ -300,12 +308,12 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
 
     @Override
     public void setDragStart(int x, int y) {
-        if (getStyle().isDisabled()) return;
+        if (getStyle().getBooleanAttribute("disabled")) return;
         if (g == null) return;
-        String text = getStyle().getText();
+        String text = getText();
         if (text == null) text = "";
-        int padding = getStyle().getPadding();
-        int borderThickness = getStyle().getBorderWidth();
+        int padding = getStyle().getIntAttribute("padding");
+        int borderThickness = getStyle().getIntAttribute("borderWidth");
         int wallOffset = borderThickness + padding;
         int textX = getX() + wallOffset;
         int textY = getY() + wallOffset;
@@ -328,12 +336,12 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
 
     @Override
     public void drop(int x, int y) {
-        if (getStyle().isDisabled()) return;
+        if (getStyle().getBooleanAttribute("disabled")) return;
         if (g == null) return;
-        String text = getStyle().getText();
+        String text = getText();
         if (text == null) text = "";
-        int padding = getStyle().getPadding();
-        int borderThickness = getStyle().getBorderWidth();
+        int padding = getStyle().getIntAttribute("padding");
+        int borderThickness = getStyle().getIntAttribute("borderWidth");
         int wallOffset = borderThickness + padding;
         int textX = getX() + wallOffset;
         int textY = getY() + wallOffset;
@@ -355,13 +363,13 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
 
     @Override
     public void drag(int x, int y) {
-        if (getStyle().isDisabled()) return;
+        if (getStyle().getBooleanAttribute("disabled")) return;
         if (g == null) return;
         if (selectedStartIndex == -1) return;
-        String text = getStyle().getText();
+        String text = getText();
         if (text == null) text = "";
-        int padding = getStyle().getPadding();
-        int borderThickness = getStyle().getBorderWidth();
+        int padding = getStyle().getIntAttribute("padding");
+        int borderThickness = getStyle().getIntAttribute("borderWidth");
         int wallOffset = borderThickness + padding;
         int textX = getX() + wallOffset;
         int textY = getY() + wallOffset;

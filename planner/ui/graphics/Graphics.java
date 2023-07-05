@@ -15,32 +15,33 @@ public class Graphics {
     }
 
     public void drawBackground(int x, int y, int width, int height, boolean isHovered, boolean isPressed) {
-        if (!style.isOpaque()) { return; }
-        Color backgroundColor = isHovered ? isPressed ? style.getBackgroundPressColor() : style.getBackgroundHoverColor() : style.getBackgroundColor();
-        setColor(backgroundColor);
+        if (!style.getBooleanAttribute("opaque")) { return; }
+        String backgroundColor = isHovered ? isPressed ? "backgroundPressColor" : 
+        "backgroundHoverColor" : "backgroundColor";
+        setColor(style.getColorAttribute(backgroundColor));
         fillRect(x, y, width, height);
     }
 
     public void drawCenteredText(int x, int y, int width, int height, String text) {
-        int textWidth = g.getFontMetrics().stringWidth(text);
-        int textHeight = g.getFontMetrics().getHeight();
-        drawString(text, x + (width / 2) - (textWidth / 2), y + (height / 2) + (textHeight / 2) - g.getFontMetrics().getDescent());
+        int textWidth = getStringWidth(text);
+        int textHeight = getFontHeight();
+        drawString(text, x + (width / 2) - (textWidth / 2), y + (height / 2) + (textHeight / 2) - getFontDescent());
     }
 
     public void attemptBorder(int x, int y, int width, int height, boolean isHovered) {
         if (!style.hasBorder()) { return; }
-        Color borderColor = isHovered ? style.getBorderHoverColor() : style.getBorderColor();
-        setColor(borderColor);
-        setStroke(style.getBorderWidth());
+        String borderColor = isHovered ? "borderHoverColor" : "borderColor";
+        setColor(style.getColorAttribute(borderColor));
+        setStroke(style.getIntAttribute("borderWidth"));
         drawRect(x, y, width, height);
     }
 
     public void drawText(int x, int y, int width, int height, String text) {
         setFont(style.getFont());
-        int textWidth = g.getFontMetrics().stringWidth(text);
-        String alignment = style.getAlignment();
-        int padding = style.getPadding();
-        int borderThickness = style.getBorderWidth();
+        int textWidth = getStringWidth(text);
+        String alignment = style.getAttribute("alignment");
+        int padding = style.getIntAttribute("padding");
+        int borderThickness = style.getIntAttribute("borderWidth");
         int wallOffset = borderThickness + padding;
         
         x += alignment.equals("center") ? 
@@ -50,27 +51,28 @@ public class Graphics {
         wallOffset;//Left aligned
         
         if (!alignment.equals("center") && style.hasBorder()) {
-            x += (style.getBorderWidth() * (alignment.equals("left") ? 1 : -1));
+            x += (borderThickness * (alignment.equals("left") ? 1 : -1));
         }
-        int drawY = y + height / 2 + g.getFontMetrics().getHeight() / 2 - g.getFontMetrics().getDescent();
+        int drawY = y + height / 2 + getFontHeight() / 2 - getFontDescent();
         drawString(text, x, drawY);
     }
 
     public void drawStandardText(int x, int y, int width, int height) {
-        drawText(x, y, width, height, style.getText());
+        if (style.getAttribute("text") == null) return;
+        drawText(x, y, width, height, style.getAttribute("text"));
     }
 
     public void drawScrollbar(Style buttonStyle, int x, int y, int width, int height, 
             int scrollIndex, int compCount) {
-        int scrollbarSize = style.getScrollbarSize();
+        int scrollbarSize = style.getIntAttribute("scrollbarSize");
         int scrollerSize = Math.min((scrollbarSize * 3), width - (scrollbarSize * 2));
         int scrollbarX,scrollbarY;
         int scrollbarWidth, scrollbarHeight;
         int scrollerX, scrollerY, scrollerWidth, scrollerHeight;
         int innerScrollSize;
-        int borderWidth = style.getBorderWidth();
-        int buttonBorderWidth = buttonStyle.getBorderWidth();
-        if (style.getResizesVertically()) {
+        int borderWidth = style.getIntAttribute("borderWidth");
+        int buttonBorderWidth = buttonStyle.getIntAttribute("borderWidth");
+        if (style.getBooleanAttribute("resizesVertically")) {
             scrollbarWidth = scrollbarSize;
             scrollbarHeight = height - (scrollbarSize * 2) - (borderWidth * 2) - (buttonBorderWidth * 2);
             scrollbarX = x + width - scrollbarSize - borderWidth;
@@ -91,15 +93,15 @@ public class Graphics {
             scrollerWidth = (scrollbarWidth * scrollerSize) / width;
             scrollerHeight = scrollbarHeight;
         }
-        setColor(style.getScrollbarColor());
+        setColor(style.getColorAttribute("scrollbarColor"));
         fillRect(scrollbarX, scrollbarY, scrollbarWidth, scrollbarHeight);
-        setColor(style.getScrollerBackgroundColor());
+        setColor(style.getColorAttribute("scrollerBackgroundColor"));
         fillRect(scrollerX, scrollerY, scrollerWidth, scrollerHeight);
-        setColor(buttonStyle.getBorderColor());
+        setColor(buttonStyle.getColorAttribute("borderColor"));
         drawRect(scrollbarX, scrollbarY, scrollbarWidth, scrollbarHeight);
     }
 
-    public void setFont(java.awt.Font font) {
+    public void setFont(Font font) {
         g.setFont(font);
     }
 

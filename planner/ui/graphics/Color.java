@@ -66,44 +66,8 @@ public class Color {
         return getContrastColor(new Color(hex));
     }
 
-    public static Color getHoverColor(Color color) {
-        int r = color.getR();
-        int g = color.getG();
-        int b = color.getB();
-        int yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-        return yiq >= 128 ? new Color(r - 20, g - 20, b - 20) : new Color(r + 20, g + 20, b + 20);
-    }
-
-    public static Color getHoverColor(String hex) {
-        return getHoverColor(new Color(hex));
-    }
-
-    public static Color getPressColor(Color color) {
-        int r = color.getR();
-        int g = color.getG();
-        int b = color.getB();
-        int yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-        return yiq >= 128 ? new Color(r - 40, g - 40, b - 40) : new Color(r + 40, g + 40, b + 40);
-    }
-
-    public static Color getPressColor(String hex) {
-        return getPressColor(new Color(hex));
-    }
-
-    public static Color getDisabledColor(Color color) {
-        int r = color.getR();
-        int g = color.getG();
-        int b = color.getB();
-        int yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-        return yiq >= 128 ? new Color(r - 60, g - 60, b - 60) : new Color(r + 60, g + 60, b + 60);
-    }
-
-    public static Color getDisabledColor(String hex) {
-        return getDisabledColor(new Color(hex));
-    }
-
     public static Color decode(String string) {
-        return new Color(java.awt.Color.decode(string));
+        return new Color(java.awt.Color.decode("0x" + string));
     }
 
     public int getRGB() {
@@ -131,5 +95,9 @@ public class Color {
     public static final Color gray = new Color(java.awt.Color.gray);
     public static final Color lightGray = new Color(java.awt.Color.lightGray);
     public static final Color darkGray = new Color(java.awt.Color.darkGray);
+
+    public String toAttributeString() {
+        return Integer.toHexString(getRGB()).substring(2);
+    }
 
 }

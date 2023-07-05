@@ -10,21 +10,21 @@ public class Label extends DrawnComponent {
 
     public Label(Frame frame) {
         super(frame);
-       getStyle().setOpaque(false);
+       getStyle().setAttribute("opaque", false);
     }
 
     public Label(Frame frame, String text, int x, int y) {
         this(frame);
-       getStyle().setText(text);
-       getStyle().setX(x);
-       getStyle().setY(y);
+        getStyle().setAttribute("text", text);
+        getStyle().setAttribute("x", x);
+        getStyle().setAttribute("y", y);
     }
 
     @Override
     public void draw(Graphics g, Style style) {
         g.drawBackground(getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
         g.attemptBorder(getX(), getY(), getWidth(), getHeight(), isHovered());
-        g.setColor(style.getColor());
+        g.setColor(style.getColorAttribute("color"));
         g.drawStandardText(getX(), getY(), getWidth(), getHeight());
     }
 

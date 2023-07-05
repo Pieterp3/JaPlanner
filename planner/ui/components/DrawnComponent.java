@@ -22,7 +22,7 @@ public abstract class DrawnComponent {
     public void updateGraphicsStyle(Graphics g) {
         this.g = g;
         Style style = getStyle();
-        if (style.isDisabled()) return;
+        if (style.getBooleanAttribute("disabled")) return;
         g.setStyle(style);
         draw(g, style);
     }
@@ -66,19 +66,19 @@ public abstract class DrawnComponent {
     }
 
     public int getX() {
-        return style.getX() + style.getXOffset();
+        return style.getIntAttribute("x") + style.getIntAttribute("xOffset");
     }
 
     public int getY() {
-        return style.getY() + style.getYOffset();
+        return style.getIntAttribute("y") + style.getIntAttribute("yOffset");
     }
 
     public int getWidth() {
-        return style.getWidth();
+        return style.getIntAttribute("width");
     }
 
     public int getHeight() {
-        return style.getHeight();
+        return style.getIntAttribute("height");
     }
 
 

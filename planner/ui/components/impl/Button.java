@@ -12,26 +12,25 @@ public class Button extends DrawnComponent {
     public Button(Frame frame) {
         super(frame);
         Style s = getStyle();
-        s.setColor(Color.black);
-        s.setBackgroundColor(Color.white);
-        s.setBackgroundHoverColor(Color.lightGray);
-        s.setBackgroundPressColor(Color.gray);
+        s.setColorAttribute("backgroundHoverColor", Color.lightGray);
+        s.setColorAttribute("backgroundPressColor", Color.gray);
         s.addDefaultBorder();
-        s.setAlignment("center");
-        s.setText("Button");
-        s.setAction("UnsetAction");
-        s.setWidth(220);
-        s.setHeight(36);
+        s.setAttribute("alignment", "center");
+        s.setAttribute("text", "Button");
+        s.setAttribute("action", "UnsetAction");
+        s.setAttribute("width", 220);
+        s.setAttribute("height", 36);
     }
 
     public Button(Frame frame, String text, int x, int y, int width, int height) {
         this(frame);
-        getStyle().setText(text);
-        getStyle().setX(x);
-        getStyle().setY(y);
-        getStyle().setWidth(width);
-        getStyle().setHeight(height);
-        getStyle().setAction(text);
+        Style s = getStyle();
+        s.setAttribute("text", text);
+        s.setAttribute("x", x);
+        s.setAttribute("y", y);
+        s.setAttribute("width", width);
+        s.setAttribute("height", height);
+        s.setAttribute("action", text);
     }
 
     public Button(Frame frame, String arrow) {
@@ -42,15 +41,15 @@ public class Button extends DrawnComponent {
     public void draw(Graphics g, Style style) {
         g.drawBackground(getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
         g.attemptBorder(getX(), getY(), getWidth(), getHeight(), isHovered());
-        Color textColor = isHovered() ? isPressed() ? style.getPressColor() : style.getHoverColor() : style.getColor();
-        g.setColor(textColor);
+        String textColor = isHovered() ? isPressed() ? "pressColor" : "hoverColor" : "color";
+        g.setColor(style.getColorAttribute(textColor));
         g.drawStandardText(getX(), getY(), getWidth(), getHeight());
     }
 
     @Override
     public void click(int x, int y) {
-        if (getStyle().isDisabled()) return;
-        String action = getStyle().getAction();
+        if (getStyle().getBooleanAttribute("disabled")) return;
+        String action = getStyle().getAttribute("action");
         if (action != null) {
             getFrame().getActivePanel().processAction(action);
         }

@@ -70,4 +70,12 @@ public class Point {
         return getDistanceExact(point.getExactX(), point.getExactY(), point2.getExactX(), point2.getExactY());
     }
 
+    public void setX(double x2) {
+        this.x = x2;
+    }
+
+    public void setY(double y2) {
+        this.y = y2;
+    }
+
 }

@@ -15,13 +15,13 @@ public class HomePanel extends Panel {
     
     protected void init() {
         Label label = new Label(getFrame(), "Peerless Estimator", 0, 20);
-        label.getStyle().setWidth(getWidth());
-        label.getStyle().setAlignment("center");
-        label.getStyle().setFontSize(30);
+        label.getStyle().setAttribute("width", getWidth());
+        label.getStyle().setAttribute("alignment", "center");
+        label.getStyle().setAttribute("fontSize", 30);
         addComponent(label);
         Button button = new Button(getFrame(), "Click me", 10, 50, 200, 40);
-        button.getStyle().setAlignment("center");
-        button.getStyle().setAction("help");
+        button.getStyle().setAttribute("alignment", "center");
+        button.getStyle().setAttribute("action", "help");
         addComponent(button);
         ComponentList list = new ComponentList(getFrame(), 10, 100, 200, 200);
         for(int i = 0;i<10;i++) {

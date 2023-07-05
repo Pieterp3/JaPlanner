@@ -44,21 +44,21 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
 
     private void initStyle(Style style, int x, int y, int width, int height) {
         style.addDefaultBorder();
-        style.setX(x);
-        style.setY(y);
-        style.setWidth(width);
-        style.setHeight(height);
-        style.setPadding(2);
-        style.setBackgroundColor(Color.darkGray);
-        style.setBackgroundHoverColor(Color.darkGray);
-        style.setResizesHorizontally(true);
-        style.setResizesVertically(false);
-        style.setScrollMultiplier(1);
-        
-        int sbSize = 15;
-        style.setScrollbarColor(Color.gray);
-        style.setScrollerBackgroundColor(Color.lightGray);
-        style.setScrollbarSize(sbSize);
+        style.setAttributes(new Map<String, Object>() {{
+            put("x", x);
+            put("y", y);
+            put("width", width);
+            put("height", height);
+            put("padding", 2);
+            put("backgroundColor", Color.darkGray.toAttributeString());
+            put("backgroundHoverColor", Color.darkGray.toAttributeString());
+            put("resizesHorizontally", false);
+            put("resizesVertically", true);
+            put("scrollMultiplier", 1);
+            put("scrollbarColor", Color.gray.toAttributeString());
+            put("scrollerBackgroundColor", Color.lightGray.toAttributeString());
+            put("scrollbarSize", 15);
+        }});
 
         scrollButton1 = new Button(getFrame(), getArrow("up")) {
             @Override
@@ -78,18 +78,22 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
     public void draw(Graphics g, Style style) {
         g.drawBackground(getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
         g.attemptBorder(getX(), getY(), getWidth(), getHeight(), isHovered());
-        for (int i = scrollIndex; i < components.size(); i++) { 
-            components.get(i).draw(g, components.get(i).getStyle()); 
+        for (int i = scrollIndex; i < components.size(); i++) {
+            g.setStyle(components.get(i).getStyle());
+            components.get(i).updateGraphicsStyle(g); 
         }
         if (components.size() > 1) {
-            scrollButton1.draw(g, scrollButton1.getStyle());
-            scrollButton2.draw(g, scrollButton2.getStyle());
+            g.setStyle(scrollButton1.getStyle());
+            scrollButton1.updateGraphicsStyle(g);
+            g.setStyle(scrollButton2.getStyle());
+            scrollButton2.updateGraphicsStyle(g);
         }
+        g.setStyle(style);
         g.drawScrollbar(scrollButton1.getStyle(), getX(), getY(), getWidth(), getHeight(), scrollIndex, components.size());
     }
 
     public void scroll(int amount) {
-        scrollIndex += (amount * getStyle().getScrollMultiplier());
+        scrollIndex += (amount * getStyle().getIntAttribute("scrollMultiplier"));
         if (scrollIndex < 0) scrollIndex = 0;
         if (scrollIndex > components.size() - 1) scrollIndex = components.size() - 1;
         repositionComponents();
@@ -114,62 +118,90 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
     //Prefers Vertical scrolling but defaults to horizontal
     //Stops components from being drawn over the edge of the list
     public void repositionComponents() {
-        int padding = getStyle().getPadding();
-        int border = getStyle().getBorderWidth();
-        int scrollbarSize = getStyle().getScrollbarSize();
+        int padding = getStyle().getIntAttribute("padding");
+        int border = getStyle().getIntAttribute("borderWidth");
+        int scrollbarSize = getStyle().getIntAttribute("scrollbarSize");
+        boolean resizesVertically = getStyle().getBooleanAttribute("resizesVertically");
+
         int wallOffset = padding + border;
         int compWidth = getWidth() - (wallOffset * 2) - scrollbarSize - padding;
         int compHeight = getHeight() - (wallOffset * 2) - scrollbarSize - padding;
         int topY = wallOffset + getY();
         int leftX = wallOffset + getX();
-        int endValue = getStyle().getResizesVertically() ? getHeight() + getY() : getWidth() + getX();
+        int endValue = resizesVertically ? getHeight() + getY() : getWidth() + getX();
 
         int scrollbarX, scrollbarY;
-        if (getStyle().getResizesVertically()) {
+        if (resizesVertically) {
             scrollbarX = getX() + getWidth() - scrollbarSize - border;
             scrollbarY = getY() + border;
             int scrollbarY2 = getY() + getHeight() - scrollbarSize - border;
-            scrollButton1.getStyle().setBounds(scrollbarX, scrollbarY, scrollbarSize, scrollbarSize);
-            scrollButton2.getStyle().setBounds(scrollbarX, scrollbarY2, scrollbarSize, scrollbarSize);
-            scrollButton1.getStyle().setText(getArrow("up"));
-            scrollButton2.getStyle().setText(getArrow("down"));
+            scrollButton1.getStyle().setAttributes(new Map<>() {{
+                put("text", getArrow("up"));
+                put("x", scrollbarX);
+                put("y", scrollbarY);
+                put("width", scrollbarSize);
+                put("height", scrollbarSize);
+            }});
+            scrollButton2.getStyle().setAttributes(new Map<>() {{
+                put("text", getArrow("down"));
+                put("x", scrollbarX);
+                put("y", scrollbarY2);
+                put("width", scrollbarSize);
+                put("height", scrollbarSize);
+            }});
         } else {
             scrollbarX = getX() + border;
             scrollbarY = getY() + getHeight() - scrollbarSize - border;
             int scrollbarX2 = getX() + getWidth() - scrollbarSize - border;
-            scrollButton1.getStyle().setBounds(scrollbarX, scrollbarY, scrollbarSize, scrollbarSize);
-            scrollButton2.getStyle().setBounds(scrollbarX2, scrollbarY, scrollbarSize, scrollbarSize);
-            scrollButton1.getStyle().setText(getArrow("left"));
-            scrollButton2.getStyle().setText(getArrow("right"));
+            scrollButton1.getStyle().setAttributes(new Map<>() {{
+                put("text", getArrow("left"));
+                put("x", scrollbarX);
+                put("y", scrollbarY);
+                put("width", scrollbarSize);
+                put("height", scrollbarSize);
+            }});
+            scrollButton2.getStyle().setAttributes(new Map<>() {{
+                put("text", getArrow("right"));
+                put("x", scrollbarX2);
+                put("y", scrollbarY);
+                put("width", scrollbarSize);
+                put("height", scrollbarSize);
+            }});
         }
         for(int i = scrollIndex;i<components.size();i++) {
             DrawnComponent comp = components.get(i);
             Style style = comp.getStyle();
-            if (getStyle().getResizesVertically()) {
-                style.setHeight(Math.min(comp.getHeight(), compHeight));
+            final int finalTopY = topY;
+            final int finalLeftX = leftX;
+            if (resizesVertically) {
+                style.setAttribute("height", Math.min(comp.getHeight(), compHeight));
                 int bottomY = topY + comp.getHeight() - border;
                 if (bottomY > endValue) {
-                    comp.getStyle().setDisabled(true);
+                    comp.getStyle().setAttribute("disabled", true);
                     continue;
                 } else {
-                    comp.getStyle().setDisabled(false);
+                    comp.getStyle().setAttribute("disabled", false);
                 }
-                style.setY(topY);
-                style.setX(leftX);
-                style.setWidth(compWidth);
+                style.setAttributes(new Map<>() {{
+                    put("y", finalTopY);
+                    put("x", finalLeftX);
+                    put("width", compWidth);
+                }});
                 topY += comp.getHeight() + wallOffset;
             } else {
-                style.setWidth(Math.min(comp.getWidth(), compWidth));
+                style.setAttribute("width", Math.min(comp.getWidth(), compWidth));
                 int rightX = leftX + comp.getWidth() - border;
                 if (rightX > endValue) {
-                    comp.getStyle().setDisabled(true);
+                    comp.getStyle().setAttribute("disabled", true);
                     continue;
                 } else {
-                    comp.getStyle().setDisabled(false);
+                    comp.getStyle().setAttribute("disabled", false);
                 }
-                style.setX(leftX);
-                style.setHeight(compHeight);
-                style.setY(topY);
+                style.setAttributes(new Map<>() {{
+                    put("x", finalLeftX);
+                    put("y", finalTopY);
+                    put("height", compHeight);
+                }});
                 leftX += comp.getWidth() + wallOffset;
             }
         }

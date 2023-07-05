@@ -52,6 +52,9 @@ public class Map<K, V> {
     }
 
     public void put(K key, V value) {
+        if (key == null) {
+            return;
+        }
         for (int i = 0; i < this.table.size(); i++) {
             if (this.table.get(i).getKey().equals(key)) {
                 this.table.get(i).setValue(value);

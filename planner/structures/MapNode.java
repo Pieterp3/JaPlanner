@@ -41,5 +41,9 @@ public class MapNode<K, V> {
         public void setNext(MapNode<K, V> next) {
             this.next = next;
         }
+
+        public String toString() {
+            return key + "=" + value;
+        }
     
 }
