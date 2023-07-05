@@ -1,7 +1,6 @@
 package ui.graphics;
 
 import java.awt.Graphics2D;
-import java.util.Arrays;
 
 import ui.components.style.Style;
 import ui.graphics.fonts.Font;

@@ -2,8 +2,6 @@ package ui.graphics.fonts;
 
 import structures.Map;
 
-import java.util.Arrays;
-
 import structures.List;
 
 public abstract class Font {
