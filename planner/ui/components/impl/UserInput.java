@@ -60,7 +60,7 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
             String selectedText = text.substring(startIndex, stopIndex);
             int selectedTextWidth = g.getStringWidth(selectedText);
             g.setColor(style.getColorAttribute("selectedTextColor"));
-            int drawY = textY + getHeight() / 2 + g.getFontHeight() / 2 - g.getFontDescent() - textHeight - 1;
+            int drawY = textY + getHeight() / 2 + g.getFontHeight() / 2 - textHeight - 1;
             g.fillRect(textX + g.getStringWidth(text.substring(0, startIndex)), drawY, selectedTextWidth, textHeight);
         }
         if (text == null || text.isEmpty()) {

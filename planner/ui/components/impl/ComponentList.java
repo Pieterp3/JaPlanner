@@ -17,10 +17,10 @@ import structures.List;
 public class ComponentList extends DrawnComponent implements Scrollable, ContainerComponent {
     
     private static final Map<String, String> ARROW_MAP = new Map<String, String>() {{
-        put("up", "↑");
-        put("down", "↓");
-        put("left", "←");
-        put("right", "→");
+        put("up", "^");
+        put("down", "v");
+        put("left", "<");
+        put("right", ">");
     }};
 
     private static String getArrow(String direction) {

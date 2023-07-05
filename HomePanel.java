@@ -17,7 +17,7 @@ public class HomePanel extends Panel {
         Label label = new Label(getFrame(), "Peerless Estimator", 0, 20);
         label.getStyle().setAttribute("width", getWidth());
         label.getStyle().setAttribute("alignment", "center");
-        label.getStyle().setAttribute("fontSize", 30);
+        label.getStyle().setAttribute("fontSize", 4);
         addComponent(label);
         Button button = new Button(getFrame(), "Click me", 10, 50, 200, 40);
         button.getStyle().setAttribute("alignment", "center");

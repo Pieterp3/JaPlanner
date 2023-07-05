@@ -4,7 +4,8 @@ import structures.Map;
 import io.Load;
 import ui.components.DrawnComponent;
 import ui.graphics.Color;
-import ui.graphics.Font;
+import ui.graphics.fonts.Font;
+import ui.graphics.fonts.impl.DefaultFont;
 
 public class Style {
 
@@ -109,6 +110,6 @@ public class Style {
     }
 
     public Font getFont() {
-        return new Font(getStringAttribute("font"), getIntAttribute("fontStyle"), getIntAttribute("fontSize"));
+        return new DefaultFont(getIntAttribute("fontStyle"), getIntAttribute("fontSize"));
     }
 }

@@ -1,14 +1,18 @@
 package ui.graphics;
 
 import java.awt.Graphics2D;
+import java.util.Arrays;
 
 import ui.components.style.Style;
+import ui.graphics.fonts.Font;
+import ui.graphics.fonts.CharacterData;
 
 public class Graphics {
     
     private Graphics2D g;
     private int strokeSize = 1;
     private Style style;
+    private Font font;
     
     public void updateGraphics(Graphics2D g) {
         this.g = g;
@@ -25,7 +29,7 @@ public class Graphics {
     public void drawCenteredText(int x, int y, int width, int height, String text) {
         int textWidth = getStringWidth(text);
         int textHeight = getFontHeight();
-        drawString(text, x + (width / 2) - (textWidth / 2), y + (height / 2) + (textHeight / 2) - getFontDescent());
+        drawString(text, x + (width / 2) - (textWidth / 2), y + (height / 2) + (textHeight / 2));
     }
 
     public void attemptBorder(int x, int y, int width, int height, boolean isHovered) {
@@ -53,7 +57,7 @@ public class Graphics {
         if (!alignment.equals("center") && style.hasBorder()) {
             x += (borderThickness * (alignment.equals("left") ? 1 : -1));
         }
-        int drawY = y + height / 2 + getFontHeight() / 2 - getFontDescent();
+        int drawY = y + height / 2 + getFontHeight() / 2;
         drawString(text, x, drawY);
     }
 
@@ -101,14 +105,15 @@ public class Graphics {
         drawRect(scrollbarX, scrollbarY, scrollbarWidth, scrollbarHeight);
     }
 
-    public void setFont(Font font) {
-        g.setFont(font);
-    }
-
     public void setStroke(int size) {
         if (size == strokeSize) { return; }
         g.setStroke(new java.awt.BasicStroke(size));
         strokeSize = size;
+    }
+
+    public void setFont(Font font) {
+        if (this.font == font) { return; }
+        this.font = font;
     }
 
     public void setColor(Color color) {
@@ -124,23 +129,38 @@ public class Graphics {
     }
 
     public void drawString(String text, int x, int y) {
-        g.drawString(text, x, y);
+        if (text.trim().length() == 0) { return; }
+        String[] chars = text.split("");
+        y -= font.getDrawnHeight();
+        for (String s : chars) {
+            CharacterData data = font.getCharacterData(s);
+            boolean[][] characterData = data.getData();
+            int charIndex = 0;
+            for (int i = 0; i < characterData.length; i++) {
+                for (int j = 0; j < characterData[i].length; j++) {
+                    if (characterData[i][j]) {
+                        fillRect(x + (j * charIndex) + (j * font.getSize()), 
+                            y + (i * font.getSize()), 
+                            font.getSize(),font.getSize());
+                    }
+                }
+            }
+            charIndex += 1;
+            x += font.getDrawnWidth(s) + font.getSize();
+        }
+        //g.drawString(text, x, y);
     }
 
     public int getFontHeight() {
-        return g.getFontMetrics().getHeight();
+        return font.getDrawnHeight();
     }
 
     public int getStringWidth(String text) {
-        return g.getFontMetrics().stringWidth(text);
-    }
-
-    public int getFontDescent() {
-        return g.getFontMetrics().getDescent();
+        return font.getStringWidth(text);
     }
 
     public int getFontCharWidth(char charAt) {
-        return g.getFontMetrics().charWidth(charAt);
+        return font.getDrawnWidth(String.valueOf(charAt));
     }
 
     public void setStyle(Style style) {
