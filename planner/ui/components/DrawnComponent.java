@@ -6,13 +6,17 @@ import ui.components.style.Style;
 
 import ui.graphics.Graphics;
 
-public abstract class DrawnComponent {
+public abstract class DrawnComponent implements Comparable<DrawnComponent> {
     
+    private static int compCount = 0;
+
     private Style style;
     private boolean beingHovered = false; 
     private boolean beingClicked = false;
     private Frame frame;
     protected Graphics g;
+    private final int compId = (compCount += 1);
+
 
     public DrawnComponent(Frame frame) {
         this.style = new Style(this);
@@ -81,5 +85,9 @@ public abstract class DrawnComponent {
         return style.getIntAttribute("height");
     }
 
-
+    @Override
+    public int compareTo(DrawnComponent o) {
+        return compId - o.compId;
+    }
+    
 }

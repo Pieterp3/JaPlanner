@@ -1,5 +1,7 @@
 package ui.managers;
 
+import util.AttributeUseTracker;
+
 import ui.Frame;
 
 public class IOManager {
@@ -10,7 +12,7 @@ public class IOManager {
     }
 
     public void save() {
-
+        AttributeUseTracker.save();
     }
 
     public void load() {

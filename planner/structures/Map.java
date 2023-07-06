@@ -1,6 +1,6 @@
 package structures;
 
-public class Map<K, V> {
+public class Map<K, V> implements Comparable<Map<K, V>> {
 
     private List<MapNode<K, V>> table = new List<MapNode<K, V>>();
 
@@ -138,6 +138,15 @@ public class Map<K, V> {
         }
         str += "}";
         return str;
+    }
+
+    public List<K> keySet() {
+        return getKeys();
+    }
+
+    @Override
+    public int compareTo(Map<K, V> o) {
+        return this.table.compareTo(o.getTable());
     }
     
 }

@@ -1,11 +1,12 @@
 package ui.components.style;
 
 import structures.Map;
-import io.Load;
 import ui.components.DrawnComponent;
 import ui.graphics.Color;
 import ui.graphics.fonts.Font;
 import ui.graphics.fonts.impl.DefaultFont;
+import util.AttributeUseTracker;
+import util.io.Load;
 
 public class Style {
 
@@ -25,6 +26,7 @@ public class Style {
 
     public void setAttribute(String key, Object value) {
         attributes.put(key, value.toString());
+        AttributeUseTracker.updateStat(key, value.toString(), defaultAttributes.get(key));
     }
 
     public String getAttribute(String key) {

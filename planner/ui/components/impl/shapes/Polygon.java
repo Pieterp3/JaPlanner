@@ -1,9 +1,9 @@
 package ui.components.impl.shapes;
 
-import math.Point;
 import structures.List;
 import ui.Frame;
 import ui.components.DrawnComponent;
+import util.math.Point;
 
 public abstract class Polygon extends DrawnComponent implements Shape {
 

@@ -1,4 +1,4 @@
-package io;
+package util.io;
 
 import java.io.*;
 
@@ -35,6 +35,13 @@ public class FileIO {
             e.printStackTrace();
         }
         return lines;
+    }
+
+    public static void deleteFile(String string) {
+        File file = new File(string);
+        if (file.exists()) {
+            file.delete();
+        }
     }
 
 }

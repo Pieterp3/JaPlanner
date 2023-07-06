@@ -1,4 +1,4 @@
-package io;
+package util.io;
 
 import structures.Map;
 import structures.List;
@@ -13,5 +13,9 @@ public class Load {
             data.put(parts[0], parts[1]);
         }
         return data;
+    }
+
+    public static List<String> loadData(String name) {
+        return FileIO.read("res/data/" + name + ".dat");
     }
 }

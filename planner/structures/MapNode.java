@@ -1,6 +1,6 @@
 package structures;
 
-public class MapNode<K, V> {
+public class MapNode<K, V> implements Comparable<MapNode<K, V>> {
     
         private K key;
         private V value;
@@ -44,6 +44,11 @@ public class MapNode<K, V> {
 
         public String toString() {
             return key + "=" + value;
+        }
+
+        @Override
+        public int compareTo(MapNode<K, V> o) {
+            return this.key.toString().compareTo(o.getKey().toString());
         }
     
 }

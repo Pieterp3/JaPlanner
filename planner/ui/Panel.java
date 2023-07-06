@@ -12,13 +12,14 @@ import ui.graphics.Graphics;
 
 import structures.List;
 
-public abstract class Panel {
+public abstract class Panel implements Comparable<Panel> {
     
     private JPanel panel;
     private Frame frame;
     private Graphics g = new Graphics();
     private List<DrawnComponent> components;
     private Focusable focusedComponent;
+    private long creationTime = System.currentTimeMillis();
 
     public Panel(Frame frame, String name) {
         panel = new JPanel() {
@@ -65,6 +66,11 @@ public abstract class Panel {
         }
     }
     
+    @Override
+    public int compareTo(Panel o) {
+        return (int) (creationTime - o.creationTime);
+    }
+
     public Frame getFrame() {   
         return frame;
     }

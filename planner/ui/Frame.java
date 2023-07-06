@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 import ui.managers.ClipboardManager;
 import ui.managers.IOManager;
-
+import util.AttributeUseTracker;
 import structures.List;
 
 public class Frame {
@@ -36,6 +36,7 @@ public class Frame {
         frame.addWindowListener(primaryListener);
         frame.addMouseWheelListener(primaryListener);
         clipboardManager = new ClipboardManager(this);
+        AttributeUseTracker.init();
     }
 
     public void beginEnter() {

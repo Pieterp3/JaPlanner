@@ -2,7 +2,7 @@ package structures;
 
 import java.util.Iterator;
 
-public class List<T> implements Iterable<T> {
+public class List<T> implements Iterable<T>, Comparable<List<T>> {
 
     private ListNode<T> head;
     private ListNode<T> tail;
@@ -268,5 +268,79 @@ public class List<T> implements Iterable<T> {
     public Iterator<T> iterator() {
         return new ListIterator<T>(head);
     }
+
+    public void sort() {
+        if (!(this.head.getData() instanceof Comparable)) {
+            throw new ClassCastException("Cannot sort list of non-comparable objects");
+        }
+        ListNode<T> current = this.head;
+        while (current != null) {
+            ListNode<T> min = current;
+            ListNode<T> next = current.getNext();
+            while (next != null) {
+                if (((Comparable<T>) next.getData()).compareTo(min.getData()) < 0) {
+                    min = next;
+                }
+                next = next.getNext();
+            }
+            T temp = current.getData();
+            current.setData(min.getData());
+            min.setData(temp);
+            current = current.getNext();
+        }
+    }
+
+    @Override
+    public String toString() {
+        String string = "[";
+        ListNode<T> current = this.head;
+        while (current != null) {
+            string += current.getData() + ", ";
+            current = current.getNext();
+        }
+        if (string.length() > 1) {
+            string = string.substring(0, string.length() - 2);
+        }
+        string += "]";
+        return string;
+    }
     
+    public void reverseSort() {
+        if (!(this.head.getData() instanceof Comparable)) {
+            throw new ClassCastException("Cannot sort list of non-comparable objects");
+        }
+        ListNode<T> current = this.head;
+        while (current != null) {
+            ListNode<T> max = current;
+            ListNode<T> next = current.getNext();
+            while (next != null) {
+                if (((Comparable<T>) next.getData()).compareTo(max.getData()) > 0) {
+                    max = next;
+                }
+                next = next.getNext();
+            }
+            T temp = current.getData();
+            current.setData(max.getData());
+            max.setData(temp);
+            current = current.getNext();
+        }
+    }
+
+    @Override
+    public int compareTo(List<T> o) {
+        if (this.size != o.size) {
+            return this.size - o.size;
+        }
+        if (!(this.head.getData() instanceof Comparable)) {
+            return 0;
+        }
+        for (int i = 0; i < this.size; i++) {
+            if (((Comparable<T>) this.get(i)).compareTo(o.get(i)) < 0) {
+                return -1;
+            } else if (((Comparable<T>) this.get(i)).compareTo(o.get(i)) > 0) {
+                return 1;
+            }
+        }
+        return 0;
+    }
 }

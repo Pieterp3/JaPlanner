@@ -1,4 +1,4 @@
-package math;
+package util.math;
 
 public class Dimension {
     

@@ -1,6 +1,6 @@
 package ui.components.impl.shapes;
 
-import math.Point;
+import util.math.Point;
 
 public interface Shape {
 
