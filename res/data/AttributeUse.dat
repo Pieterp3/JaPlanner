@@ -1,155 +1,93 @@
-New Attribute: 'opaque'
-	Used by 1 components
-	Components that use this attribute: [Label]
+-----------------------------------------------
+| Debug Mode enabled for component
+| Debugging Button
+| Only information about this component will be displayed
+-----------------------------------------------
 
-	Values used: 
-		false (1 times)
----------------------------------
-
-
-New Attribute: 'text'
-	Used by 2 components
-	Components that use this attribute: [Label, Button]
-
-	Values used: 
-		Peerless Estimator (1 times)
-		Button (1 times)
-		Click me (1 times)
-		^ (1 times)
-		v (1 times)
-		Button 0 (1 times)
-		Button 1 (1 times)
-		Button 2 (1 times)
-		Button 3 (1 times)
-		Button 4 (1 times)
-		Button 5 (1 times)
-		Button 6 (1 times)
-		Button 7 (1 times)
-		Button 8 (1 times)
-		Button 9 (1 times)
----------------------------------
-
-
-New Attribute: 'x'
-	Used by 2 components
-	Components that use this attribute: [Label, Button]
-
-	Values used: 
-		0 (1 times)
-		10 (1 times)
-		0 (1 times)
----------------------------------
-
-
-New Attribute: 'y'
-	Used by 2 components
-	Components that use this attribute: [Label, Button]
-
-	Values used: 
-		20 (1 times)
-		50 (1 times)
-		0 (1 times)
----------------------------------
-
-
-New Attribute: 'width'
-	Used by 2 components
-	Components that use this attribute: [HomePanel, Button]
-
-	Values used: 
-		800 (1 times)
-		220 (1 times)
-		200 (1 times)
----------------------------------
-
-
-New Attribute: 'alignment'
-	Used by 3 components
-	Components that use this attribute: [HomePanel, Button, ComponentList]
-
-	Values used: 
-		center (2 times)
-		center (2 times)
-		center (2 times)
----------------------------------
-
-
-New Attribute: 'fontSize'
-	Used by 1 components
-	Components that use this attribute: [HomePanel]
-
-	Values used: 
-		4 (1 times)
----------------------------------
-
-
-	Only Used in default
-	Only Used in default
-	Only Used in default
-	Only Used in default
-	Only Used in default
-	Only Used in default
-	Only Used in default
-New Attribute: 'action'
-	Used by 2 components
-	Components that use this attribute: [Button, HomePanel]
-
-	Values used: 
-		UnsetAction (13 times)
-		Click me (13 times)
-		^ (13 times)
-		v (13 times)
-		Button 0 (13 times)
-		Button 1 (13 times)
-		Button 2 (13 times)
-		Button 3 (13 times)
-		Button 4 (13 times)
-		Button 5 (13 times)
-		Button 6 (13 times)
-		Button 7 (13 times)
-		Button 8 (13 times)
-		Button 9 (13 times)
-		help (13 times)
----------------------------------
-
-
-New Attribute: 'height'
-	Used by 2 components
-	Components that use this attribute: [Button, ComponentList]
-
-	Values used: 
-		36 (15 times)
-		40 (15 times)
-		35 (15 times)
-		35 (15 times)
----------------------------------
-
-
-	Only Used in default
-New Attribute: 'backgroundColor'
-	Used by 1 components
-	Components that use this attribute: [HomePanel]
-
-	Values used: 
-		ff0000 (1 times)
----------------------------------
-
-
-	Only Used in default
-	Only Used in default
-	Only Used in default
-	Only Used in default
-	Only Used in default
-	Only Used in default
-New Attribute: 'disabled'
-	Used by 1 components
-	Components that use this attribute: [ComponentList]
-
-	Values used: 
-		false (40 times)
-		true (40 times)
----------------------------------
-
-
-	Only Used in default
-	Only Used in default
+New Declared Attribute: backgroundHoverColor
+	Total Users: 2
+		[Button 1]
+	Values for backgroundHoverColor set byButton
+		[c0c0c0]
+----------------------------------------------	
+New Declared Attribute: backgroundPressColor
+	Total Users: 1
+		[Button 1]
+	Values for backgroundPressColor set byButton
+		[808080]
+			 - Set, but not used, by Button -
+----------------------------------------------	
+New Declared Attribute: hasBorder
+	Total Users: 3
+		[Button 1]
+	Values for hasBorder set byButton
+		[true]
+			 - Set, but not used, by Button -
+----------------------------------------------	
+New Declared Attribute: borderWidth
+	Total Users: 3
+		[Button 1]
+	Values for borderWidth set byButton
+		[2]
+----------------------------------------------	
+New Declared Attribute: borderColor
+	Total Users: 3
+		[Button 1]
+	Values for borderColor set byButton
+		[000000]
+----------------------------------------------	
+New Declared Attribute: borderHoverColor
+	Total Users: 3
+		[Button 1]
+	Values for borderHoverColor set byButton
+		[030303]
+----------------------------------------------	
+New Declared Attribute: borderPressColor
+	Total Users: 3
+		[Button 1]
+	Values for borderPressColor set byButton
+		[000000]
+			 - Set, but not used, by Button -
+----------------------------------------------	
+New Declared Attribute: alignment
+	Total Users: 3
+		[Button 1]
+	Values for alignment set byButton
+		[center]
+----------------------------------------------	
+New Declared Attribute: text
+	Total Users: 4
+		[Button 14]
+	Values for text set byButton
+		[Button, Click me, ^, v, Button 0, Button 1, Button 2, Button 3, Button 4, Button 5, Button 6, Button 7, Button 8, Button 9]
+----------------------------------------------	
+New Declared Attribute: action
+	Total Users: 3
+		[Button 14]
+	Values for action set byButton
+		[UnsetAction, Click me, ^, v, Button 0, Button 1, Button 2, Button 3, Button 4, Button 5, Button 6, Button 7, Button 8, Button 9]
+----------------------------------------------	
+New Declared Attribute: width
+	Total Users: 4
+		[Button 2]
+	Values for width set byButton
+		[220, 200]
+----------------------------------------------	
+New Declared Attribute: height
+	Total Users: 3
+		[Button 3]
+	Values for height set byButton
+		[36, 40, 35]
+----------------------------------------------	
+New Declared Attribute: x
+	Total Users: 4
+		[Button 2]
+	Values for x set byButton
+		[10, 0]
+----------------------------------------------	
+New Declared Attribute: y
+	Total Users: 4
+		[Button 2]
+	Values for y set byButton
+		[50, 0]
+----------------------------------------------	

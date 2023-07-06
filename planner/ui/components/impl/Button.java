@@ -11,26 +11,24 @@ public class Button extends DrawnComponent {
 
     public Button(Frame frame) {
         super(frame);
-        Style s = getStyle();
-        s.setColorAttribute("backgroundHoverColor", Color.lightGray);
-        s.setColorAttribute("backgroundPressColor", Color.gray);
-        s.addDefaultBorder();
-        s.setAttribute("alignment", "center");
-        s.setAttribute("text", "Button");
-        s.setAttribute("action", "UnsetAction");
-        s.setAttribute("width", 220);
-        s.setAttribute("height", 36);
+        style.setColorAttribute("backgroundHoverColor", Color.lightGray);
+        style.setColorAttribute("backgroundPressColor", Color.gray);
+        style.addDefaultBorder();
+        style.setAttribute("alignment", "center");
+        style.setAttribute("text", "Button");
+        style.setAttribute("action", "UnsetAction");
+        style.setAttribute("width", 220);
+        style.setAttribute("height", 36);
     }
 
     public Button(Frame frame, String text, int x, int y, int width, int height) {
         this(frame);
-        Style s = getStyle();
-        s.setAttribute("text", text);
-        s.setAttribute("x", x);
-        s.setAttribute("y", y);
-        s.setAttribute("width", width);
-        s.setAttribute("height", height);
-        s.setAttribute("action", text);
+        style.setAttribute("text", text);
+        style.setAttribute("x", x);
+        style.setAttribute("y", y);
+        style.setAttribute("width", width);
+        style.setAttribute("height", height);
+        style.setAttribute("action", text);
     }
 
     public Button(Frame frame, String arrow) {
@@ -48,8 +46,8 @@ public class Button extends DrawnComponent {
 
     @Override
     public void click(int x, int y) {
-        if (getStyle().getBooleanAttribute("disabled")) return;
-        String action = getStyle().getAttribute("action");
+        if (style.getBooleanAttribute("disabled")) return;
+        String action = getAttribute("action");
         if (action != null) {
             getFrame().getActivePanel().processAction(action);
         }

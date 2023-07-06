@@ -16,13 +16,13 @@ public class HomePanel extends Panel {
     
     protected void init() {
         Label label = new Label(getFrame(), "Peerless Estimator", 0, 20);
-        label.getStyle().setAttribute("width", getWidth());
-        label.getStyle().setAttribute("alignment", "center");
-        label.getStyle().setAttribute("fontSize", 4);
+        label.setAttribute("width", getWidth());
+        label.setAttribute("alignment", "center");
+        label.setAttribute("fontSize", 4);
         addComponent(label);
         Button button = new Button(getFrame(), "Click me", 10, 50, 200, 40);
-        button.getStyle().setAttribute("alignment", "center");
-        button.getStyle().setAttribute("action", "help");
+        button.setAttribute("alignment", "center");
+        button.setAttribute("action", "help");
         addComponent(button);
         ComponentList list = new ComponentList(getFrame(), 10, 100, 200, 200);
         for(int i = 0;i<10;i++) {
@@ -33,7 +33,7 @@ public class HomePanel extends Panel {
         UserInput input = new UserInput(getFrame(), "", 10, 310, 200, 40, "Placeholder");
         addComponent(input);
         Rectangle rect = new Rectangle(getFrame(), 10, 360, 200, 40);
-        rect.getStyle().setAttribute("backgroundColor", "ff0000");
+        rect.setAttribute("backgroundColor", "ff0000");
         //addComponent(rect);
     }
 

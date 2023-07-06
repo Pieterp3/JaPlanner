@@ -1,5 +1,6 @@
 package ui.components;
 
+import structures.Map;
 import ui.Frame;
 import ui.Panel;
 import ui.components.style.Style;
@@ -10,7 +11,7 @@ public abstract class DrawnComponent implements Comparable<DrawnComponent> {
     
     private static int compCount = 0;
 
-    private Style style;
+    protected Style style;
     private boolean beingHovered = false; 
     private boolean beingClicked = false;
     private Frame frame;
@@ -25,7 +26,6 @@ public abstract class DrawnComponent implements Comparable<DrawnComponent> {
 
     public void updateGraphicsStyle(Graphics g) {
         this.g = g;
-        Style style = getStyle();
         if (style.getBooleanAttribute("disabled")) return;
         g.setStyle(style);
         draw(g, style);
@@ -45,9 +45,17 @@ public abstract class DrawnComponent implements Comparable<DrawnComponent> {
         return false;
     }
 
-   public Style getStyle() {
-        return style;
+   public void setAttribute(String key, Object value) {
+       style.setAttribute(key, value);
    }
+
+    public String getAttribute(String key) {
+         return style.getAttribute(key);
+    }
+
+    public void setAttributes(Map<String, Object> attributes) {
+        style.setAttributes(attributes);
+    }
 
    public Panel getPanel() {
         return frame.getActivePanel();
@@ -88,6 +96,10 @@ public abstract class DrawnComponent implements Comparable<DrawnComponent> {
     @Override
     public int compareTo(DrawnComponent o) {
         return compId - o.compId;
+    }
+
+    public Style getStyle() {
+        return style;
     }
     
 }

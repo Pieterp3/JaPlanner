@@ -26,15 +26,13 @@ public class Style {
 
     public void setAttribute(String key, Object value) {
         attributes.put(key, value.toString());
-        AttributeUseTracker.updateStat(key, value.toString(), defaultAttributes.get(key));
+        AttributeUseTracker.updateStat(key, value.toString());
     }
 
     public String getAttribute(String key) {
-        return attributes.get(key);
-    }
-
-    public String getStringAttribute(String key) {
-        return attributes.get(key);
+        String value = attributes.get(key);
+        AttributeUseTracker.setFetchedByUser(key);
+        return value;
     }
 
     public int getIntAttribute(String key) {

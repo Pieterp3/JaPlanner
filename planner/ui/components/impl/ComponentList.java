@@ -35,14 +35,14 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
         super(frame);
         components = new List<DrawnComponent>();
         scrollIndex = 0;
-        initStyle(getStyle(), x, y, width, height);
+        initStyle(x, y, width, height);
     }
     
     public ComponentList(Frame frame) {
         this(frame, 0, 0, 200, 100);
     }
 
-    private void initStyle(Style style, int x, int y, int width, int height) {
+    private void initStyle(int x, int y, int width, int height) {
         style.addDefaultBorder();
         style.setAttributes(new Map<String, Object>() {{
             put("x", x);
@@ -72,8 +72,8 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
                 scroll(1);
             }
         };
-        scrollButton1.getStyle().setAttribute("alignment", "center");
-        scrollButton2.getStyle().setAttribute("alignment", "center");
+        scrollButton1.setAttribute("alignment", "center");
+        scrollButton2.setAttribute("alignment", "center");
     }
 
     @Override
@@ -95,7 +95,7 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
     }
 
     public void scroll(int amount) {
-        scrollIndex += (amount * getStyle().getIntAttribute("scrollMultiplier"));
+        scrollIndex += (amount * style.getIntAttribute("scrollMultiplier"));
         if (scrollIndex < 0) scrollIndex = 0;
         if (scrollIndex > components.size() - 1) scrollIndex = components.size() - 1;
         repositionComponents();
@@ -120,10 +120,10 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
     //Prefers Vertical scrolling but defaults to horizontal
     //Stops components from being drawn over the edge of the list
     public void repositionComponents() {
-        int padding = getStyle().getIntAttribute("padding");
-        int border = getStyle().getIntAttribute("borderWidth");
-        int scrollbarSize = getStyle().getIntAttribute("scrollbarSize");
-        boolean resizesVertically = getStyle().getBooleanAttribute("resizesVertically");
+        int padding = style.getIntAttribute("padding");
+        int border = style.getIntAttribute("borderWidth");
+        int scrollbarSize = style.getIntAttribute("scrollbarSize");
+        boolean resizesVertically = style.getBooleanAttribute("resizesVertically");
 
         int wallOffset = padding + border;
         int compWidth = getWidth() - (wallOffset * 2) - scrollbarSize - padding;
@@ -137,14 +137,14 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
             scrollbarX = getX() + getWidth() - scrollbarSize - border;
             scrollbarY = getY() + border;
             int scrollbarY2 = getY() + getHeight() - scrollbarSize - border;
-            scrollButton1.getStyle().setAttributes(new Map<>() {{
+            scrollButton1.setAttributes(new Map<>() {{
                 put("text", getArrow("up"));
                 put("x", scrollbarX);
                 put("y", scrollbarY);
                 put("width", scrollbarSize);
                 put("height", scrollbarSize);
             }});
-            scrollButton2.getStyle().setAttributes(new Map<>() {{
+            scrollButton2.setAttributes(new Map<>() {{
                 put("text", getArrow("down"));
                 put("x", scrollbarX);
                 put("y", scrollbarY2);
@@ -155,14 +155,14 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
             scrollbarX = getX() + border;
             scrollbarY = getY() + getHeight() - scrollbarSize - border;
             int scrollbarX2 = getX() + getWidth() - scrollbarSize - border;
-            scrollButton1.getStyle().setAttributes(new Map<>() {{
+            scrollButton1.setAttributes(new Map<>() {{
                 put("text", getArrow("left"));
                 put("x", scrollbarX);
                 put("y", scrollbarY);
                 put("width", scrollbarSize);
                 put("height", scrollbarSize);
             }});
-            scrollButton2.getStyle().setAttributes(new Map<>() {{
+            scrollButton2.setAttributes(new Map<>() {{
                 put("text", getArrow("right"));
                 put("x", scrollbarX2);
                 put("y", scrollbarY);
@@ -172,34 +172,33 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
         }
         for(int i = scrollIndex;i<components.size();i++) {
             DrawnComponent comp = components.get(i);
-            Style style = comp.getStyle();
             final int finalTopY = topY;
             final int finalLeftX = leftX;
             if (resizesVertically) {
-                style.setAttribute("height", Math.min(comp.getHeight(), compHeight));
+                comp.setAttribute("height", Math.min(comp.getHeight(), compHeight));
                 int bottomY = topY + comp.getHeight() - border;
                 if (bottomY > endValue) {
-                    comp.getStyle().setAttribute("disabled", true);
+                    comp.setAttribute("disabled", true);
                     continue;
                 } else {
-                    comp.getStyle().setAttribute("disabled", false);
+                    comp.setAttribute("disabled", false);
                 }
-                style.setAttributes(new Map<>() {{
+                comp.setAttributes(new Map<>() {{
                     put("y", finalTopY);
                     put("x", finalLeftX);
                     put("width", compWidth);
                 }});
                 topY += comp.getHeight() + wallOffset;
             } else {
-                style.setAttribute("width", Math.min(comp.getWidth(), compWidth));
+                comp.setAttribute("width", Math.min(comp.getWidth(), compWidth));
                 int rightX = leftX + comp.getWidth() - border;
                 if (rightX > endValue) {
-                    comp.getStyle().setAttribute("disabled", true);
+                    comp.setAttribute("disabled", true);
                     continue;
                 } else {
-                    comp.getStyle().setAttribute("disabled", false);
+                    comp.setAttribute("disabled", false);
                 }
-                style.setAttributes(new Map<>() {{
+                comp.setAttributes(new Map<>() {{
                     put("x", finalLeftX);
                     put("y", finalTopY);
                     put("height", compHeight);

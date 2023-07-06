@@ -10,14 +10,14 @@ public class Label extends DrawnComponent {
 
     public Label(Frame frame) {
         super(frame);
-       getStyle().setAttribute("opaque", false);
+        setAttribute("opaque", false);
     }
 
     public Label(Frame frame, String text, int x, int y) {
         this(frame);
-        getStyle().setAttribute("text", text);
-        getStyle().setAttribute("x", x);
-        getStyle().setAttribute("y", y);
+        setAttribute("text", text);
+        setAttribute("x", x);
+        setAttribute("y", y);
     }
 
     @Override

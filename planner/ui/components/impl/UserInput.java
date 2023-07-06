@@ -22,7 +22,7 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
 
     public UserInput(Frame frame, String text, int x, int y, int width, int height, String placeholder) {
         super(frame);
-        getStyle().setAttributes(new Map<>(){{
+        setAttributes(new Map<>(){{
             put("text", text);
             put("x", x);
             put("y", y);
@@ -31,9 +31,9 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
             put("action", text);
             put("padding", 2);
         }});
-        getStyle().addDefaultBorder();
-        getStyle().setColorAttribute("placeholder", Color.gray);
-        getStyle().setColorAttribute("selectedTextColor", Color.gray);
+        style.addDefaultBorder();
+        style.setColorAttribute("placeholder", Color.gray);
+        style.setColorAttribute("selectedTextColor", Color.gray);
         this.placeholder = placeholder;
     }
 
@@ -75,11 +75,11 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
     }
 
     public String getText() {
-        return getStyle().getAttribute("text");
+        return style.getAttribute("text");
     }
 
     public void setText(String text) {
-        getStyle().setAttribute("text", text);
+        style.setAttribute("text", text);
     }
 
     public String getPlaceholder() {
@@ -133,12 +133,12 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
     @Override
     public void click(int x, int y) {
         resetSelectedText();
-        if (getStyle().getBooleanAttribute("disabled")) return;
+        if (style.getBooleanAttribute("disabled")) return;
         if (g == null) return;
         String text = getText();
         if (text == null) text = "";
-        int padding = getStyle().getIntAttribute("padding");
-        int borderThickness = getStyle().getIntAttribute("borderWidth");
+        int padding = style.getIntAttribute("padding");
+        int borderThickness = style.getIntAttribute("borderWidth");
         int wallOffset = borderThickness + padding;
         int textX = getX() + wallOffset;
         int textY = getY() + wallOffset;
@@ -161,7 +161,7 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
     }
 
     private void backspace() {
-        if (getStyle().getBooleanAttribute("disabled")) return;
+        if (style.getBooleanAttribute("disabled")) return;
         String currentText = getText();
         if (currentText == null) return;
         if (getSelectedText() != null) {
@@ -185,7 +185,7 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
     }
 
     private void delete() {
-        if (getStyle().getBooleanAttribute("disabled")) return;
+        if (style.getBooleanAttribute("disabled")) return;
         String currentText = getText();
         if (currentText == null) return;
         if (getSelectedText() != null) {
@@ -251,7 +251,7 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
 
     @Override
     public void sendKeycode(int keyCode) {
-        if (getStyle().getBooleanAttribute("disabled")) return;
+        if (style.getBooleanAttribute("disabled")) return;
         if (checkShortcuts(keyCode)) return;
         //if (getFrame().checkShortcuts(keyCode)) return;//TODO implement program wide shortcuts in frame
         if (keyCode == KeyManager.ENTER) {
@@ -282,7 +282,7 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
 
     @Override
     public void sendText(String text) {
-        if (getStyle().getBooleanAttribute("disabled")) return;
+        if (style.getBooleanAttribute("disabled")) return;
         if (g == null) return;
         String currentText = getText();
         if (currentText == null) currentText = "";
@@ -313,12 +313,12 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
 
     @Override
     public void setDragStart(int x, int y) {
-        if (getStyle().getBooleanAttribute("disabled")) return;
+        if (style.getBooleanAttribute("disabled")) return;
         if (g == null) return;
         String text = getText();
         if (text == null) text = "";
-        int padding = getStyle().getIntAttribute("padding");
-        int borderThickness = getStyle().getIntAttribute("borderWidth");
+        int padding = style.getIntAttribute("padding");
+        int borderThickness = style.getIntAttribute("borderWidth");
         int wallOffset = borderThickness + padding;
         int textX = getX() + wallOffset;
         int textY = getY() + wallOffset;
@@ -341,12 +341,12 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
 
     @Override
     public void drop(int x, int y) {
-        if (getStyle().getBooleanAttribute("disabled")) return;
+        if (style.getBooleanAttribute("disabled")) return;
         if (g == null) return;
         String text = getText();
         if (text == null) text = "";
-        int padding = getStyle().getIntAttribute("padding");
-        int borderThickness = getStyle().getIntAttribute("borderWidth");
+        int padding = style.getIntAttribute("padding");
+        int borderThickness = style.getIntAttribute("borderWidth");
         int wallOffset = borderThickness + padding;
         int textX = getX() + wallOffset;
         int textY = getY() + wallOffset;
@@ -368,13 +368,13 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
 
     @Override
     public void drag(int x, int y) {
-        if (getStyle().getBooleanAttribute("disabled")) return;
+        if (style.getBooleanAttribute("disabled")) return;
         if (g == null) return;
         if (selectedStartIndex == -1) return;
         String text = getText();
         if (text == null) text = "";
-        int padding = getStyle().getIntAttribute("padding");
-        int borderThickness = getStyle().getIntAttribute("borderWidth");
+        int padding = style.getIntAttribute("padding");
+        int borderThickness = style.getIntAttribute("borderWidth");
         int wallOffset = borderThickness + padding;
         int textX = getX() + wallOffset;
         int textY = getY() + wallOffset;
