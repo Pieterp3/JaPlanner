@@ -6,6 +6,7 @@ import ui.components.impl.Button;
 import ui.components.impl.ComponentList;
 import ui.components.impl.Label;
 import ui.components.impl.UserInput;
+import ui.components.impl.shapes.impl.Rectangle;
 
 public class HomePanel extends Panel {
 
@@ -31,6 +32,9 @@ public class HomePanel extends Panel {
         addComponent(list);
         UserInput input = new UserInput(getFrame(), "", 10, 310, 200, 40, "Placeholder");
         addComponent(input);
+        Rectangle rect = new Rectangle(getFrame(), 10, 360, 200, 40);
+        rect.getStyle().setAttribute("backgroundColor", "ff0000");
+        //addComponent(rect);
     }
 
     @Override

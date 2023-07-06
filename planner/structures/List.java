@@ -95,6 +95,13 @@ public class List<T> implements Iterable<T>, Comparable<List<T>> {
         if (index < 0 || index >= this.size) {
             throw new IndexOutOfBoundsException();
         }
+        if (this.size == 1) {
+            this.head = null;
+            this.tail = null;
+        } else {
+            this.head = this.head.getNext();
+            this.head.setPrev(null);
+        }
         if (index == 0) {
             this.head = this.head.getNext();
             this.head.setPrev(null);

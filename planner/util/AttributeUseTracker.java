@@ -38,25 +38,34 @@ public class AttributeUseTracker {
         List<String> lines = new List<>();
         for (String attribute : data.keySet()) {
             List<AttributeStat> stats = data.get(attribute);
-            
-            List<String> comps = new List<>();
+            Map<String, List<String>> comps = new Map<>();
             for (AttributeStat stat : stats) {
-                if (!comps.contains(stat.getUser())) {
-                    comps.add(stat.getUser());
+                if (stat.getUser().equals("Style")) {
+                    continue;
+                }
+                if (!comps.containsKey(stat.getUser())) {
+                    comps.put(stat.getUser(), new List<>());
+                }
+                List<String> values = comps.get(stat.getUser());
+                if (!values.contains(stat.getValue())) {
+                    values.add(stat.getValue());
                 }
             }
+            if (comps.size() == 0) {
+                lines.add("\tOnly Used in default");
+                continue;
+            }
             String compsUsed = "\tComponents that use this attribute: [";
-            comps.sort();
-            for (String comp : comps) {
+            for (String comp : comps.keySet()) {
                 compsUsed += comp + ", ";
             }
             lines.add("New Attribute: '"+attribute+"'\n\tUsed by " + comps.size() + " components");
-            lines.add("\tDefault Value: " + stats.get(0).getValue());
             lines.add(compsUsed.substring(0, compsUsed.length()-2) + "]\n");
             lines.add("\tValues used: ");
-            for (AttributeStat stat : stats) {
-                if (!stat.isDefault()) {
-                    lines.add("\t\t" + stat.getValue() + " (" + stat.getCount() + " times)");
+            for (String comp : comps.keySet()) {
+                List<String> d = comps.get(comp);
+                for (String d2 : d) {
+                    lines.add("\t\t" + d2 + " (" + stats.get(0).getCount() + " times)");
                 }
             }
             lines.add("---------------------------------\n\n");
