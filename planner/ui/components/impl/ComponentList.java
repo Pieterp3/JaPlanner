@@ -72,6 +72,8 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
                 scroll(1);
             }
         };
+        scrollButton1.getStyle().setAttribute("alignment", "center");
+        scrollButton2.getStyle().setAttribute("alignment", "center");
     }
 
     @Override

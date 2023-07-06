@@ -5,7 +5,7 @@ import structures.List;
 import ui.Frame;
 import ui.components.DrawnComponent;
 
-public abstract class Polygon extends DrawnComponent {
+public abstract class Polygon extends DrawnComponent implements Shape {
 
     private List<Point> points;
 
@@ -72,6 +72,137 @@ public abstract class Polygon extends DrawnComponent {
 
     public void setPointX(int index, int x) {
         points.get(index).setX(x);
+    }
+
+    @Override
+    public double getArea() {
+        double sum = 0;
+        for (int i = 0; i < points.size(); i++) {
+            if(i == 0) {
+                sum += points.get(i).getX() * (points.get(i + 1).getY() - points.get(points.size() - 1).getY());
+            } else if (i == points.size() - 1) {
+                sum += points.get(i).getX() * (points.get(0).getY() - points.get(i - 1).getY());
+            } else {
+                sum += points.get(i).getX() * (points.get(i + 1).getY() - points.get(i - 1).getY());
+            }
+        }
+        double area = 0.5 * Math.abs(sum);
+        return area;
+    }
+
+    @Override
+    public double getPerimeter() {
+        double perimeter = 0;
+        for (int i = 0; i < points.size(); i++) {
+            if(i == points.size() - 1) {
+                perimeter += points.get(i).distanceToExact(points.get(0));
+            } else {
+                perimeter += points.get(i).distanceToExact(points.get(i + 1));
+            }
+        }
+        return perimeter;
+    }
+
+    @Override
+    public boolean contains(Point test) {
+        return contains(test.getX(), test.getY());
+    }
+
+    @Override
+    public boolean contains(int x, int y) {
+        for (int i = 0, j = points.size() - 1; i < points.size(); j = i++) {
+            Point p1 = points.get(i);
+            Point p2 = points.get(j);
+            if ((p1.getY() > y) != (p2.getY() > y) &&
+                    (x < (p2.getX() - p1.getX()) * (y - p1.getY()) / (p2.getY()-p1.getY()) + p1.getX())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean contains(Polygon p) {
+        for (Point point : p.getPoints()) {
+            if (!contains(point)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean intersects(Polygon p) {
+        boolean isContained = false;
+        boolean inUncontained = false;
+        for (Point point : p.getPoints()) {
+            if (contains(point)) {
+                isContained = true;
+            } else {
+                inUncontained = true;
+            }
+            if (isContained && inUncontained) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void translate(Point p) {
+        translate(p.getX(), p.getY());
+    }
+
+    @Override
+    public void scale(double factor) {
+        Point center = getCenter();
+        for (Point point : points) {
+            point.translate(-center.getX(), -center.getY());
+            point.setLocation(point.getX() * factor, point.getY() * factor);
+            point.translate(center.getX(), center.getY());
+        }
+    }
+
+    @Override
+    public void skew(double xFactor, double yFactor) {
+        Point center = getCenter();
+        for (Point point : points) {
+            point.translate(-center.getX(), -center.getY());
+            point.setLocation(point.getX() * xFactor, point.getY() * yFactor);
+            point.translate(center.getX(), center.getY());
+        }
+    }
+
+    @Override
+    public void rotate(double angle) {
+        Point center = getCenter();
+        for (Point point : points) {
+            point.translate(-center.getX(), -center.getY());
+            double x = point.getX();
+            double y = point.getY();
+            point.setLocation(x * Math.cos(angle) - y * Math.sin(angle), x * Math.sin(angle) + y * Math.cos(angle));
+            point.translate(center.getX(), center.getY());
+        }
+    }
+
+    @Override
+    public Point getCenter() {
+        double x = 0;
+        double y = 0;
+        for (Point point : points) {
+            x += point.getX();
+            y += point.getY();
+        }
+        x /= points.size();
+        y /= points.size();
+        return new Point(x, y);
+    }
+
+    @Override
+    public void translate(int x, int y) {
+        for (Point point : points) {
+            point.translate(x, y);
+        }
     }
     
 }

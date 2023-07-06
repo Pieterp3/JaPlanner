@@ -137,7 +137,7 @@ public enum DefaultChar {
             {true, true, true, true, false},
         }),
         T("T", new boolean[][] {
-            {true, true, true, true},
+            {true, true, true, true, true},
             {false, false, true, false, false},
             {false, false, true, false, false},
             {false, false, true, false, false},

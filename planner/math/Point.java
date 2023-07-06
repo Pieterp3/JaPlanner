@@ -50,6 +50,10 @@ public class Point {
         this.y = y;
     }
 
+    public void translate(double x, double y) {
+        setLocation(this.x + x, this.y + y);
+    }
+
     public void setLocation(Point point) {
         setLocation(point.getExactX(), point.getExactY());
     }

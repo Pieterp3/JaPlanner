@@ -23,18 +23,6 @@ public class Style {
         return component;
     }
 
-    //TODO: Load default attributes from file
-    //TODO: Load default component attributes from file
-    //TODO: Get and Set attributes in a more efficient way
-
-    //Steps for todolist above
-    //1. Create a file that contains all the default attributes for each component
-    //2. Create a method that loads the default attributes from the file
-    //3. Create a method that loads the default component attributes from the file
-    //4. Create a method that gets the attributes from the file
-    //5. Create a method that sets the attributes from the file
-    //6. Remove specifically named methods for getting and setting attributes--use the generic methods instead
-
     public void setAttribute(String key, Object value) {
         attributes.put(key, value.toString());
     }

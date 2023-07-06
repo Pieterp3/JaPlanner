@@ -273,6 +273,11 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
         } else if (keyCode == KeyManager.SPACE) {
             sendText(" ");
         }
+        KeyManager listener = getFrame().getListener().getKeyManager();
+        int keyModifier = listener.getModifier();
+        if (keyModifier == KeyManager.SHIFT) {
+            
+        }
     }
 
     @Override
