@@ -285,7 +285,9 @@ public class List<T> implements Iterable<T>, Comparable<List<T>> {
             ListNode<T> min = current;
             ListNode<T> next = current.getNext();
             while (next != null) {
-                if (((Comparable<T>) next.getData()).compareTo(min.getData()) < 0) {
+                @SuppressWarnings("unchecked")
+                Comparable<T> comparable = (Comparable<T>) next.getData();
+                if (comparable.compareTo(min.getData()) < 0) {
                     min = next;
                 }
                 next = next.getNext();
@@ -321,7 +323,9 @@ public class List<T> implements Iterable<T>, Comparable<List<T>> {
             ListNode<T> max = current;
             ListNode<T> next = current.getNext();
             while (next != null) {
-                if (((Comparable<T>) next.getData()).compareTo(max.getData()) > 0) {
+                @SuppressWarnings("unchecked")
+                Comparable<T> comparable = (Comparable<T>) next.getData();
+                if (comparable.compareTo(max.getData()) > 0) {
                     max = next;
                 }
                 next = next.getNext();
@@ -342,9 +346,11 @@ public class List<T> implements Iterable<T>, Comparable<List<T>> {
             return 0;
         }
         for (int i = 0; i < this.size; i++) {
-            if (((Comparable<T>) this.get(i)).compareTo(o.get(i)) < 0) {
+            @SuppressWarnings("unchecked")
+            Comparable<T> comparable = (Comparable<T>) this.get(i);
+            if (comparable.compareTo(o.get(i)) < 0) {
                 return -1;
-            } else if (((Comparable<T>) this.get(i)).compareTo(o.get(i)) > 0) {
+            } else if (comparable.compareTo(o.get(i)) > 0) {
                 return 1;
             }
         }

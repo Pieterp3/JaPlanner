@@ -68,7 +68,8 @@ public class MouseManager {
         x=fixX(x);
         boolean setActiveTextComponent = false;
         for (DrawnComponent c : frame.getActivePanel().getDrawnComponents()) {
-            if (c.contains(x, y)) {
+            c.setPressed(c.contains(x, y));
+            if (c.isPressed()) {
                 c.click(x, y);
                 if (c instanceof Focusable) {
                     frame.getActivePanel().setFocusableComponent((Focusable) c);

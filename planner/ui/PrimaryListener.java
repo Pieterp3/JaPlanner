@@ -1,16 +1,14 @@
 package ui;
 
-import ui.managers.ActionHandler;
 import ui.managers.KeyManager;
 import ui.managers.MouseManager;
 
 import java.awt.event.*;
 
-public class PrimaryListener implements MouseListener, KeyListener, MouseMotionListener, WindowListener, ActionListener, MouseWheelListener {
+public class PrimaryListener implements MouseListener, KeyListener, MouseMotionListener, WindowListener, MouseWheelListener {
 
     private MouseManager mouseManager;
     private long mousePressedTime;
-    private ActionHandler actionHandler;
     private KeyManager keyManager;
     private Frame frame;
     private long lastClick;
@@ -19,7 +17,6 @@ public class PrimaryListener implements MouseListener, KeyListener, MouseMotionL
         super();
         mouseManager = new MouseManager(frame);
         keyManager = new KeyManager(frame);
-        this.actionHandler = new ActionHandler(frame);
         this.frame = frame;
     }
 
@@ -116,11 +113,6 @@ public class PrimaryListener implements MouseListener, KeyListener, MouseMotionL
     @Override
     public void windowDeactivated(WindowEvent e) {
         frame.setActive(true);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        actionHandler.processAction(e.getActionCommand());
     }
 
     @Override

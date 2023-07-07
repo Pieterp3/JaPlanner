@@ -43,10 +43,15 @@ public abstract class Panel implements Comparable<Panel> {
 
     public abstract void update();
     protected abstract void init();
-    public abstract void processAction(String command);
+    public abstract void handleAction(String command);
     public abstract void keyTyped(int c);
     public abstract void preComponentDrawing();
     public abstract void finishPanelDrawing();
+
+    public void processAction(String command) {
+        frame.addCommand(command);
+        handleAction(command);
+    }
 
     public Graphics getGraphics() {
         return g;

@@ -73,6 +73,10 @@ public abstract class DrawnComponent implements Comparable<DrawnComponent> {
         return beingHovered;
     }
 
+    public void setPressed(boolean pressed) {
+        beingClicked = pressed;
+    }
+
     public boolean isPressed() {
         return beingClicked;
     }

@@ -48,7 +48,7 @@ public class HomePanel extends Panel {
     }
 
     @Override
-    public void processAction(String command) {
+    public void handleAction(String command) {
         System.out.println("Processing action: '" + command + "' in home panel");
     }
 

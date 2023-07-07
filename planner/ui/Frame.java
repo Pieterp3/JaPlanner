@@ -5,13 +5,16 @@ import javax.swing.JFrame;
 import ui.managers.ClipboardManager;
 import ui.managers.IOManager;
 import util.AttributeUseTracker;
+import util.io.Save;
 import structures.List;
+import structures.Map;
 
 public class Frame {
 
     private JFrame frame;
     private Panel activePanel;
     private List<Panel> panelHistory;
+    private Map<String, List<Long>> commandHistory;
     private PrimaryListener primaryListener;
     private IOManager ioManager;
     private boolean active;
@@ -26,6 +29,7 @@ public class Frame {
         frame.setTitle("Java Floor Planner");
         ioManager = new IOManager(this);
         panelHistory = new List<Panel>();
+        commandHistory = new Map<>();
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,7 +51,34 @@ public class Frame {
     public void beginExit() {
         frame.setVisible(false);
         ioManager.save();
+        saveCommands();
         frame.dispose();
+    }
+
+    public void addCommand(String command) {
+        if (commandHistory.containsKey(command)) {
+            commandHistory.get(command).add(System.currentTimeMillis());
+        } else {
+            List<Long> times = new List<>();
+            times.add(System.currentTimeMillis());
+            commandHistory.put(command, times);
+        }
+    }
+
+    public void saveCommands() {
+        List<String> lines = new List<>();
+        for (String command : commandHistory.keySet()) {
+            List<Long> times = commandHistory.get(command);
+            String line = command + " (" + times.size() +" times):";
+            for (long time : times) {
+                time = System.currentTimeMillis() - time;
+                time /= 1000.0;
+                double newTime = Math.round(time * 100.0) / 100.0;
+                line += " " + newTime +"s";
+            }
+            lines.add(line);
+        }
+        Save.saveDataFile("Commands", lines);
     }
 
     public boolean isIcon() {

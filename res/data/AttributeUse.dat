@@ -7,87 +7,86 @@
 New Declared Attribute: backgroundHoverColor
 	Total Users: 2
 		[Button 1]
-	Values for backgroundHoverColor set byButton
+	Values for backgroundHoverColor set by Button
 		[c0c0c0]
 ----------------------------------------------	
 New Declared Attribute: backgroundPressColor
 	Total Users: 1
 		[Button 1]
-	Values for backgroundPressColor set byButton
+	Values for backgroundPressColor set by Button
 		[808080]
-			 - Set, but not used, by Button -
 ----------------------------------------------	
 New Declared Attribute: hasBorder
 	Total Users: 3
 		[Button 1]
-	Values for hasBorder set byButton
+	Values for hasBorder set by Button
 		[true]
 			 - Set, but not used, by Button -
 ----------------------------------------------	
 New Declared Attribute: borderWidth
 	Total Users: 3
 		[Button 1]
-	Values for borderWidth set byButton
+	Values for borderWidth set by Button
 		[2]
 ----------------------------------------------	
 New Declared Attribute: borderColor
 	Total Users: 3
 		[Button 1]
-	Values for borderColor set byButton
+	Values for borderColor set by Button
 		[000000]
 ----------------------------------------------	
 New Declared Attribute: borderHoverColor
 	Total Users: 3
 		[Button 1]
-	Values for borderHoverColor set byButton
+	Values for borderHoverColor set by Button
 		[030303]
 ----------------------------------------------	
 New Declared Attribute: borderPressColor
 	Total Users: 3
 		[Button 1]
-	Values for borderPressColor set byButton
+	Values for borderPressColor set by Button
 		[000000]
 			 - Set, but not used, by Button -
 ----------------------------------------------	
 New Declared Attribute: alignment
 	Total Users: 3
 		[Button 1]
-	Values for alignment set byButton
+	Values for alignment set by Button
 		[center]
 ----------------------------------------------	
 New Declared Attribute: text
 	Total Users: 4
 		[Button 14]
-	Values for text set byButton
+	Values for text set by Button
 		[Button, Click me, ^, v, Button 0, Button 1, Button 2, Button 3, Button 4, Button 5, Button 6, Button 7, Button 8, Button 9]
 ----------------------------------------------	
 New Declared Attribute: action
 	Total Users: 3
 		[Button 14]
-	Values for action set byButton
+	Values for action set by Button
 		[UnsetAction, Click me, ^, v, Button 0, Button 1, Button 2, Button 3, Button 4, Button 5, Button 6, Button 7, Button 8, Button 9]
 ----------------------------------------------	
 New Declared Attribute: width
 	Total Users: 4
 		[Button 2]
-	Values for width set byButton
+	Values for width set by Button
 		[220, 200]
 ----------------------------------------------	
 New Declared Attribute: height
 	Total Users: 3
 		[Button 3]
-	Values for height set byButton
+	Values for height set by Button
 		[36, 40, 35]
 ----------------------------------------------	
 New Declared Attribute: x
 	Total Users: 4
 		[Button 2]
-	Values for x set byButton
+	Values for x set by Button
 		[10, 0]
 ----------------------------------------------	
 New Declared Attribute: y
 	Total Users: 4
 		[Button 2]
-	Values for y set byButton
+	Values for y set by Button
 		[50, 0]
 ----------------------------------------------	
