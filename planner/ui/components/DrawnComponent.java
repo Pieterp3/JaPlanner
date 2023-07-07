@@ -1,23 +1,22 @@
 package ui.components;
 
-import structures.Map;
 import ui.Frame;
 import ui.Panel;
 import ui.components.style.Style;
 
 import ui.graphics.Graphics;
+import util.structures.Map;
 
-public abstract class DrawnComponent implements Comparable<DrawnComponent> {
+public abstract class DrawnComponent {
     
-    private static int compCount = 0;
+    // private static int compCount = 0;
 
     protected Style style;
     private boolean beingHovered = false; 
     private boolean beingClicked = false;
     private Frame frame;
     protected Graphics g;
-    private final int compId = (compCount += 1);
-
+    // private final int compId = (compCount += 1);
 
     public DrawnComponent(Frame frame) {
         this.style = new Style(this);
@@ -34,16 +33,6 @@ public abstract class DrawnComponent implements Comparable<DrawnComponent> {
     public abstract void draw(Graphics g, Style style);
     public abstract void click(int x, int y);
     public abstract void setHoveredCursor(int x, int y);
-
-    public boolean checkHover(int mouseX, int mouseY) {
-        if (mouseX >= getX() && mouseX <= getX() + getWidth() && mouseY >= getY() && mouseY <= getY() + getHeight()) {
-            beingHovered = true;
-            setHoveredCursor(mouseX, mouseY);
-            return true;
-        }
-        beingHovered = false;
-        return false;
-    }
 
    public void setAttribute(String key, Object value) {
        style.setAttribute(key, value);
@@ -97,13 +86,12 @@ public abstract class DrawnComponent implements Comparable<DrawnComponent> {
         return style.getIntAttribute("height");
     }
 
-    @Override
-    public int compareTo(DrawnComponent o) {
-        return compId - o.compId;
-    }
-
     public Style getStyle() {
         return style;
+    }
+
+    public void setSetHovered(boolean b) {
+        beingHovered = b;
     }
     
 }

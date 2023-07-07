@@ -1,12 +1,12 @@
 package ui.components.impl.shapes.impl;
 
-import structures.List;
 import ui.Frame;
 import ui.components.impl.shapes.Polygon;
 import ui.components.style.Style;
 import ui.graphics.Graphics;
 import util.math.Dimension;
 import util.math.Point;
+import util.structures.List;
 
 public class Rectangle extends Polygon {
 

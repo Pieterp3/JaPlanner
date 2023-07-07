@@ -1,4 +1,4 @@
-package structures;
+package util.structures;
 
 public class MapNode<K, V> implements Comparable<MapNode<K, V>> {
     

@@ -1,8 +1,7 @@
 package util.io;
 
 import java.io.*;
-
-import structures.List;
+import util.structures.List;
 
 public class FileIO {
     

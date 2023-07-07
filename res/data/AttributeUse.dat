@@ -1,92 +1,137 @@
 -----------------------------------------------
 | Debug Mode enabled for component
-| Debugging Button
+| Debugging ComponentList
 | Only information about this component will be displayed
 -----------------------------------------------
 
-New Declared Attribute: backgroundHoverColor
-	Total Users: 2
-		[Button 1]
-	Values for backgroundHoverColor set by Button
-		[c0c0c0]
-----------------------------------------------	
-New Declared Attribute: backgroundPressColor
-	Total Users: 1
-		[Button 1]
-	Values for backgroundPressColor set by Button
-		[808080]
-----------------------------------------------	
-New Declared Attribute: hasBorder
-	Total Users: 3
-		[Button 1]
-	Values for hasBorder set by Button
-		[true]
-			 - Set, but not used, by Button -
-----------------------------------------------	
 New Declared Attribute: borderWidth
 	Total Users: 3
-		[Button 1]
-	Values for borderWidth set by Button
+		[ComponentList 1]
+	Values for borderWidth set by ComponentList
 		[2]
 ----------------------------------------------	
 New Declared Attribute: borderColor
 	Total Users: 3
-		[Button 1]
-	Values for borderColor set by Button
+		[ComponentList 1]
+	Values for borderColor set by ComponentList
 		[000000]
 ----------------------------------------------	
 New Declared Attribute: borderHoverColor
 	Total Users: 3
-		[Button 1]
-	Values for borderHoverColor set by Button
+		[ComponentList 1]
+	Values for borderHoverColor set by ComponentList
 		[030303]
 ----------------------------------------------	
 New Declared Attribute: borderPressColor
 	Total Users: 3
-		[Button 1]
-	Values for borderPressColor set by Button
+		[ComponentList 1]
+	Values for borderPressColor set by ComponentList
 		[000000]
-			 - Set, but not used, by Button -
-----------------------------------------------	
-New Declared Attribute: alignment
-	Total Users: 3
-		[Button 1]
-	Values for alignment set by Button
-		[center]
-----------------------------------------------	
-New Declared Attribute: text
-	Total Users: 4
-		[Button 14]
-	Values for text set by Button
-		[Button, Click me, ^, v, Button 0, Button 1, Button 2, Button 3, Button 4, Button 5, Button 6, Button 7, Button 8, Button 9]
-----------------------------------------------	
-New Declared Attribute: action
-	Total Users: 3
-		[Button 14]
-	Values for action set by Button
-		[UnsetAction, Click me, ^, v, Button 0, Button 1, Button 2, Button 3, Button 4, Button 5, Button 6, Button 7, Button 8, Button 9]
-----------------------------------------------	
-New Declared Attribute: width
-	Total Users: 4
-		[Button 2]
-	Values for width set by Button
-		[220, 200]
-----------------------------------------------	
-New Declared Attribute: height
-	Total Users: 3
-		[Button 3]
-	Values for height set by Button
-		[36, 40, 35]
+			 - Set, but not used, by ComponentList -
 ----------------------------------------------	
 New Declared Attribute: x
 	Total Users: 4
-		[Button 2]
-	Values for x set by Button
-		[10, 0]
+		[ComponentList 3]
+	Values for x set by ComponentList
+		[10, 193, 14]
 ----------------------------------------------	
 New Declared Attribute: y
 	Total Users: 4
-		[Button 2]
-	Values for y set by Button
-		[50, 0]
+		[ComponentList 8]
+	Values for y set by ComponentList
+		[100, 102, 283, 104, 143, 182, 221, 260]
+----------------------------------------------	
+New Declared Attribute: width
+	Total Users: 4
+		[ComponentList 3]
+	Values for width set by ComponentList
+		[200, 15, 175]
+----------------------------------------------	
+New Declared Attribute: height
+	Total Users: 3
+		[ComponentList 3]
+	Values for height set by ComponentList
+		[200, 15, 35]
+----------------------------------------------	
+New Declared Attribute: padding
+	Total Users: 2
+		[ComponentList 1]
+	Values for padding set by ComponentList
+		[2]
+----------------------------------------------	
+New Declared Attribute: backgroundColor
+	Total Users: 2
+		[ComponentList 1]
+	Values for backgroundColor set by ComponentList
+		[404040]
+----------------------------------------------	
+New Declared Attribute: backgroundHoverColor
+	Total Users: 2
+		[ComponentList 1]
+	Values for backgroundHoverColor set by ComponentList
+		[404040]
+----------------------------------------------	
+New Declared Attribute: backgroundPressColor
+	Total Users: 2
+		[ComponentList 1]
+	Values for backgroundPressColor set by ComponentList
+		[404040]
+			 - Set, but not used, by ComponentList -
+----------------------------------------------	
+New Declared Attribute: resizesHorizontally
+	Total Users: 1
+		[ComponentList 1]
+	Values for resizesHorizontally set by ComponentList
+		[false]
+			 - Set, but not used, by ComponentList -
+----------------------------------------------	
+New Declared Attribute: resizesVertically
+	Total Users: 1
+		[ComponentList 1]
+	Values for resizesVertically set by ComponentList
+		[true]
+----------------------------------------------	
+New Declared Attribute: scrollMultiplier
+	Total Users: 1
+		[ComponentList 1]
+	Values for scrollMultiplier set by ComponentList
+		[1]
+----------------------------------------------	
+New Declared Attribute: scrollbarColor
+	Total Users: 1
+		[ComponentList 1]
+	Values for scrollbarColor set by ComponentList
+		[808080]
+----------------------------------------------	
+New Declared Attribute: scrollerBackgroundColor
+	Total Users: 1
+		[ComponentList 1]
+	Values for scrollerBackgroundColor set by ComponentList
+		[c0c0c0]
+----------------------------------------------	
+New Declared Attribute: scrollbarSize
+	Total Users: 1
+		[ComponentList 1]
+	Values for scrollbarSize set by ComponentList
+		[15]
+----------------------------------------------	
+New Declared Attribute: alignment
+	Total Users: 3
+		[ComponentList 1]
+	Values for alignment set by ComponentList
+		[center]
+			 - Set, but not used, by ComponentList -
+----------------------------------------------	
+New Declared Attribute: text
+	Total Users: 4
+		[ComponentList 2]
+	Values for text set by ComponentList
+		[^, v]
+			 - Set, but not used, by ComponentList -
+----------------------------------------------	
+New Declared Attribute: disabled
+	Total Users: 1
+		[ComponentList 2]
+	Values for disabled set by ComponentList
+		[false, true]
 ----------------------------------------------	

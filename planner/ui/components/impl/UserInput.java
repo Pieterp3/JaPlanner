@@ -1,6 +1,5 @@
 package ui.components.impl;
 
-import structures.Map;
 import ui.Frame;
 import ui.components.DrawnComponent;
 import ui.components.interfaces.Dragable;
@@ -8,7 +7,7 @@ import ui.components.interfaces.RecievesText;
 import ui.components.style.Style;
 import ui.managers.ClipboardManager;
 import ui.managers.KeyManager;
-
+import util.structures.Map;
 import ui.graphics.Graphics;
 import ui.graphics.Color;
 

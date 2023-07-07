@@ -1,12 +1,12 @@
 package ui.components.style;
 
-import structures.Map;
 import ui.components.DrawnComponent;
 import ui.graphics.Color;
 import ui.graphics.fonts.Font;
 import ui.graphics.fonts.impl.DefaultFont;
 import util.AttributeUseTracker;
 import util.io.Load;
+import util.structures.Map;
 
 public class Style {
 
@@ -80,7 +80,6 @@ public class Style {
     }    
 
     public void addDefaultBorder() {
-        setAttribute("hasBorder", true);
         setAttribute("borderWidth", 2);
         setColorAttribute("borderColor", Color.black);
         setColorAttribute("borderHoverColor", Color.black.brighter());

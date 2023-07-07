@@ -5,9 +5,12 @@ import javax.swing.JFrame;
 import ui.managers.ClipboardManager;
 import ui.managers.IOManager;
 import util.AttributeUseTracker;
+import util.events.EventManager;
+import util.events.EventTimer;
+import util.events.TimerEvent;
 import util.io.Save;
-import structures.List;
-import structures.Map;
+import util.structures.List;
+import util.structures.Map;
 
 public class Frame {
 
@@ -20,6 +23,8 @@ public class Frame {
     private boolean active;
     private boolean isIcon;
     private ClipboardManager clipboardManager;
+    private EventManager eventManager;
+
     public static final int DEFAULT_CURSOR = 0;
     public static final int HAND_CURSOR = 12;
     public static final int TEXT_CURSOR = 2;
@@ -40,12 +45,28 @@ public class Frame {
         frame.addWindowListener(primaryListener);
         frame.addMouseWheelListener(primaryListener);
         clipboardManager = new ClipboardManager(this);
+        eventManager = new EventManager();
+        System.out.println("Checking event manager");
+        scheduleEvent(new TimerEvent() {
+            @Override
+            public void execute() {
+                System.out.println("Event executed");
+            }
+        }, 15000);
         AttributeUseTracker.init();
     }
 
     public void beginEnter() {
         System.out.println("Entering...");
         frame.requestFocus();
+    }
+
+    public void scheduleEvent(TimerEvent event) {
+        eventManager.addEventTimer(new EventTimer(event));
+    }
+
+    public void scheduleEvent(TimerEvent event, int delay) {
+        eventManager.addEventTimer(new EventTimer(event, delay));
     }
 
     public void beginExit() {
@@ -110,6 +131,10 @@ public class Frame {
             setActivePanel(panelHistory.get(panelHistory.size() - 1));
             panelHistory.remove(panelHistory.size() - 1);
         }
+    }
+
+    public boolean isUndecorated() {
+        return frame.isUndecorated();
     }
 
     public IOManager getIOManager() {

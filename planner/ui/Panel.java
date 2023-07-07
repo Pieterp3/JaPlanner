@@ -9,8 +9,7 @@ import ui.components.interfaces.Dragable;
 import ui.components.interfaces.Focusable;
 import ui.components.interfaces.Scrollable;
 import ui.graphics.Graphics;
-
-import structures.List;
+import util.structures.List;
 
 public abstract class Panel implements Comparable<Panel> {
     
@@ -81,18 +80,11 @@ public abstract class Panel implements Comparable<Panel> {
     }
 
     public void mouseMoved(int x, int y) {
-        DrawnComponent foundHover = null;
         for (DrawnComponent c : components) {
-            if (c.checkHover(x, y)) foundHover = c;
             if (c instanceof ContainerComponent) {
                 ContainerComponent cc = (ContainerComponent) c;
-                if (cc.mouseMoved(x, y)) foundHover = c;
+                cc.mouseMoved(x, y);
             }
-        }
-        if (foundHover == null) {
-            frame.setCursor(Frame.DEFAULT_CURSOR);
-        } else if (foundHover instanceof Focusable) {
-            focusedComponent = (Focusable) foundHover;
         }
     }
 

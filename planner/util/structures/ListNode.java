@@ -1,4 +1,4 @@
-package structures;
+package util.structures;
 
 public class ListNode<T> {
 

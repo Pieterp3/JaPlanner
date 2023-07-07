@@ -1,4 +1,4 @@
-package structures;
+package util.structures;
 
 public class Map<K, V> implements Comparable<Map<K, V>> {
 

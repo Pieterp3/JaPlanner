@@ -1,8 +1,7 @@
 package ui.components.interfaces;
 
 import ui.components.DrawnComponent;
-
-import structures.List;
+import util.structures.List;
 
 public interface ContainerComponent {
     public void addComponent(DrawnComponent component);

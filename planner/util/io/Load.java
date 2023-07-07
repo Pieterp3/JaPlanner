@@ -1,7 +1,7 @@
 package util.io;
 
-import structures.Map;
-import structures.List;
+import util.structures.List;
+import util.structures.Map;
 
 public class Load {
     

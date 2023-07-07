@@ -8,10 +8,8 @@ import java.awt.event.*;
 public class PrimaryListener implements MouseListener, KeyListener, MouseMotionListener, WindowListener, MouseWheelListener {
 
     private MouseManager mouseManager;
-    private long mousePressedTime;
     private KeyManager keyManager;
     private Frame frame;
-    private long lastClick;
 
     public PrimaryListener(Frame frame) {
         super();
@@ -22,27 +20,17 @@ public class PrimaryListener implements MouseListener, KeyListener, MouseMotionL
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (System.currentTimeMillis() - lastClick > 5) {
-            mouseManager.click(e.getPoint().x, e.getPoint().y);
-            lastClick = System.currentTimeMillis();
-        }
+        // Do nothing
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         mouseManager.press(e.getPoint().x, e.getPoint().y);
-        mousePressedTime = System.currentTimeMillis();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         mouseManager.release(e.getPoint().x, e.getPoint().y);
-        if (System.currentTimeMillis() - mousePressedTime < 500) {
-            if (System.currentTimeMillis() - lastClick > 5) {
-                mouseManager.click(e.getPoint().x, e.getPoint().y);
-                lastClick = System.currentTimeMillis();
-            }
-        }
     }
 
     @Override
@@ -53,6 +41,16 @@ public class PrimaryListener implements MouseListener, KeyListener, MouseMotionL
     @Override
     public void mouseExited(MouseEvent e) {
         mouseManager.setMouseInFrame(true);
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        //Do nothing
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        mouseManager.setMousePosition(e.getPoint().x, e.getPoint().y);
     }
 
     @Override
@@ -68,16 +66,6 @@ public class PrimaryListener implements MouseListener, KeyListener, MouseMotionL
     @Override
     public void keyReleased(KeyEvent e) {
         keyManager.release(e.getKeyCode());
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        mouseManager.drag(e.getPoint().x, e.getPoint().y);
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        mouseManager.setMousePosition(e.getPoint().x, e.getPoint().y);
     }
 
     @Override

@@ -1,9 +1,9 @@
 package util;
 
 
-import structures.Map;
 import util.io.Save;
-import structures.List;
+import util.structures.List;
+import util.structures.Map;
 
 public class AttributeUseTracker {
 
@@ -11,7 +11,7 @@ public class AttributeUseTracker {
     private static Map<String, String> debuggingAttributes = new Map<>();
     private static boolean saveData = false;
     private static AttributeUseTracker instance = new AttributeUseTracker();
-    private static final String debugComponent = "Button";
+    private static final String debugComponent = "ComponentList";
 
     public static void init() {
         saveData = true;

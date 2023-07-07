@@ -1,7 +1,7 @@
 import ui.Engine;
 import ui.Frame;
 import ui.Panel;
-import structures.List;
+import util.structures.List;
 
 public class Main {
     private static Frame frame;

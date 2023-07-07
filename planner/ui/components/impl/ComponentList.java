@@ -8,9 +8,8 @@ import ui.components.style.Style;
 
 import ui.graphics.Color;
 import ui.graphics.Graphics;
-
-import structures.Map;
-import structures.List;
+import util.structures.List;
+import util.structures.Map;
 
 
 
@@ -34,7 +33,7 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
     public ComponentList(Frame frame, int x, int y, int width, int height) {
         super(frame);
         components = new List<DrawnComponent>();
-        scrollIndex = 0;
+        scrollIndex = 2;
         initStyle(x, y, width, height);
     }
     
@@ -52,6 +51,7 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
             put("padding", 2);
             put("backgroundColor", Color.darkGray.toAttributeString());
             put("backgroundHoverColor", Color.darkGray.toAttributeString());
+            put("backgroundPressColor", Color.darkGray.toAttributeString());
             put("resizesHorizontally", false);
             put("resizesVertically", true);
             put("scrollMultiplier", 1);
@@ -64,6 +64,7 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
             @Override
             public void click(int x, int y) {
                 scroll(-1);
+                System.out.println("Clicked");
             }
         };
         scrollButton2 = new Button(getFrame(), getArrow("down")){
@@ -74,21 +75,22 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
         };
         scrollButton1.setAttribute("alignment", "center");
         scrollButton2.setAttribute("alignment", "center");
+        components.add(scrollButton1);
+        components.add(scrollButton2);
     }
 
     @Override
     public void draw(Graphics g, Style style) {
         g.drawBackground(getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
         g.attemptBorder(getX(), getY(), getWidth(), getHeight(), isHovered());
+
+        g.setStyle(components.get(0).getStyle());
+        components.get(0).updateGraphicsStyle(g);
+        g.setStyle(components.get(1).getStyle());
+        components.get(1).updateGraphicsStyle(g);
         for (int i = scrollIndex; i < components.size(); i++) {
             g.setStyle(components.get(i).getStyle());
             components.get(i).updateGraphicsStyle(g); 
-        }
-        if (components.size() > 1) {
-            g.setStyle(scrollButton1.getStyle());
-            scrollButton1.updateGraphicsStyle(g);
-            g.setStyle(scrollButton2.getStyle());
-            scrollButton2.updateGraphicsStyle(g);
         }
         g.setStyle(style);
         g.drawScrollbar(scrollButton1.getStyle(), getX(), getY(), getWidth(), getHeight(), scrollIndex, components.size());
@@ -96,7 +98,7 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
 
     public void scroll(int amount) {
         scrollIndex += (amount * style.getIntAttribute("scrollMultiplier"));
-        if (scrollIndex < 0) scrollIndex = 0;
+        if (scrollIndex < 2) scrollIndex = 2;
         if (scrollIndex > components.size() - 1) scrollIndex = components.size() - 1;
         repositionComponents();
     }
@@ -172,6 +174,7 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
         }
         for(int i = scrollIndex;i<components.size();i++) {
             DrawnComponent comp = components.get(i);
+            if (comp == scrollButton1 || comp == scrollButton2) continue;
             final int finalTopY = topY;
             final int finalLeftX = leftX;
             if (resizesVertically) {
@@ -216,20 +219,10 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
                 break;
             }
         }
-        if (scrollButton1.isHovered()) {
-            scrollButton1.click(x, y);
-        } else if (scrollButton2.isHovered()) {
-            scrollButton2.click(x, y);
-        }
     }
 
     @Override
     public boolean mouseMoved(int x, int y) {
-        for (DrawnComponent comp : components) {
-            if (comp.checkHover(x, y)) return true;
-        }
-        if (scrollButton1.checkHover(x, y)) return true;
-        if (scrollButton2.checkHover(x, y)) return true;
         return false;
     }
 
