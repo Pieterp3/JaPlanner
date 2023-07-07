@@ -44,8 +44,10 @@ public class Rectangle extends Polygon {
 
     @Override
     public void draw(Graphics g, Style style) {
-        g.drawBackground(getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
-        g.attemptBorder(getX(), getY(), getWidth(), getHeight(), isHovered());
+        g.setColor(style.getColorAttribute("background-color"));
+        g.fillRect(getX(), getY(), getWidth(), getHeight());
+        g.setColor(style.getColorAttribute("borderColor"));
+        g.drawRect(getX(), getY(), getWidth(), getHeight());
     }
 
     @Override
