@@ -49,6 +49,7 @@ public class KeyManager {
     public static final int X = 88;
     public static final int Y = 89;
     public static final int Z = 90;
+    public static final int ZERO = 48;
 
     public static final int[] modifiers = {SHIFT, CTRL, ALT, HOME, END};
 

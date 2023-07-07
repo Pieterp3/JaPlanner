@@ -7,6 +7,8 @@ import ui.components.impl.ComponentList;
 import ui.components.impl.Label;
 import ui.components.impl.UserInput;
 import ui.components.impl.shapes.impl.Rectangle;
+import ui.graphics.fonts.impl.DefaultChar;
+import util.structures.Map;
 
 public class HomePanel extends Panel {
 
@@ -20,21 +22,50 @@ public class HomePanel extends Panel {
         label.setAttribute("alignment", "center");
         label.setAttribute("fontSize", 4);
         addComponent(label);
+
+        String text = "";
+        for (DefaultChar c : DefaultChar.values()) {
+            text += c.getCharacter();
+        }
+        int step = 10;
+        for (int i = 0;i<text.length();i += step) {
+            int cap = Math.min(i + step, text.length());
+            String disText = "";
+            for (int j = i;j<cap;j++) {
+                disText += text.charAt(j) + " ";
+            }
+            Label l = new Label(getFrame(), disText.trim(), 0, 60 + (i / step) * 40);
+            l.setAttribute("width", getWidth());
+            l.setAttribute("alignment", "center");
+            l.setAttribute("fontSize", 4);
+            addComponent(l);
+        }
+        
+
         Button button = new Button(getFrame(), "Click me", 10, 50, 200, 40);
         button.setAttribute("alignment", "center");
         button.setAttribute("action", "help");
-        addComponent(button);
+       // addComponent(button);
         ComponentList list = new ComponentList(getFrame(), 10, 100, 200, 200);
         for(int i = 0;i<10;i++) {
             Button b = new Button(getFrame(), "Button " + i, 0, 0, 200, 35);
             list.addComponent(b);
         }
-        addComponent(list);
+       // addComponent(list);
         UserInput input = new UserInput(getFrame(), "", 10, 310, 200, 40, "Placeholder");
-        addComponent(input);
+       // addComponent(input);
         Rectangle rect = new Rectangle(getFrame(), 10, 360, 200, 40);
-        rect.setAttribute("backgroundColor", "ff0000");
-        //addComponent(rect);
+        rect.setAttributes(new Map<String, Object>() {{
+            put("borderColor", "000000");
+            put("borderWidth", "2");
+            put("backgroundColor", "ff0000");
+            put("x", "10");
+            put("y", "10");
+            put("width", "200");
+            put("height", "40");
+        }});
+        rect.scale(4);
+        addComponent(rect);
     }
 
     @Override

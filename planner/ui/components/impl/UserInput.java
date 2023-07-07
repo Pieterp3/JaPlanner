@@ -7,6 +7,7 @@ import ui.components.interfaces.RecievesText;
 import ui.components.style.Style;
 import ui.managers.ClipboardManager;
 import ui.managers.KeyManager;
+import util.math.Misc;
 import util.structures.Map;
 import ui.graphics.Graphics;
 import ui.graphics.Color;
@@ -255,8 +256,6 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
         //if (getFrame().checkShortcuts(keyCode)) return;//TODO implement program wide shortcuts in frame
         if (keyCode == KeyManager.ENTER) {
             getPanel().setFocusableComponent(null);
-        } else if (KeyManager.getKeyText(keyCode).length() == 1) {
-            sendText(KeyManager.getKeyText(keyCode));
         } else if (keyCode == KeyManager.BACKSPACE) {
             backspace();
         } else if (keyCode == KeyManager.DELETE) {
@@ -272,10 +271,19 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
         } else if (keyCode == KeyManager.SPACE) {
             sendText(" ");
         }
+        if (KeyManager.getKeyText(keyCode).length() > 1)  {
+            System.out.println("Keycode: " + keyCode + " " + KeyManager.getKeyText(keyCode));
+            return;
+        }
         KeyManager listener = getFrame().getListener().getKeyManager();
         int keyModifier = listener.getModifier();
         if (keyModifier == KeyManager.SHIFT) {
-            
+            if (Misc.isInteger(KeyManager.getKeyText(keyCode))) {
+                String capNums = ")!@#$%^&*(";
+                sendText(capNums.substring(keyCode - KeyManager.ZERO, keyCode - KeyManager.ZERO + 1));
+            }
+        } else {
+            sendText(KeyManager.getKeyText(keyCode));
         }
     }
 

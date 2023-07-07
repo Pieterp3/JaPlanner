@@ -44,20 +44,18 @@ public class Rectangle extends Polygon {
 
     @Override
     public void draw(Graphics g, Style style) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'draw'");
+        g.drawBackground(getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
+        g.attemptBorder(getX(), getY(), getWidth(), getHeight(), isHovered());
     }
 
     @Override
     public void click(int x, int y) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'click'");
     }
 
     @Override
     public void setHoveredCursor(int x, int y) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setHoveredCursor'");
     }
 
     
