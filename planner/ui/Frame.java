@@ -46,7 +46,6 @@ public class Frame {
         frame.addMouseWheelListener(primaryListener);
         clipboardManager = new ClipboardManager(this);
         eventManager = new EventManager();
-        System.out.println("Checking event manager");
         scheduleEvent(new TimerEvent() {
             @Override
             public void execute() {
@@ -182,6 +181,11 @@ public class Frame {
 
     public int getHeight() {
         return frame.getHeight();
+    }
+
+    public void update() {
+        eventManager.update();
+        getActivePanel().update();
     }
 
 }

@@ -38,7 +38,7 @@ public class HomePanel extends Panel {
             l.setAttribute("width", getWidth());
             l.setAttribute("alignment", "center");
             l.setAttribute("fontSize", 4);
-            addComponent(l);
+           // addComponent(l);
         }
         
 
@@ -54,17 +54,15 @@ public class HomePanel extends Panel {
        // addComponent(list);
         UserInput input = new UserInput(getFrame(), "", 10, 310, 200, 40, "Placeholder");
        // addComponent(input);
-        Rectangle rect = new Rectangle(getFrame(), 10, 360, 200, 40);
+        Rectangle rect = new Rectangle(getFrame(), 375, 275, 50, 50);
         rect.setAttributes(new Map<String, Object>() {{
-            put("borderColor", "000000");
-            put("borderWidth", "2");
-            put("backgroundColor", "ff0000");
-            put("x", "10");
-            put("y", "10");
-            put("width", "200");
-            put("height", "40");
-        }});
-        rect.scale(4);
+                put("borderColor", "000000");
+                put("borderWidth", "2");
+                put("backgroundColor", "00ff00");
+            }});
+        getFrame().scheduleEvent(() -> {
+            rect.rotate(10);
+        }, 250);
         addComponent(rect);
     }
 

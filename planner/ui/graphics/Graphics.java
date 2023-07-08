@@ -1,9 +1,11 @@
 package ui.graphics;
 
 import java.awt.Graphics2D;
-
+import java.awt.Polygon;
 import ui.components.style.Style;
 import ui.graphics.fonts.Font;
+import util.math.Point;
+import util.structures.List;
 import ui.graphics.fonts.CharacterData;
 
 public class Graphics {
@@ -137,12 +139,13 @@ public class Graphics {
             CharacterData data = font.getCharacterData(s);
             boolean[][] characterData = data.getData();
             int charIndex = 0;
+
             for (int i = 0; i < characterData.length; i++) {
                 for (int j = 0; j < characterData[i].length; j++) {
                     if (characterData[i][j]) {
-                        fillRect(x + (j * charIndex) + (j * font.getSize()), 
-                            y + (i * font.getSize()), 
-                            font.getSize(),font.getSize());
+                        int textX = x + (j * charIndex) + (j * font.getSize());
+                        int textY = y + (i * font.getSize());
+                        g.fillRect(textX, textY, font.getSize(), font.getSize());
                     }
                 }
             }
@@ -166,6 +169,22 @@ public class Graphics {
 
     public void setStyle(Style style) {
         this.style = style;
+    }
+
+    public void fillShape(List<Point> points) {
+        Polygon p = new Polygon();
+        for (Point point : points) {
+            p.addPoint((int) point.getX(), (int) point.getY());
+        }
+        g.fillPolygon(p);
+    }
+
+    public void drawShapeBorder(List<Point> points) {
+        Polygon p = new Polygon();
+        for (Point point : points) {
+            p.addPoint((int) point.getX(), (int) point.getY());
+        }
+        g.drawPolygon(p);
     }
 
 }

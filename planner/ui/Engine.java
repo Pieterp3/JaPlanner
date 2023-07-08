@@ -80,7 +80,7 @@ public class Engine {
     }
 
     private void update() {
-        frame.getActivePanel().update();
+        frame.update();
     }
 
     private void render() {

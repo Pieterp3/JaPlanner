@@ -55,10 +55,6 @@ public abstract class Polygon extends DrawnComponent implements Shape {
         return points.size();
     }
 
-    public Point getPoint(int index) {
-        return points.get(index);
-    }
-
     public void setPoint(int index, Point point) {
         if (point == null) {
             throw new IllegalArgumentException("Point cannot be null");
@@ -95,9 +91,9 @@ public abstract class Polygon extends DrawnComponent implements Shape {
         double perimeter = 0;
         for (int i = 0; i < points.size(); i++) {
             if(i == points.size() - 1) {
-                perimeter += points.get(i).distanceToExact(points.get(0));
+                perimeter += points.get(i).distanceTo(points.get(0));
             } else {
-                perimeter += points.get(i).distanceToExact(points.get(i + 1));
+                perimeter += points.get(i).distanceTo(points.get(i + 1));
             }
         }
         return perimeter;
@@ -109,7 +105,7 @@ public abstract class Polygon extends DrawnComponent implements Shape {
     }
 
     @Override
-    public boolean contains(int x, int y) {
+    public boolean contains(double x, double y) {
         for (int i = 0, j = points.size() - 1; i < points.size(); j = i++) {
             Point p1 = points.get(i);
             Point p2 = points.get(j);
@@ -176,6 +172,7 @@ public abstract class Polygon extends DrawnComponent implements Shape {
     @Override
     public void rotate(double angle) {
         Point center = getCenter();
+        angle = Math.toRadians(angle);
         for (Point point : points) {
             point.translate(-center.getX(), -center.getY());
             double x = point.getX();
@@ -199,7 +196,7 @@ public abstract class Polygon extends DrawnComponent implements Shape {
     }
 
     @Override
-    public void translate(int x, int y) {
+    public void translate(double x, double y) {
         for (Point point : points) {
             point.translate(x, y);
         }

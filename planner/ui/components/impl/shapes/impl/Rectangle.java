@@ -10,7 +10,7 @@ import util.structures.List;
 
 public class Rectangle extends Polygon {
 
-    private static List<Point> toList(int x, int y, int width, int height) {
+    private static List<Point> toList(double x, double y, double width, double height) {
         Point p = new Point(x, y);
         Point p2 = new Point(x + width, y);
         Point p3 = new Point(x + width, y + height);
@@ -18,7 +18,7 @@ public class Rectangle extends Polygon {
         return new List<Point>(new Point[] {p, p2, p3, p4});
     }
 
-    public Rectangle(Frame frame, int x, int y, int width, int height) {
+    public Rectangle(Frame frame, double x, double y, double width, double height) {
         super(frame, toList(x, y, width, height));
     }
 
@@ -44,10 +44,10 @@ public class Rectangle extends Polygon {
 
     @Override
     public void draw(Graphics g, Style style) {
-        g.setColor(style.getColorAttribute("background-color"));
-        g.fillRect(getX(), getY(), getWidth(), getHeight());
+        g.setColor(style.getColorAttribute("backgroundColor"));
+        g.fillShape(getPoints());
         g.setColor(style.getColorAttribute("borderColor"));
-        g.drawRect(getX(), getY(), getWidth(), getHeight());
+        g.drawShapeBorder(getPoints());
     }
 
     @Override

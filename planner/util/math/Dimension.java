@@ -13,19 +13,11 @@ public class Dimension {
         this(0, 0);
     }
 
-    public int getWidth() {
-        return (int) width;
-    }
-
-    public int getHeight() {
-        return (int) height;
-    }
-
-    public double getExactWidth() {
+    public double getWidth() {
         return width;
     }
 
-    public double getExactHeight() {
+    public double getHeight() {
         return height;
     }
 
@@ -35,7 +27,7 @@ public class Dimension {
     }
 
     public void setSize(Dimension dimension) {
-        setSize(dimension.getExactWidth(), dimension.getExactHeight());
+        setSize(dimension.getWidth(), dimension.getHeight());
     }
 
     public void setWidth(double width) {

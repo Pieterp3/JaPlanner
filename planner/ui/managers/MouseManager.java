@@ -58,19 +58,19 @@ public class MouseManager {
     }
 
     public int getMouseX() {
-        return mousePosition.getX();
+        return mousePosition.getIntX();
     }
 
     public int getMouseY() {
-        return mousePosition.getY();
+        return mousePosition.getIntY();
     }
 
     public int getLastPressedX() {
-        return lastPressedPosition.getX();
+        return lastPressedPosition.getIntX();
     }
 
     public int getLastPressedY() {
-        return lastPressedPosition.getY();
+        return lastPressedPosition.getIntY();
     }
 
     private void click() {

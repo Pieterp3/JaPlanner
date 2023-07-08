@@ -13,36 +13,28 @@ public class Point {
         this(0, 0);
     }
 
-    public int getX() {
-        return (int) x;
-    }
-
-    public int getY() {
-        return (int) y;
-    }
-
-    public double getExactX() {
+    public double getX() {
         return x;
     }
 
-    public double getExactY() {
+    public double getY() {
         return y;
     }
 
-    public double distanceTo(int x, int y) {
+    public int getIntX() {
+        return (int) x;
+    }
+
+    public int getIntY() {
+        return (int) y;
+    }
+
+    public double distanceTo(double x, double y) {
         return Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
     }
 
     public double distanceTo(Point point) {
         return distanceTo(point.getX(), point.getY());
-    }
-
-    public double distanceToExact(double x, double y) {
-        return Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
-    }
-
-    public double distanceToExact(Point point) {
-        return distanceToExact(point.getExactX(), point.getExactY());
     }
 
     public void setLocation(double x, double y) {
@@ -55,23 +47,15 @@ public class Point {
     }
 
     public void setLocation(Point point) {
-        setLocation(point.getExactX(), point.getExactY());
-    }
-
-    public static double getDistance(int x, int y, int x2, int y2) {
-        return Math.sqrt(Math.pow(x - x2, 2) + Math.pow(y - y2, 2));
+        setLocation(point.getX(), point.getY());
     }
 
     public static double getDistance(Point point, Point point2) {
         return getDistance(point.getX(), point.getY(), point2.getX(), point2.getY());
     }
 
-    public static double getDistanceExact(double x, double y, double x2, double y2) {
+    public static double getDistance(double x, double y, double x2, double y2) {
         return Math.sqrt(Math.pow(x - x2, 2) + Math.pow(y - y2, 2));
-    }
-
-    public static double getDistanceExact(Point point, Point point2) {
-        return getDistanceExact(point.getExactX(), point.getExactY(), point2.getExactX(), point2.getExactY());
     }
 
     public void setX(double x2) {
@@ -80,6 +64,11 @@ public class Point {
 
     public void setY(double y2) {
         this.y = y2;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
     }
 
 }

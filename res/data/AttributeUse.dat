@@ -32,13 +32,13 @@ New Declared Attribute: borderPressColor
 			 - Set, but not used, by ComponentList -
 ----------------------------------------------	
 New Declared Attribute: x
-	Total Users: 5
+	Total Users: 4
 		[ComponentList 3]
 	Values for x set by ComponentList
 		[10, 193, 14]
 ----------------------------------------------	
 New Declared Attribute: y
-	Total Users: 5
+	Total Users: 4
 		[ComponentList 8]
 	Values for y set by ComponentList
 		[100, 102, 283, 104, 143, 182, 221, 260]
@@ -50,7 +50,7 @@ New Declared Attribute: width
 		[200, 15, 175]
 ----------------------------------------------	
 New Declared Attribute: height
-	Total Users: 4
+	Total Users: 3
 		[ComponentList 3]
 	Values for height set by ComponentList
 		[200, 15, 35]
