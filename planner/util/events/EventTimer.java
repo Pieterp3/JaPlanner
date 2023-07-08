@@ -2,113 +2,95 @@ package util.events;
 
 public class EventTimer {
 	
-	private TimerEvent event;
-	private int msDelay;
-	private boolean repeat;
-	private boolean autoStartPostDelay;
-	private int msPassed;
-	private boolean running;
+	private Event event;
 
-	public EventTimer(TimerEvent event, int msDelay, boolean repeat, boolean autoStartPostDelay) {
+	private int msPassed;
+	private int delay;
+
+	private boolean repeats;
+	private int executions;
+
+	public EventTimer(Event event, int delay, boolean repeats) {
 		super();
 		this.event = event;
-		this.msDelay = msDelay;
-		this.repeat = repeat;
-		this.autoStartPostDelay = autoStartPostDelay;
 		this.msPassed = 0;
-		this.running = false;
+		this.repeats = repeats;
+		this.delay = delay;
+		this.executions = 0;
 	}
 
-	public EventTimer(TimerEvent event, int msDelay, boolean repeat) {
-		this(event, msDelay, repeat, false);
+	public EventTimer(Event event, int startDelay) {
+		this(event, startDelay, false);
 	}
 
-	public EventTimer(TimerEvent event, int msDelay) {
-		this(event, msDelay, false, true);
+	public EventTimer(Event event) {
+		this(event, 0);
 	}
 
-	public EventTimer(TimerEvent event) {
-		this(event, 0, false, true);
-	}
-
-	public void update(long timePassed) {
-		if (running) {
-			msPassed += timePassed;
-			if (msPassed >= msDelay) {
-				event.execute();
-				if (repeat) {
-					msPassed = 0;
-				} else {
-					running = false;
-				}
-			}
-		} else if (autoStartPostDelay) {
-			msPassed += timePassed;
-			if (msPassed >= msDelay) {
-				running = true;
+	public boolean update(long timePassed) {
+		msPassed += timePassed;
+		if (msPassed >= delay) {
+			event.execute();
+			executions++;
+			if (repeats) {
 				msPassed = 0;
+			} else {
+				return true;
 			}
 		}
-	}
-
-	public void start() {
-		running = true;
-	}
-
-	public void stop() {
-		running = false;
+		return false;
 	}
 
 	public void reset() {
 		msPassed = 0;
 	}
 
-	public void setEvent(TimerEvent event) {
+	public void setEvent(Event event) {
 		this.event = event;
-	}
-
-	public void setMsDelay(int msDelay) {
-		this.msDelay = msDelay;
-	}
-
-	public void setRepeat(boolean repeat) {
-		this.repeat = repeat;
-	}
-
-	public void setAutoStartPostDelay(boolean autoStartPostDelay) {
-		this.autoStartPostDelay = autoStartPostDelay;
 	}
 
 	public void setMsPassed(int msPassed) {
 		this.msPassed = msPassed;
 	}
 
-	public void setRunning(boolean running) {
-		this.running = running;
+	public void setRepeats(boolean repeats) {
+		this.repeats = repeats;
 	}
 
-	public TimerEvent getEvent() {
+	public void setDelay(int delay) {
+		this.delay = delay;
+	}
+
+	public Event getEvent() {
 		return event;
-	}
-
-	public int getMsDelay() {
-		return msDelay;
-	}
-
-	public boolean doesRepeat() {
-		return repeat;
-	}
-
-	public boolean doesAutoStartPostDelay() {
-		return autoStartPostDelay;
 	}
 
 	public int getMsPassed() {
 		return msPassed;
 	}
 
-	public boolean isRunning() {
-		return running;
+	public int getDelay() {
+		return delay;
+	}
+
+	public boolean doesRepeat() {
+		return repeats;
+	}
+
+	public int getExecutions() {
+		return executions;
+	}
+
+	public double getSecondsRemaining() {
+		return (delay - msPassed) / 1000.0;
+	}
+
+	public int getMsRemaining() {
+		return delay - msPassed;
+	}
+
+	public double getProgress() {
+		return Math.min(1, msPassed / (double) delay);
 	}
 
 }

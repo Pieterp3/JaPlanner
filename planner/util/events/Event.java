@@ -1,5 +1,5 @@
 package util.events;
 
-public interface TimerEvent {
+public interface Event {
 	public void execute();
 }

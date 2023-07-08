@@ -1,7 +1,7 @@
 package ui.graphics;
 
 public class Color {
-    
+
     private int r, g, b;
 
     public Color(int r, int g, int b) {
@@ -55,11 +55,26 @@ public class Color {
     }
 
     public static Color getContrastColor(Color color) {
-        int r = color.getR();
-        int g = color.getG();
-        int b = color.getB();
+        return color.getContrastColor();
+    }
+
+    public Color getContrastColor() {
+        int r = getR();
+        int g = getG();
+        int b = getB();
         int yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
         return yiq >= 128 ? new Color(0, 0, 0) : new Color(255, 255, 255);
+    }
+
+    public static Color getComplimentaryColor(Color color) {
+        return color.getComplimentaryColor();
+    }
+
+    public Color getComplimentaryColor() {
+        int r = getR();
+        int g = getG();
+        int b = getB();
+        return new Color(255 - r, 255 - g, 255 - b);
     }
 
     public static Color getContrastColor(String hex) {
@@ -95,9 +110,15 @@ public class Color {
     public static final Color gray = new Color(java.awt.Color.gray);
     public static final Color lightGray = new Color(java.awt.Color.lightGray);
     public static final Color darkGray = new Color(java.awt.Color.darkGray);
+    public static final Color[] defaultColors = new Color[] { black, white, red, green, blue, yellow, orange, pink,
+            magenta, cyan, gray, lightGray, darkGray };
 
     public String toAttributeString() {
         return Integer.toHexString(getRGB()).substring(2);
+    }
+
+    public static Color randomDefaultColor() {
+        return defaultColors[(int) (Math.random() * defaultColors.length)];
     }
 
 }

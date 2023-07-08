@@ -98,9 +98,8 @@ public class List<T> implements Iterable<T>, Comparable<List<T>> {
         if (this.size == 1) {
             this.head = null;
             this.tail = null;
-        } else {
-            this.head = this.head.getNext();
-            this.head.setPrev(null);
+            this.size = 0;
+            return;
         }
         if (index == 0) {
             this.head = this.head.getNext();

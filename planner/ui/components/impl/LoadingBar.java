@@ -4,11 +4,11 @@ import ui.Frame;
 import ui.components.DrawnComponent;
 import ui.components.style.Style;
 import ui.graphics.Graphics;
-import util.events.TimerEvent;
+import util.events.EventTimer;
 
 public class LoadingBar extends DrawnComponent {
 
-	private TimerEvent timerEvent;
+	private EventTimer timerEvent;
 
 	public LoadingBar(Frame frame, String text, int x, int y, int width, int height) {
 		super(frame);
@@ -17,7 +17,9 @@ public class LoadingBar extends DrawnComponent {
 		setAttribute("y", y);
 		setAttribute("width", width);
 		setAttribute("height", height);
-		setAttribute("centered", true);
+		setAttribute("alignment", "center");
+		setAttribute("borderWidth",3);
+		setAttribute("fillColor", "A1A1A1");
 	}
 
 	public LoadingBar(Frame frame, int x, int y, int width, int height) {
@@ -35,32 +37,33 @@ public class LoadingBar extends DrawnComponent {
 	public LoadingBar(Frame frame) {
 		this(frame, "");
 	}
-	/*
-	 * add variables and methods to the TimerEvent class to allow for the
-	 * loading bar to be updated
-	 * 
-	 */
 
-	public void setEventTimer(TimerEvent event) {
+	public void setEventTimer(EventTimer event) {
 		this.timerEvent = event;
 	}
 
 	@Override
 	public void draw(Graphics g, Style style) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'draw'");
+		g.drawBackground(getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
+		g.attemptBorder(getX(), getY(), getWidth(), getHeight(), isHovered());
+		if (timerEvent != null) {
+			int width = (int) (getWidth() * timerEvent.getProgress());
+			g.setColor(style.getColorAttribute("fillColor"));
+			int borderSize = style.getIntAttribute("borderWidth") - 1;
+			g.fillRect(getX() + borderSize, getY() + borderSize, width - borderSize * 2 + 1, getHeight()-borderSize*2 + 1);
+		}
+		g.setColor(style.getColorAttribute("color"));
+		g.drawStandardText(getX(), getY(), getWidth(), getHeight());
 	}
 
 	@Override
 	public void click(int x, int y) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'click'");
 	}
 
 	@Override
 	public void setHoveredCursor(int x, int y) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setHoveredCursor'");
 	}
 
 	

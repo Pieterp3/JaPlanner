@@ -17,14 +17,18 @@ public class EventManager {
 		long currentTime = System.currentTimeMillis();
 		long timePassed = currentTime - lastTime;
 		lastTime = currentTime;
+		List<EventTimer> completedEvents = new List<>();
 		for (int i = 0; i < timers.size(); i++) {
 			EventTimer timer = timers.get(i);
-			timer.update(timePassed);
+			if (timer.update(timePassed)) {
+				completedEvents.add(timer);
+			}
 		}
+		timers.remove(completedEvents);
 	}
 
-	public void scheduleEvent(TimerEvent event, int msDelay, boolean repeat, boolean autoStartPostDelay) {
-		timers.add(new EventTimer(event, msDelay, repeat, autoStartPostDelay));
+	public void scheduleEvent(Event event, int delay, boolean repeat) {
+		addEventTimer(new EventTimer(event, delay, repeat));
 	}
 
 	public void addEventTimer(EventTimer timer) {

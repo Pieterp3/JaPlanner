@@ -68,7 +68,7 @@ public class Point {
 
     @Override
     public String toString() {
-        return "(" + x + ", " + y + ")";
+        return "(" + Misc.formatDecimal(x, 1) + ", " + Misc.formatDecimal(y, 1) + ")";
     }
 
 }

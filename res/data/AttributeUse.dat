@@ -5,7 +5,7 @@
 -----------------------------------------------
 
 New Declared Attribute: borderWidth
-	Total Users: 4
+	Total Users: 5
 		[ComponentList 1]
 	Values for borderWidth set by ComponentList
 		[2]
@@ -15,14 +15,12 @@ New Declared Attribute: borderColor
 		[ComponentList 1]
 	Values for borderColor set by ComponentList
 		[000000]
-			 - Set, but not used, by ComponentList -
 ----------------------------------------------	
 New Declared Attribute: borderHoverColor
 	Total Users: 3
 		[ComponentList 1]
 	Values for borderHoverColor set by ComponentList
 		[030303]
-			 - Set, but not used, by ComponentList -
 ----------------------------------------------	
 New Declared Attribute: borderPressColor
 	Total Users: 3
@@ -32,28 +30,28 @@ New Declared Attribute: borderPressColor
 			 - Set, but not used, by ComponentList -
 ----------------------------------------------	
 New Declared Attribute: x
-	Total Users: 4
+	Total Users: 5
 		[ComponentList 3]
 	Values for x set by ComponentList
-		[10, 193, 14]
+		[580, 763, 584]
 ----------------------------------------------	
 New Declared Attribute: y
-	Total Users: 4
-		[ComponentList 8]
+	Total Users: 5
+		[ComponentList 13]
 	Values for y set by ComponentList
-		[100, 102, 283, 104, 143, 182, 221, 260]
+		[10, 12, 443, 14, 53, 92, 131, 170, 209, 248, 287, 326, 365]
 ----------------------------------------------	
 New Declared Attribute: width
-	Total Users: 4
+	Total Users: 5
 		[ComponentList 3]
 	Values for width set by ComponentList
 		[200, 15, 175]
 ----------------------------------------------	
 New Declared Attribute: height
-	Total Users: 3
+	Total Users: 4
 		[ComponentList 3]
 	Values for height set by ComponentList
-		[200, 15, 35]
+		[450, 15, 35]
 ----------------------------------------------	
 New Declared Attribute: padding
 	Total Users: 2
@@ -66,14 +64,12 @@ New Declared Attribute: backgroundColor
 		[ComponentList 1]
 	Values for backgroundColor set by ComponentList
 		[404040]
-			 - Set, but not used, by ComponentList -
 ----------------------------------------------	
 New Declared Attribute: backgroundHoverColor
 	Total Users: 2
 		[ComponentList 1]
 	Values for backgroundHoverColor set by ComponentList
 		[404040]
-			 - Set, but not used, by ComponentList -
 ----------------------------------------------	
 New Declared Attribute: backgroundPressColor
 	Total Users: 2
@@ -107,14 +103,12 @@ New Declared Attribute: scrollbarColor
 		[ComponentList 1]
 	Values for scrollbarColor set by ComponentList
 		[808080]
-			 - Set, but not used, by ComponentList -
 ----------------------------------------------	
 New Declared Attribute: scrollerBackgroundColor
 	Total Users: 1
 		[ComponentList 1]
 	Values for scrollerBackgroundColor set by ComponentList
 		[c0c0c0]
-			 - Set, but not used, by ComponentList -
 ----------------------------------------------	
 New Declared Attribute: scrollbarSize
 	Total Users: 1
@@ -123,14 +117,14 @@ New Declared Attribute: scrollbarSize
 		[15]
 ----------------------------------------------	
 New Declared Attribute: alignment
-	Total Users: 3
+	Total Users: 4
 		[ComponentList 1]
 	Values for alignment set by ComponentList
 		[center]
 			 - Set, but not used, by ComponentList -
 ----------------------------------------------	
 New Declared Attribute: text
-	Total Users: 4
+	Total Users: 5
 		[ComponentList 2]
 	Values for text set by ComponentList
 		[^, v]
@@ -138,8 +132,7 @@ New Declared Attribute: text
 ----------------------------------------------	
 New Declared Attribute: disabled
 	Total Users: 1
-		[ComponentList 2]
+		[ComponentList 1]
 	Values for disabled set by ComponentList
-		[false, true]
-			 - Set, but not used, by ComponentList -
+		[false]
 ----------------------------------------------	

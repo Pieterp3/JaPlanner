@@ -7,7 +7,7 @@ import ui.managers.IOManager;
 import util.AttributeUseTracker;
 import util.events.EventManager;
 import util.events.EventTimer;
-import util.events.TimerEvent;
+import util.events.Event;
 import util.io.Save;
 import util.structures.List;
 import util.structures.Map;
@@ -46,12 +46,6 @@ public class Frame {
         frame.addMouseWheelListener(primaryListener);
         clipboardManager = new ClipboardManager(this);
         eventManager = new EventManager();
-        scheduleEvent(new TimerEvent() {
-            @Override
-            public void execute() {
-                System.out.println("Event executed");
-            }
-        }, 15000);
         AttributeUseTracker.init();
     }
 
@@ -60,12 +54,12 @@ public class Frame {
         frame.requestFocus();
     }
 
-    public void scheduleEvent(TimerEvent event) {
-        eventManager.addEventTimer(new EventTimer(event));
+    public void scheduleEvent(Event event, int delay, boolean repeats) {
+        eventManager.addEventTimer(new EventTimer(event, delay, repeats));
     }
 
-    public void scheduleEvent(TimerEvent event, int delay) {
-        eventManager.addEventTimer(new EventTimer(event, delay));
+    public void addTimer(EventTimer timer) {
+        eventManager.addEventTimer(timer);
     }
 
     public void beginExit() {

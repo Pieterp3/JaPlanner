@@ -183,6 +183,28 @@ public abstract class Polygon extends DrawnComponent implements Shape {
     }
 
     @Override
+    public void moveInArc(double centerX, double centerY, double degrees, double radius) {
+        //"Orbits this polygon around the given point by the given angle and distance"
+        degrees = Math.toRadians(degrees);
+        // Point center = getCenter();
+        double changeInX = radius * Math.cos(degrees) + centerX - getCenter().getX();
+        double changeInY = radius * Math.sin(degrees) + centerY - getCenter().getY();
+        translate(changeInX, changeInY);
+    }
+
+    @Override
+    public void moveInArc(Point p, double angle, double distance) {
+        //"Orbits this polygon around the given point by the given angle and distance"
+        moveInArc(p.getX(), p.getY(), angle, distance);
+    }
+
+    @Override
+    public void moveInArc(Polygon p, double angle, double distance) {
+        //"Orbits this polygon around the given polygon by the given angle and distance"
+        moveInArc(p.getCenter(), angle, distance);
+    }
+
+    @Override
     public Point getCenter() {
         double x = 0;
         double y = 0;

@@ -16,6 +16,10 @@ public interface Shape {
     public void skew(double xFactor, double yFactor);
     public void rotate(double angle);
     public Point getCenter();
+    public void moveInArc(Point p, double angle, double distance);
+    public void moveInArc(double x, double y, double angle, double distance);
+    public void moveInArc(Polygon p, double angle, double distance);
+
     
 
 }
