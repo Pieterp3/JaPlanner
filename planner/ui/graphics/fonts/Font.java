@@ -97,7 +97,7 @@ public abstract class Font {
         for (String s : chars) {
             CharacterData data = getCharacterData(s);
             if (data == null) {  continue; }
-            width += getDrawnWidth(s) + getSize();
+            width += getDrawnWidth(s);
         }
         return width;
     }

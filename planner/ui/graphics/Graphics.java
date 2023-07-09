@@ -58,7 +58,7 @@ public class Graphics {
         if (!alignment.equals("center") && style.hasBorder()) {
             x += (borderThickness * (alignment.equals("left") ? 1 : -1));
         }
-        int drawY = y + height / 2 + getFontHeight() / 2;
+        int drawY = y + height / 2 + getFontHeight();
         drawString(text, x, drawY);
     }
 
@@ -131,7 +131,7 @@ public class Graphics {
         g.fillRect(x, y, width, height);
     }
 
-    public void drawString(String text, int x, int y) {
+    private void drawString(String text, int x, int y) {
         if (text.trim().length() == 0) { return; }
         String[] chars = text.split("");
         y -= font.getDrawnHeight();

@@ -63,7 +63,7 @@ public class LoadingBar extends DrawnComponent {
 
 	@Override
 	public void setHoveredCursor(int x, int y) {
-		// TODO Auto-generated method stub
+        getFrame().setCursor(Frame.LOADING_CURSOR);
 	}
 
 	

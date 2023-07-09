@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Cursor;
 import javax.swing.JFrame;
 
 import ui.managers.ClipboardManager;
@@ -28,6 +29,7 @@ public class Frame {
     public static final int DEFAULT_CURSOR = 0;
     public static final int HAND_CURSOR = 12;
     public static final int TEXT_CURSOR = 2;
+    public static final int LOADING_CURSOR = 3;
     
     public Frame() {
         frame = new JFrame();
