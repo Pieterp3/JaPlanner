@@ -1,4 +1,7 @@
-package ui;
+
+
+import ui.Frame;
+
 public class Engine {
    
     private Thread gameThread;
