@@ -8,7 +8,9 @@ import ui.components.impl.Label;
 import ui.components.impl.LoadingBar;
 import ui.components.impl.UserInput;
 import ui.components.impl.shapes.Polygon;
+import ui.components.impl.shapes.impl.Circle;
 import ui.components.impl.shapes.impl.Rectangle;
+import ui.components.impl.shapes.impl.Triangle;
 import ui.graphics.Color;
 import ui.graphics.fonts.impl.DefaultChar;
 import util.events.EventTimer;
@@ -59,7 +61,7 @@ public class HomePanel extends Panel {
         addComponent(list);
         UserInput input = new UserInput(getFrame(), "", getWidth()-220, 470, 200, 40, "Placeholder");
         addComponent(input);
-        Rectangle rect = new Rectangle(getFrame(), getWidth()/2-25, getHeight()/2-25, 50, 50);
+        Polygon rect = new Circle(getFrame(), getWidth()/2-25, getHeight()/2-25, 25);
         rect.setAttributes(new Map<String, Object>() {{
                 put("borderColor", "000000");
                 put("borderWidth", "2");
@@ -106,7 +108,7 @@ public class HomePanel extends Panel {
         else x -= distance;
         if (Misc.randomBoolean()) y += distance;
         else y -= distance;
-        final Rectangle r = new Rectangle(getFrame(), x, y, size, size);
+        final Polygon r = new Triangle(getFrame(), x, y, size, size);
         r.setAttributes(new Map<String, Object>() {{
                 put("borderColor", "000000");
                 put("borderWidth", "1");

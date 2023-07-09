@@ -187,4 +187,12 @@ public class Graphics {
         g.drawPolygon(p);
     }
 
+    public void fillCircle(int x, int y, int width, int height) {
+        g.fillOval(x, y, width, height);
+    }
+
+    public void drawCircle(int x, int y, int width, int height) {
+        g.drawOval(x, y, width, height);
+    }
+
 }
