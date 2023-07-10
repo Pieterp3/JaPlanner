@@ -12,7 +12,11 @@ import ui.graphics.Color;
 import ui.graphics.Graphics;
 import util.structures.List;
 import util.structures.Map;
-
+/**TODO
+ * 16. Allow Dragging on scroller
+ * 19. Check for bug in resizingComponents when complist is horizontal
+ * 26. Add single, interval and multiple interval selection modes to complist
+ */
 public class ComponentList extends DrawnComponent implements Scrollable, ContainerComponent {
 
     private static final Map<String, String> ARROW_MAP = new Map<String, String>() {

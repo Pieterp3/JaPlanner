@@ -13,6 +13,12 @@ import util.structures.Map;
 import ui.graphics.Graphics;
 import ui.graphics.Color;
 
+/**
+ * Todo:
+ * 10. Add spellcheck to text type text inputs
+ * 
+ */
+
 public class UserInput extends DrawnComponent implements RecievesText, Dragable {
 
     private String placeholder;

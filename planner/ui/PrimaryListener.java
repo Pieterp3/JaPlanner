@@ -4,7 +4,11 @@ import ui.managers.KeyManager;
 import ui.managers.MouseManager;
 
 import java.awt.event.*;
-
+/**
+ * TODO
+ * 14. Create window managers
+ * 
+ */
 public class PrimaryListener
         implements MouseListener, KeyListener, MouseMotionListener, WindowListener, MouseWheelListener {
 

@@ -11,6 +11,11 @@ import ui.components.interfaces.Scrollable;
 import ui.graphics.Graphics;
 import util.structures.List;
 
+/**
+ * TODO
+ * 7. Create Default LayoutManager
+    a. Allow for custom layout managers
+ */
 public abstract class Panel implements Comparable<Panel> {
     
     private JPanel panel;

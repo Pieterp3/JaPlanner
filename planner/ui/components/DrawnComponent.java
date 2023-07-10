@@ -8,6 +8,23 @@ import ui.components.style.Style;
 import ui.graphics.Graphics;
 import util.structures.Map;
 
+/** TODO
+ * 5. Create Drawn Components
+    a. ItemChooser
+    b. Checkbox
+    c. MenuBar
+    d. TabbedPanel
+    e. VideoPlayer
+    f. ImageDisplay
+    g. WebDisplay
+    h. PaintingPanel
+
+    
+20. Allow VideoPlayer to read streams from internet or play local VideoPlayer
+22. Add voice recognition
+
+
+ */
 public abstract class DrawnComponent {
 
     // private static int compCount = 0;

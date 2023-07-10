@@ -2,7 +2,10 @@ package util.io;
 
 import java.io.*;
 import util.structures.List;
-
+/**
+ * TODO
+    a. Allow for SQL, JSON, TXT and xml
+ */
 public class FileIO {
 
     public static void write(String file, String[] lines) {

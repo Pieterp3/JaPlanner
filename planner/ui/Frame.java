@@ -12,6 +12,15 @@ import util.io.Save;
 import util.structures.List;
 import util.structures.Map;
 
+/**
+ * TODO
+ * 17. Create method to transition between panels when setActive is called
+    a. Allow creation of custom transitions
+
+   6. Save and load current frame state when
+    a. Changing panels
+    b. Closing, Minimizing frame
+ */
 public class Frame {
 
     private JFrame frame;

@@ -1,0 +1,3 @@
+This package is going to contain anything that is used
+to help me access or use this codebase faster, whether it be
+voice control or a text processor for quick ui builds

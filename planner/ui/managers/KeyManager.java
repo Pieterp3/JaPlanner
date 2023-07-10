@@ -5,7 +5,11 @@ import java.awt.event.KeyEvent;
 import ui.Frame;
 import ui.components.interfaces.Focusable;
 import ui.components.interfaces.RecievesText;
-
+/**TODO
+ * 15. Ctrl-s & Ctrl-o to frame as global hotkeys to save/load frame states
+ * 
+23. Enable tab indicies
+ */
 public class KeyManager {
 
     public static final int BACKSPACE = 8;

@@ -8,6 +8,45 @@ import util.math.Point;
 import util.structures.List;
 import ui.graphics.fonts.CharacterData;
 
+/** TODO
+ *  9. Create attributes
+    a. inputType (Text, Int, Float, Email, Phone, Password) - For TextInput
+    b. wrapText
+    c. displayLineNumbers
+    d. spellcheckEnabled
+    e. active (diabled doesnt draw or allow interactions, this will just gray it out)
+    f. resizeMode (Stretch, Stay, Flow)
+    g. shadowedText
+    h. borderRadius
+    i. scrollerlineColor
+    j. scrollerBorderColor
+    k. scrollbarBorderColor
+    l. tooltip
+    m. alpha
+    n. voiceRecognitionEnabled
+    o. backgroundImage
+    p. displayAsCarousel
+    q. autoPlayVideo
+    r. downloadStreamedVideos
+    s. tabIndex
+    t. selectionMode
+    u. shapeBorderStyle
+ * 
+ * Enable these attributes in here
+ * 
+ * create a subclass of this for shape graphics to make sure attributes are still used
+ *      but stop this class from being bloated
+ * 
+ * 11. Account for font styles in graphics
+ * 
+ * 28. Allow shape border attibute to be
+    a. snug
+    b. bounderies
+
+    
+ * 
+ */
+
 public class Graphics {
 
     private Graphics2D g;
