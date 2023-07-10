@@ -30,7 +30,7 @@ public class DefaultFont extends Font {
 
     @Override
     protected void setAcceptableStyles() {
-        setAcceptableStyles(new int[] {PLAIN, BOLD, ITALIC, BOLD + ITALIC});
+        setAcceptableStyles(new int[] { PLAIN, BOLD, ITALIC, BOLD + ITALIC });
     }
-    
+
 }

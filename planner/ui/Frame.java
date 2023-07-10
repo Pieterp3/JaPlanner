@@ -1,6 +1,5 @@
 package ui;
 
-import java.awt.Cursor;
 import javax.swing.JFrame;
 
 import ui.managers.ClipboardManager;

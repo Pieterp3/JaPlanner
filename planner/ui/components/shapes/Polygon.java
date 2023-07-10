@@ -1,4 +1,5 @@
-package ui.components.impl.shapes;
+package ui.components.shapes;
+
 
 import ui.Frame;
 import ui.components.DrawnComponent;
@@ -74,7 +75,7 @@ public abstract class Polygon extends DrawnComponent implements Shape {
     public double getArea() {
         double sum = 0;
         for (int i = 0; i < points.size(); i++) {
-            if(i == 0) {
+            if (i == 0) {
                 sum += points.get(i).getX() * (points.get(i + 1).getY() - points.get(points.size() - 1).getY());
             } else if (i == points.size() - 1) {
                 sum += points.get(i).getX() * (points.get(0).getY() - points.get(i - 1).getY());
@@ -90,7 +91,7 @@ public abstract class Polygon extends DrawnComponent implements Shape {
     public double getPerimeter() {
         double perimeter = 0;
         for (int i = 0; i < points.size(); i++) {
-            if(i == points.size() - 1) {
+            if (i == points.size() - 1) {
                 perimeter += points.get(i).distanceTo(points.get(0));
             } else {
                 perimeter += points.get(i).distanceTo(points.get(i + 1));
@@ -110,7 +111,7 @@ public abstract class Polygon extends DrawnComponent implements Shape {
             Point p1 = points.get(i);
             Point p2 = points.get(j);
             if ((p1.getY() > y) != (p2.getY() > y) &&
-                    (x < (p2.getX() - p1.getX()) * (y - p1.getY()) / (p2.getY()-p1.getY()) + p1.getX())) {
+                    (x < (p2.getX() - p1.getX()) * (y - p1.getY()) / (p2.getY() - p1.getY()) + p1.getX())) {
                 return true;
             }
         }
@@ -184,7 +185,7 @@ public abstract class Polygon extends DrawnComponent implements Shape {
 
     @Override
     public void moveInArc(double centerX, double centerY, double degrees, double radius) {
-        //"Orbits this polygon around the given point by the given angle and distance"
+        // "Orbits this polygon around the given point by the given angle and distance"
         degrees = Math.toRadians(degrees);
         // Point center = getCenter();
         double changeInX = radius * Math.cos(degrees) + centerX - getCenter().getX();
@@ -194,13 +195,14 @@ public abstract class Polygon extends DrawnComponent implements Shape {
 
     @Override
     public void moveInArc(Point p, double angle, double distance) {
-        //"Orbits this polygon around the given point by the given angle and distance"
+        // "Orbits this polygon around the given point by the given angle and distance"
         moveInArc(p.getX(), p.getY(), angle, distance);
     }
 
     @Override
     public void moveInArc(Polygon p, double angle, double distance) {
-        //"Orbits this polygon around the given polygon by the given angle and distance"
+        // "Orbits this polygon around the given polygon by the given angle and
+        // distance"
         moveInArc(p.getCenter(), angle, distance);
     }
 
@@ -223,5 +225,5 @@ public abstract class Polygon extends DrawnComponent implements Shape {
             point.translate(x, y);
         }
     }
-    
+
 }

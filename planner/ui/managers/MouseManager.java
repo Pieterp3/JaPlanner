@@ -2,7 +2,7 @@ package ui.managers;
 
 import ui.Frame;
 import ui.components.DrawnComponent;
-import ui.components.interfaces.ContainerComponent;
+import ui.components.containers.ContainerComponent;
 import ui.components.interfaces.Focusable;
 import util.math.Point;
 import util.structures.List;

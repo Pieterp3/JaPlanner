@@ -23,5 +23,4 @@ public class IOManager {
         return frame;
     }
 
-
 }

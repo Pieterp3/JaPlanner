@@ -1,9 +1,8 @@
 
-
 import ui.Frame;
 
 public class Engine {
-   
+
     private Thread gameThread;
     private boolean running;
     private int fps;
@@ -133,5 +132,5 @@ public class Engine {
     public Frame getFrame() {
         return frame;
     }
-    
+
 }

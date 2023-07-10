@@ -5,21 +5,22 @@ import util.structures.Map;
 
 public abstract class Font {
 
-    /**Shit to do when font done so i dont get distracted
-     * 1. Load default styles through static means and retrieve the defaults when attributes arent found
+    /**
+     * Shit to do when font done so i dont get distracted
+     * 1. Load default styles through static means and retrieve the defaults when
+     * attributes arent found
      * 2. Announce when default attributes are looked for but not found
      * 3. Create script to make and edit fonts
-     * 4. 
+     * 4.
      */
 
     public static final int PLAIN = 0;
     public static final int BOLD = 1;
     public static final int ITALIC = 2;
-    private static final String minimumAcceptableCharacters = 
-        "ABCDEFGHIJKLMNOP?QRSTUVWXYZ +-/*='\"1234567890.,<>/\\";
+    private static final String minimumAcceptableCharacters = "ABCDEFGHIJKLMNOP?QRSTUVWXYZ +-/*='\"1234567890.,<>/\\";
     private final List<Integer> acceptableStyles = new List<>();
 
-    //Stops fonts from being too small accidentally
+    // Stops fonts from being too small accidentally
     private final int minimumSize;
 
     private Map<String, CharacterData> characters = new Map<>();
@@ -44,7 +45,9 @@ public abstract class Font {
     }
 
     protected abstract void initCharacters();
+
     public abstract int getMinimumSize();
+
     protected abstract void setAcceptableStyles();
 
     protected String getMinimumChars() {
@@ -71,12 +74,13 @@ public abstract class Font {
             data = characters.get(character);
         }
         if (data == null) {
-            character = character.toLowerCase(); 
+            character = character.toLowerCase();
             data = characters.get(character);
         }
         try {
-            if (data== null) {
-                String error = "\nCharacter: '" + character + "'\nAcceptable Characters: " + getAcceptableChars()+"\n Does Contain: " + getAcceptableChars().contains(character);
+            if (data == null) {
+                String error = "\nCharacter: '" + character + "'\nAcceptable Characters: " + getAcceptableChars()
+                        + "\n Does Contain: " + getAcceptableChars().contains(character);
                 throw new UnsupportedCharacterException(error);
             }
         } catch (UnsupportedCharacterException e) {
@@ -96,7 +100,9 @@ public abstract class Font {
         String[] chars = text.split("");
         for (String s : chars) {
             CharacterData data = getCharacterData(s);
-            if (data == null) {  continue; }
+            if (data == null) {
+                continue;
+            }
             width += getDrawnWidth(s);
         }
         return width;
@@ -104,7 +110,9 @@ public abstract class Font {
 
     public int getDrawnWidth(String s) {
         CharacterData data = getCharacterData(s);
-        if (data == null) { return 0; }
+        if (data == null) {
+            return 0;
+        }
         return data.getData()[0].length * getSize();
     }
 
@@ -157,7 +165,7 @@ public abstract class Font {
             acceptableStyles.add(style);
         }
     }
-    
+
     protected void addAcceptableStyle(int style) {
         acceptableStyles.add(style);
     }

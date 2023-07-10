@@ -148,5 +148,5 @@ public class Map<K, V> implements Comparable<Map<K, V>> {
     public int compareTo(Map<K, V> o) {
         return this.table.compareTo(o.getTable());
     }
-    
+
 }

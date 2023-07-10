@@ -1,5 +1,6 @@
 package ui.components.impl;
 
+
 import ui.Frame;
 import ui.components.DrawnComponent;
 import ui.components.style.Style;
@@ -46,7 +47,8 @@ public class Button extends DrawnComponent {
 
     @Override
     public void click(int x, int y) {
-        if (style.getBooleanAttribute("disabled")) return;
+        if (style.getBooleanAttribute("disabled"))
+            return;
         String action = getAttribute("action");
         if (action != null) {
             getFrame().getActivePanel().processAction(action);
@@ -57,5 +59,5 @@ public class Button extends DrawnComponent {
     public void setHoveredCursor(int x, int y) {
         getFrame().setCursor(Frame.HAND_CURSOR);
     }
-    
+
 }

@@ -5,7 +5,8 @@ import ui.managers.MouseManager;
 
 import java.awt.event.*;
 
-public class PrimaryListener implements MouseListener, KeyListener, MouseMotionListener, WindowListener, MouseWheelListener {
+public class PrimaryListener
+        implements MouseListener, KeyListener, MouseMotionListener, WindowListener, MouseWheelListener {
 
     private MouseManager mouseManager;
     private KeyManager keyManager;
@@ -45,7 +46,7 @@ public class PrimaryListener implements MouseListener, KeyListener, MouseMotionL
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        //Do nothing
+        // Do nothing
     }
 
     @Override
@@ -111,5 +112,5 @@ public class PrimaryListener implements MouseListener, KeyListener, MouseMotionL
     public KeyManager getKeyManager() {
         return keyManager;
     }
-    
+
 }

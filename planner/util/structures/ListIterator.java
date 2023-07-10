@@ -23,5 +23,5 @@ public class ListIterator<T> implements Iterator<T> {
     public void remove() {
         throw new UnsupportedOperationException();
     }
-    
+
 }

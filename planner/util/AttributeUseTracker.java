@@ -1,6 +1,5 @@
 package util;
 
-
 import util.io.Save;
 import util.structures.List;
 import util.structures.Map;
@@ -43,9 +42,10 @@ public class AttributeUseTracker {
     private static String getCaller(String attribute) {
         StackTraceElement[] trace = Thread.currentThread().getStackTrace();
         String user = "User";
-        for (int i = trace.length-1;i>-1; i--) {
+        for (int i = trace.length - 1; i > -1; i--) {
             String cn1 = trace[i].getClassName();
-            if (cn1.contains("style")) continue;
+            if (cn1.contains("style"))
+                continue;
             if (cn1.contains("ui.components.impl")) {
                 user = cn1;
             }
@@ -58,7 +58,7 @@ public class AttributeUseTracker {
     }
 
     private static String getClassName(String s) {
-        if(s.contains(" ")) {
+        if (s.contains(" ")) {
             return s.substring(s.lastIndexOf('.') + 1, s.indexOf(" "));
         }
         return s.substring(s.lastIndexOf('.') + 1);
@@ -73,7 +73,8 @@ public class AttributeUseTracker {
     }
 
     public static void save() {
-        if (!saveData) return;
+        if (!saveData)
+            return;
         List<String> lines = new List<>();
         List<String> keys = data.getKeys();
         if (debugComponent != null) {
@@ -88,11 +89,13 @@ public class AttributeUseTracker {
         for (String attribute : keys) {
             List<AttributeStat> stats = data.get(attribute);
             String totalUsers = "\tTotal Users: " + stats.size();
-            if (stats.size() == 0) continue;
-            if (displayStatUsers(stats).equals("None")) continue;
+            if (stats.size() == 0)
+                continue;
+            if (displayStatUsers(stats).equals("None"))
+                continue;
             lines.add("New Declared Attribute: " + attribute);
             lines.add(totalUsers);
-            lines.add("\t\t"+displayStatUsers(stats));
+            lines.add("\t\t" + displayStatUsers(stats));
             for (AttributeStat stat : stats) {
                 if (debugComponent != null && !stat.getUser().equals(debugComponent)) {
                     continue;
@@ -100,7 +103,7 @@ public class AttributeUseTracker {
                 lines.add("\tValues for " + attribute + " set by " + stat.getUser());
                 lines.add("\t\t" + displayStatValues(stat));
                 if (!stat.isFetchedByUser()) {
-                    lines.add("\t\t\t - Set, but not used, by "+stat.getUser()+" -");
+                    lines.add("\t\t\t - Set, but not used, by " + stat.getUser() + " -");
                 }
             }
             lines.add("----------------------------------------------\t");
@@ -155,7 +158,7 @@ public class AttributeUseTracker {
 
         public void addValue(String value) {
             if (!values.contains(value))
-            values.add(value);
+                values.add(value);
         }
 
         public List<String> getValues() {

@@ -1,4 +1,4 @@
-package ui.components.interfaces;
+package ui.components.containers;
 
 import ui.components.DrawnComponent;
 import util.structures.List;

@@ -1,5 +1,6 @@
 package ui.components;
 
+
 import ui.Frame;
 import ui.Panel;
 import ui.components.style.Style;
@@ -8,11 +9,11 @@ import ui.graphics.Graphics;
 import util.structures.Map;
 
 public abstract class DrawnComponent {
-    
+
     // private static int compCount = 0;
 
     protected Style style;
-    private boolean beingHovered = false; 
+    private boolean beingHovered = false;
     private boolean beingClicked = false;
     private Frame frame;
     protected Graphics g;
@@ -25,31 +26,34 @@ public abstract class DrawnComponent {
 
     public void updateGraphicsStyle(Graphics g) {
         this.g = g;
-        if (style.getBooleanAttribute("disabled")) return;
+        if (style.getBooleanAttribute("disabled"))
+            return;
         g.setStyle(style);
         draw(g, style);
     }
 
     public abstract void draw(Graphics g, Style style);
+
     public abstract void click(int x, int y);
+
     public abstract void setHoveredCursor(int x, int y);
 
-   public void setAttribute(String key, Object value) {
-       style.setAttribute(key, value);
-   }
+    public void setAttribute(String key, Object value) {
+        style.setAttribute(key, value);
+    }
 
     public String getAttribute(String key) {
-         return style.getAttribute(key);
+        return style.getAttribute(key);
     }
 
     public void setAttributes(Map<String, Object> attributes) {
         style.setAttributes(attributes);
     }
 
-   public Panel getPanel() {
+    public Panel getPanel() {
         return frame.getActivePanel();
-   }
-   
+    }
+
     protected Frame getFrame() {
         return frame;
     }
@@ -93,5 +97,5 @@ public abstract class DrawnComponent {
     public void setSetHovered(boolean b) {
         beingHovered = b;
     }
-    
+
 }

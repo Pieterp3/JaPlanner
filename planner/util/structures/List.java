@@ -312,7 +312,7 @@ public class List<T> implements Iterable<T>, Comparable<List<T>> {
         string += "]";
         return string;
     }
-    
+
     public void reverseSort() {
         if (!(this.head.getData() instanceof Comparable)) {
             throw new ClassCastException("Cannot sort list of non-comparable objects");

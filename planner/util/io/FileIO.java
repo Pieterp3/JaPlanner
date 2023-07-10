@@ -4,7 +4,7 @@ import java.io.*;
 import util.structures.List;
 
 public class FileIO {
-    
+
     public static void write(String file, String[] lines) {
         if (file == null || lines == null) {
             return;
@@ -28,7 +28,8 @@ public class FileIO {
         try (BufferedReader br = new BufferedReader(new FileReader(new File(file)))) {
             String line;
             while ((line = br.readLine()) != null) {
-                if (line.trim().length() > 0) lines.add(line);
+                if (line.trim().length() > 0)
+                    lines.add(line);
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,7 +1,8 @@
-package ui.components.impl.shapes.impl;
+package ui.components.shapes.impl;
+
 
 import ui.Frame;
-import ui.components.impl.shapes.Polygon;
+import ui.components.shapes.Polygon;
 import ui.components.style.Style;
 import ui.graphics.Graphics;
 import util.math.Dimension;
@@ -15,7 +16,7 @@ public class Rectangle extends Polygon {
         Point p2 = new Point(x + width, y);
         Point p3 = new Point(x + width, y + height);
         Point p4 = new Point(x, y + height);
-        return new List<Point>(new Point[] {p, p2, p3, p4});
+        return new List<Point>(new Point[] { p, p2, p3, p4 });
     }
 
     public Rectangle(Frame frame, double x, double y, double width, double height) {
@@ -39,7 +40,7 @@ public class Rectangle extends Polygon {
     }
 
     public Rectangle(Frame frame) {
-        this(frame, 0,0,0,0); 
+        this(frame, 0, 0, 0, 0);
     }
 
     @Override
@@ -60,6 +61,4 @@ public class Rectangle extends Polygon {
         // TODO Auto-generated method stub
     }
 
-    
-    
 }

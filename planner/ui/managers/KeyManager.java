@@ -7,7 +7,7 @@ import ui.components.interfaces.Focusable;
 import ui.components.interfaces.RecievesText;
 
 public class KeyManager {
-    
+
     public static final int BACKSPACE = 8;
     public static final int ENTER = 10;
     public static final int SHIFT = 16;
@@ -51,7 +51,7 @@ public class KeyManager {
     public static final int Z = 90;
     public static final int ZERO = 48;
 
-    public static final int[] modifiers = {SHIFT, CTRL, ALT, HOME, END};
+    public static final int[] modifiers = { SHIFT, CTRL, ALT, HOME, END };
 
     private long[] keyPresses = new long[65535];
     private long[] keyReleases = new long[65535];
@@ -63,9 +63,11 @@ public class KeyManager {
     }
 
     public void press(int keyCode) {
-        if (keyCode == 0) return;
+        if (keyCode == 0)
+            return;
         long lastPress = keyPresses[keyCode];
-        if (System.currentTimeMillis() - lastPress < 100) return;
+        if (System.currentTimeMillis() - lastPress < 100)
+            return;
         keyTyped(keyCode);
         keyPresses[keyCode] = System.currentTimeMillis();
     }
@@ -74,7 +76,7 @@ public class KeyManager {
         // if (keyCode == 0) return;
         // keyReleases[keyCode] = System.currentTimeMillis();
         // if (keyReleases[keyCode] - keyPresses[keyCode] < 500) {
-        //     keyTyped(keyCode);
+        // keyTyped(keyCode);
         // }
     }
 
@@ -91,7 +93,8 @@ public class KeyManager {
     }
 
     public void keyTyped(int keyCode) {
-        if (keyCode == 0) return;
+        if (keyCode == 0)
+            return;
         Focusable focus = frame.getActivePanel().getFocusableComponent();
         if (focus instanceof RecievesText) {
             ((RecievesText) focus).sendKeycode(keyCode);

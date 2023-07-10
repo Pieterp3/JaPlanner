@@ -1,12 +1,13 @@
 package util.math;
 
 public class Misc {
-	
+
 	public static boolean isInteger(String text) {
 		try {
 			Integer.parseInt(text);
 			return true;
-		} catch (NumberFormatException e) { }
+		} catch (NumberFormatException e) {
+		}
 		return false;
 	}
 
@@ -14,9 +15,9 @@ public class Misc {
 		return Math.random() < 0.5;
 	}
 
-    public static String formatDecimal(double x, int i) {
-        return String.format("%." + i + "f", x);
-    }
+	public static String formatDecimal(double x, int i) {
+		return String.format("%." + i + "f", x);
+	}
 
 	public static int getRandomNumber(int min, int max) {
 		return (int) (Math.random() * (max - min + 1)) + min;

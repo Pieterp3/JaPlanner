@@ -3,7 +3,7 @@ package util.events;
 import util.structures.List;
 
 public class EventManager {
-	
+
 	private List<EventTimer> timers;
 	private long lastTime;
 

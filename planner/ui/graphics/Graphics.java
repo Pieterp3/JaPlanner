@@ -9,20 +9,22 @@ import util.structures.List;
 import ui.graphics.fonts.CharacterData;
 
 public class Graphics {
-    
+
     private Graphics2D g;
     private int strokeSize = 1;
     private Style style;
     private Font font;
-    
+
     public void updateGraphics(Graphics2D g) {
         this.g = g;
     }
 
     public void drawBackground(int x, int y, int width, int height, boolean isHovered, boolean isPressed) {
-        if (!style.getBooleanAttribute("opaque")) { return; }
-        String backgroundColor = isHovered ? isPressed ? "backgroundPressColor" : 
-        "backgroundHoverColor" : "backgroundColor";
+        if (!style.getBooleanAttribute("opaque")) {
+            return;
+        }
+        String backgroundColor = isHovered ? isPressed ? "backgroundPressColor" : "backgroundHoverColor"
+                : "backgroundColor";
         setColor(style.getColorAttribute(backgroundColor));
         fillRect(x, y, width, height);
     }
@@ -34,7 +36,9 @@ public class Graphics {
     }
 
     public void attemptBorder(int x, int y, int width, int height, boolean isHovered) {
-        if (!style.hasBorder()) { return; }
+        if (!style.hasBorder()) {
+            return;
+        }
         String borderColor = isHovered ? "borderHoverColor" : "borderColor";
         setColor(style.getColorAttribute(borderColor));
         setStroke(style.getIntAttribute("borderWidth"));
@@ -48,13 +52,11 @@ public class Graphics {
         int padding = style.getIntAttribute("padding");
         int borderThickness = style.getIntAttribute("borderWidth");
         int wallOffset = borderThickness + padding;
-        
-        x += alignment.equals("center") ? 
-            ((width / 2) - (textWidth / 2)) : //Centered
-            alignment.equals("right") ? 
-            (width - textWidth - wallOffset) : //Right aligned
-        wallOffset;//Left aligned
-        
+
+        x += alignment.equals("center") ? ((width / 2) - (textWidth / 2)) : // Centered
+                alignment.equals("right") ? (width - textWidth - wallOffset) : // Right aligned
+                        wallOffset;// Left aligned
+
         if (!alignment.equals("center") && style.hasBorder()) {
             x += (borderThickness * (alignment.equals("left") ? 1 : -1));
         }
@@ -63,15 +65,16 @@ public class Graphics {
     }
 
     public void drawStandardText(int x, int y, int width, int height) {
-        if (style.getAttribute("text") == null) return;
+        if (style.getAttribute("text") == null)
+            return;
         drawText(x, y, width, height, style.getAttribute("text"));
     }
 
-    public void drawScrollbar(Style buttonStyle, int x, int y, int width, int height, 
+    public void drawScrollbar(Style buttonStyle, int x, int y, int width, int height,
             int scrollIndex, int compCount) {
         int scrollbarSize = style.getIntAttribute("scrollbarSize");
         int scrollerSize = Math.min((scrollbarSize * 3), width - (scrollbarSize * 2));
-        int scrollbarX,scrollbarY;
+        int scrollbarX, scrollbarY;
         int scrollbarWidth, scrollbarHeight;
         int scrollerX, scrollerY, scrollerWidth, scrollerHeight;
         int innerScrollSize;
@@ -109,13 +112,17 @@ public class Graphics {
     }
 
     public void setStroke(int size) {
-        if (size == strokeSize) { return; }
+        if (size == strokeSize) {
+            return;
+        }
         g.setStroke(new java.awt.BasicStroke(size));
         strokeSize = size;
     }
 
     public void setFont(Font font) {
-        if (this.font == font) { return; }
+        if (this.font == font) {
+            return;
+        }
         this.font = font;
     }
 
@@ -132,7 +139,9 @@ public class Graphics {
     }
 
     private void drawString(String text, int x, int y) {
-        if (text.trim().length() == 0) { return; }
+        if (text.trim().length() == 0) {
+            return;
+        }
         String[] chars = text.split("");
         y -= font.getDrawnHeight();
         for (String s : chars) {
@@ -152,7 +161,7 @@ public class Graphics {
             charIndex += 1;
             x += font.getDrawnWidth(s) + font.getSize();
         }
-        //g.drawString(text, x, y);
+        // g.drawString(text, x, y);
     }
 
     public int getFontHeight() {

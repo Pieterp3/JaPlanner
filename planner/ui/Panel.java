@@ -4,7 +4,7 @@ package ui;
 import javax.swing.JPanel;
 
 import ui.components.DrawnComponent;
-import ui.components.interfaces.ContainerComponent;
+import ui.components.containers.ContainerComponent;
 import ui.components.interfaces.Dragable;
 import ui.components.interfaces.Focusable;
 import ui.components.interfaces.Scrollable;

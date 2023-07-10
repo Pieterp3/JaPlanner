@@ -1,5 +1,6 @@
 package ui.components.style;
 
+
 import ui.components.DrawnComponent;
 import ui.graphics.Color;
 import ui.graphics.fonts.Font;
@@ -13,7 +14,7 @@ public class Style {
     private static Map<String, String> defaultAttributes;
     private Map<String, String> attributes;
     private DrawnComponent component;
-    
+
     public Style(DrawnComponent component) {
         this.component = component;
         defaultAttributes = Load.loadCFG("StyleDefaults");
@@ -77,7 +78,7 @@ public class Style {
 
     public boolean matchesAttribute(String key, String value) {
         return attributes.get(key.trim()).equalsIgnoreCase(value.trim());
-    }    
+    }
 
     public void addDefaultBorder() {
         setAttribute("borderWidth", 2);

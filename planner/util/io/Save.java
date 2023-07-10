@@ -4,7 +4,7 @@ import util.structures.List;
 import util.structures.Map;
 
 public class Save {
-    
+
     public static void saveConfigFile(String file, Map<String, String> data) {
         file = "res/config/" + file + ".cfg";
         if (file == null || data == null) {

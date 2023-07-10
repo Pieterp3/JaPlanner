@@ -21,7 +21,8 @@ public class ClipboardManager {
     }
 
     public void paste() {
-        if (clipboard == null) return;
+        if (clipboard == null)
+            return;
         Focusable focus = frame.getActivePanel().getFocusableComponent();
         if (focus instanceof RecievesText) {
             ((RecievesText) focus).sendText(clipboard);

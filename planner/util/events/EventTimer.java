@@ -1,7 +1,7 @@
 package util.events;
 
 public class EventTimer {
-	
+
 	private Event event;
 
 	private int msPassed;

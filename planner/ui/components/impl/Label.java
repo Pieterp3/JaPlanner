@@ -1,5 +1,6 @@
 package ui.components.impl;
 
+
 import ui.Frame;
 import ui.components.DrawnComponent;
 import ui.components.style.Style;
@@ -37,5 +38,5 @@ public class Label extends DrawnComponent {
     public void setHoveredCursor(int x, int y) {
         getFrame().setCursor(Frame.DEFAULT_CURSOR);
     }
-    
+
 }

@@ -1,7 +1,8 @@
-package ui.components.impl.shapes.impl;
+package ui.components.shapes.impl;
+
 
 import ui.Frame;
-import ui.components.impl.shapes.Polygon;
+import ui.components.shapes.Polygon;
 import ui.components.style.Style;
 import ui.graphics.Graphics;
 import util.math.Point;
@@ -10,7 +11,13 @@ import util.structures.List;
 public class Triangle extends Polygon {
 
 	public Triangle(Frame frame, Point p1, Point p2, Point p3) {
-		super(frame, new List<Point>(){{add(p1); add(p2); add(p3);}});
+		super(frame, new List<Point>() {
+			{
+				add(p1);
+				add(p2);
+				add(p3);
+			}
+		});
 	}
 
 	public Triangle(Frame frame, double x1, double y1, double x2, double y2, double x3, double y3) {
@@ -38,5 +45,5 @@ public class Triangle extends Polygon {
 	public void setHoveredCursor(int x, int y) {
 		// TODO Auto-generated method stub
 	}
-	
+
 }

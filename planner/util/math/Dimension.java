@@ -1,12 +1,12 @@
 package util.math;
 
 public class Dimension {
-    
+
     private double width, height;
 
     public Dimension(double width, double height) {
         this.width = width;
-        this.height = height;    
+        this.height = height;
     }
 
     public Dimension() {
@@ -35,7 +35,7 @@ public class Dimension {
     }
 
     public void setHeight(double height) {
-        this.height = height;    
+        this.height = height;
     }
-    
+
 }

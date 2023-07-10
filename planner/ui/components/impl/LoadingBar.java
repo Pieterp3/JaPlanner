@@ -1,5 +1,6 @@
 package ui.components.impl;
 
+
 import ui.Frame;
 import ui.components.DrawnComponent;
 import ui.components.style.Style;
@@ -18,14 +19,14 @@ public class LoadingBar extends DrawnComponent {
 		setAttribute("width", width);
 		setAttribute("height", height);
 		setAttribute("alignment", "center");
-		setAttribute("borderWidth",3);
+		setAttribute("borderWidth", 3);
 		setAttribute("fillColor", "A1A1A1");
 	}
 
 	public LoadingBar(Frame frame, int x, int y, int width, int height) {
 		this(frame, "", x, y, width, height);
 	}
-	
+
 	public LoadingBar(Frame frame, String text, int x, int y) {
 		this(frame, text, x, y, 0, 0);
 	}
@@ -50,7 +51,8 @@ public class LoadingBar extends DrawnComponent {
 			int width = (int) (getWidth() * timerEvent.getProgress());
 			g.setColor(style.getColorAttribute("fillColor"));
 			int borderSize = style.getIntAttribute("borderWidth") - 1;
-			g.fillRect(getX() + borderSize, getY() + borderSize, width - borderSize * 2 + 1, getHeight()-borderSize*2 + 1);
+			g.fillRect(getX() + borderSize, getY() + borderSize, width - borderSize * 2 + 1,
+					getHeight() - borderSize * 2 + 1);
 		}
 		g.setColor(style.getColorAttribute("color"));
 		g.drawStandardText(getX(), getY(), getWidth(), getHeight());
@@ -63,9 +65,7 @@ public class LoadingBar extends DrawnComponent {
 
 	@Override
 	public void setHoveredCursor(int x, int y) {
-        getFrame().setCursor(Frame.LOADING_CURSOR);
+		getFrame().setCursor(Frame.LOADING_CURSOR);
 	}
 
-	
-	
 }
