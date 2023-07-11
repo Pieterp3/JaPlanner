@@ -10,15 +10,21 @@ import ui.graphics.Graphics;
 public class Label extends DrawnComponent {
 
     public Label(Frame frame) {
-        super(frame);
-        setAttribute("opaque", false);
+        this(frame, "", 0, 0);
     }
 
     public Label(Frame frame, String text, int x, int y) {
-        this(frame);
+        this(frame, text, x, y, 0, 0);
+    }
+
+    public Label(Frame frame, String text, int x, int y, int width, int height) {
+        super(frame);
+        setAttribute("opaque", false);
         setAttribute("text", text);
         setAttribute("x", x);
         setAttribute("y", y);
+        setAttribute("width", width);
+        setAttribute("height", height);
     }
 
     @Override

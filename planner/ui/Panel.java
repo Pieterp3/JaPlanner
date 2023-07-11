@@ -72,6 +72,13 @@ public abstract class Panel implements Comparable<Panel> {
     public void scroll(int scroll) {
         if (focusedComponent != null && focusedComponent instanceof Scrollable) {
             ((Scrollable) focusedComponent).scroll(scroll);
+        } else if (focusedComponent instanceof ContainerComponent) {
+            List<DrawnComponent> comps = ((ContainerComponent) focusedComponent).getComponents();
+            for (DrawnComponent c : comps) {
+                if (c instanceof Scrollable) {
+                    ((Scrollable) c).scroll(scroll);
+                }
+            }
         }
     }
     

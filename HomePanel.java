@@ -2,6 +2,7 @@
 import ui.Frame;
 import ui.Panel;
 import ui.components.containers.impl.ComponentList;
+import ui.components.containers.impl.ItemChooser;
 import ui.components.shapes.Polygon;
 import ui.components.shapes.impl.*;
 import ui.components.impl.*;
@@ -19,11 +20,7 @@ public class HomePanel extends Panel {
     }
 
     protected void init() {
-        Label label = new Label(getFrame(), "Peerless Estimator", 0, 20);
-        label.setAttribute("width", getWidth());
-        label.setAttribute("alignment", "center");
-        label.setAttribute("fontSize", 4);
-        // addComponent(label);
+        addOrbiters();
 
         String text = "";
         for (DefaultChar c : DefaultChar.values()) {
@@ -54,6 +51,15 @@ public class HomePanel extends Panel {
         addComponent(list);
         UserInput input = new UserInput(getFrame(), "", getWidth() - 220, 470, 200, 40, "Placeholder");
         addComponent(input);
+
+        ItemChooser chooser = new ItemChooser(getFrame(), 250, 10, 300, 25);
+        for (int i = 0;i<10;i++) {
+            chooser.addComponent(new Button(getFrame(),"Item " + i, 0, 0, 0, 15));
+        }
+        addComponent(chooser);
+    }
+
+    private void addOrbiters() {
         Polygon rect = new Circle(getFrame(), getWidth() / 2 - 25, getHeight() / 2 - 25, 15);
         rect.setAttributes(new Map<String, Object>() {
             {
@@ -79,19 +85,18 @@ public class HomePanel extends Panel {
         bar.setEventTimer(timer);
         addComponent(bar);
 
-        double distance = 60;
+        double distance = 25;
         double subDistance = 0;
-        for (int i = 0; i < 4; i++) {
-            double bigSize = 10 + Misc.getRandomNumber(5, 15);
+        for (int i = 0; i < 10; i++) {
+            double bigSize = 8 + Misc.getRandomNumber(2, 4);
             Polygon p = createOrbiter(rect, distance, bigSize);
-            distance += 60;
+            distance += 6.0;
             if (Misc.randomBoolean()) {
                 subDistance = bigSize;
-                for (int j = 0; j < Misc.getRandomNumber(1, 3); j++) {
-                    double size = 4 + Misc.getRandomNumber(2, 4);
-                    double d2 = subDistance + Misc.getRandomNumber(size, size * 2);
+                for (int j = 0; j < Misc.getRandomNumber(4, 7); j++) {
+                    double size = 6 + Misc.getRandomNumber(1, 3);
+                    double d2 = subDistance + (j * 8) + 8;
                     createOrbiter(p, d2, size);
-                    distance += d2;
                     subDistance += d2;
                 }
             }
@@ -109,7 +114,7 @@ public class HomePanel extends Panel {
             y += distance;
         else
             y -= distance;
-        final Polygon r = new Circle(getFrame(), x, y, size, size, size * 2);
+        final Polygon r = new Triangle(getFrame(), x, y, size, size);
         r.setAttributes(new Map<String, Object>() {
             {
                 put("borderColor", "000000");

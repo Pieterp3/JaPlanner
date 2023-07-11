@@ -1,4 +1,4 @@
-package webscraping;
+package scraping;
 
 /**
  * TODO

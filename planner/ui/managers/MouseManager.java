@@ -98,9 +98,9 @@ public class MouseManager {
         checkHovers();
     }
 
-    public void checkHovers() {
+    private DrawnComponent checkHovers(List<DrawnComponent> hovers) {
         DrawnComponent foundComponent = null;
-        for (DrawnComponent c : frame.getActivePanel().getDrawnComponents()) {
+        for (DrawnComponent c : hovers) {
             c.setSetHovered(c.contains(getMouseX(), getMouseY()));
             if (c.isHovered()) {
                 c.setHoveredCursor(getMouseX(), getMouseY());
@@ -110,20 +110,15 @@ public class MouseManager {
                 c.setPressed(false);
             }
             if (c instanceof ContainerComponent) {
-                ContainerComponent cc = (ContainerComponent) c;
-                List<DrawnComponent> components = cc.getComponents();
-                for (DrawnComponent ccc : components) {
-                    ccc.setSetHovered(ccc.contains(getMouseX(), getMouseY()));
-                    if (ccc.isHovered()) {
-                        ccc.setHoveredCursor(getMouseX(), getMouseY());
-                        ccc.setPressed(mousePressed);
-                        foundComponent = ccc;
-                    } else {
-                        ccc.setPressed(false);
-                    }
-                }
+                if (foundComponent instanceof Focusable) {frame.getActivePanel().setFocusableComponent((Focusable) foundComponent);}
+                foundComponent = checkHovers(((ContainerComponent) c).getComponents());
             }
         }
+        return foundComponent;
+    }
+
+    public void checkHovers() {
+        DrawnComponent foundComponent = checkHovers(frame.getActivePanel().getDrawnComponents());
         if (foundComponent == null) {
             frame.setCursor(Frame.DEFAULT_CURSOR);
         } else if (foundComponent instanceof Focusable) {

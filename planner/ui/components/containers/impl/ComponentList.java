@@ -88,13 +88,10 @@ public class ComponentList extends ContainerComponent implements Scrollable {
         g.drawBackground(getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
         g.attemptBorder(getX(), getY(), getWidth(), getHeight(), isHovered());
 
-        g.setStyle(getComponent(0).getStyle());
         getComponent(0).updateGraphicsStyle(g);
-        g.setStyle(getComponent(1).getStyle());
         getComponent(1).updateGraphicsStyle(g);
 
         for (int i = scrollIndex; i < getComponentCount(); i++) {
-            g.setStyle(getComponent(i).getStyle());
             getComponent(i).updateGraphicsStyle(g);
         }
         g.setStyle(style);

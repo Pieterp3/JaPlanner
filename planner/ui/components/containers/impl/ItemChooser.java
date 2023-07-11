@@ -6,6 +6,7 @@ import ui.components.containers.ContainerComponent;
 import ui.components.style.Style;
 import ui.graphics.Color;
 import ui.graphics.Graphics;
+import util.structures.List;
 import util.structures.Map;
 
 public class ItemChooser extends ContainerComponent {
@@ -24,7 +25,8 @@ public class ItemChooser extends ContainerComponent {
                 put("width", width);
                 put("height", height);
                 put("padding", 2);
-                put("backgroundColor", Color.darkGray.toAttributeString());
+				put("color", Color.white.toAttributeString());
+                put("backgroundColor", Color.gray.toAttributeString());
                 put("backgroundHoverColor", Color.darkGray.toAttributeString());
                 put("backgroundPressColor", Color.darkGray.toAttributeString());
                 put("resizesHorizontally", false);
@@ -35,7 +37,11 @@ public class ItemChooser extends ContainerComponent {
                 put("scrollbarSize", 15);
             }
         });
-		list = new ComponentList(frame, x, y+height, width, 250);
+		list = new ComponentList(frame, x, y + height, width, (int) (height * 4));
+		list.setAttribute("color", Color.white.toAttributeString());
+		list.setAttribute("backgroundColor", Color.gray.toAttributeString());
+		list.setAttribute("backgroundHoverColor", Color.gray.toAttributeString());
+		list.setAttribute("backgroundPressColor", Color.gray.toAttributeString());
 		super.addComponent(list);
 	}
 
@@ -51,17 +57,26 @@ public class ItemChooser extends ContainerComponent {
         g.drawBackground(getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
         g.attemptBorder(getX(), getY(), getWidth(), getHeight(), isHovered());
 		g.setColor(style.getColorAttribute("color"));
-		if (list.getComponentCount() > 0) {
-			g.drawText(getX(), getY(), getWidth(), getHeight(), list.getComponents().get(selectedIndex).toString());
+		if (list.getComponentCount() > 2) {
+			List<DrawnComponent> components = list.getComponents();
+			if (selectedIndex >= 0 && selectedIndex < components.size()-2) {
+				DrawnComponent component = components.get(selectedIndex+2);
+				g.drawText(getX(), getY(), getWidth(), getHeight(), component.getAttribute("text"));
+			}
 		}
 		if (open) {
-			list.draw(g, style);
+			list.updateGraphicsStyle(g);
 		}
 	}
 
-
 	@Override
 	public void addComponent(DrawnComponent component) {
+		component.setAttribute("alignment", getAttribute("alignment"));
+		component.setAttribute("width", getWidth());
+		component.setAttribute("height", getHeight());
+		component.setAttribute("color", Color.white.toAttributeString());
+		component.setAttribute("backgroundColor", Color.gray.toAttributeString());
+		component.setAttribute("backgroundHoverColor", Color.darkGray.toAttributeString());
 		list.addComponent(component);
 	}
 
@@ -69,4 +84,15 @@ public class ItemChooser extends ContainerComponent {
 	public void removeComponent(DrawnComponent component) {
 		list.removeComponent(component);
 	}
+
+	@Override
+	public void click(int x, int y) {
+		open = !open;
+		if (open) {
+			list.setAttribute("height", getHeight()*3);
+		} else {
+			list.setAttribute("height", getHeight());
+		}
+	}
+
 }

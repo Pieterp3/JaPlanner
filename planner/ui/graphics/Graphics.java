@@ -99,7 +99,7 @@ public class Graphics {
         if (!alignment.equals("center") && style.hasBorder()) {
             x += (borderThickness * (alignment.equals("left") ? 1 : -1));
         }
-        int drawY = y + height / 2 + getFontHeight();
+        int drawY = (int) (y + (height / 2) + (getFontHeight()*.85));
         drawString(text, x, drawY);
     }
 
@@ -119,7 +119,6 @@ public class Graphics {
         int innerScrollSize;
         int borderWidth = style.getIntAttribute("borderWidth");
         int buttonBorderWidth = buttonStyle.getIntAttribute("borderWidth");
-        compCount -= 3;
         scrollIndex -= 2;
         if (style.getBooleanAttribute("resizesVertically")) {
             scrollbarWidth = scrollbarSize;
@@ -127,7 +126,7 @@ public class Graphics {
             scrollbarX = x + width - scrollbarSize - borderWidth;
             scrollbarY = y + scrollbarSize + borderWidth + buttonBorderWidth;
             scrollerX = scrollbarX;
-            innerScrollSize = (scrollbarHeight - (scrollbarSize * 2) - borderWidth - (buttonBorderWidth * 2));
+            innerScrollSize = (scrollbarHeight - (scrollbarSize) - borderWidth - (buttonBorderWidth * 2));
             scrollerY = scrollbarY + (innerScrollSize * scrollIndex) / compCount;
             scrollerWidth = scrollbarWidth;
             scrollerHeight = (scrollbarHeight * scrollerSize) / width;
@@ -137,7 +136,7 @@ public class Graphics {
             scrollbarX = x + scrollbarSize + borderWidth + buttonBorderWidth;
             scrollbarY = y + height - scrollbarSize - borderWidth;
             scrollerY = scrollbarY;
-            innerScrollSize = (scrollbarWidth - (scrollbarSize * 2) - borderWidth - (buttonBorderWidth * 2));
+            innerScrollSize = (scrollbarWidth - (scrollbarSize) - borderWidth - (buttonBorderWidth * 2));
             scrollerX = scrollbarX + (innerScrollSize * scrollIndex) / compCount;
             scrollerWidth = (scrollbarWidth * scrollerSize) / width;
             scrollerHeight = scrollbarHeight;
