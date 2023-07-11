@@ -85,12 +85,7 @@ public abstract class Panel implements Comparable<Panel> {
     }
 
     public void mouseMoved(int x, int y) {
-        for (DrawnComponent c : components) {
-            if (c instanceof ContainerComponent) {
-                ContainerComponent cc = (ContainerComponent) c;
-                cc.mouseMoved(x, y);
-            }
-        }
+        
     }
 
     public void beginDrags(int x, int y) {

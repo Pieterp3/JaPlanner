@@ -1,6 +1,5 @@
 package ui.components.containers.impl;
 
-
 import ui.Frame;
 import ui.components.DrawnComponent;
 import ui.components.containers.ContainerComponent;
@@ -10,14 +9,13 @@ import ui.components.impl.Button;
 
 import ui.graphics.Color;
 import ui.graphics.Graphics;
-import util.structures.List;
 import util.structures.Map;
 /**TODO
  * 16. Allow Dragging on scroller
  * 19. Check for bug in resizingComponents when complist is horizontal
  * 26. Add single, interval and multiple interval selection modes to complist
  */
-public class ComponentList extends DrawnComponent implements Scrollable, ContainerComponent {
+public class ComponentList extends ContainerComponent implements Scrollable {
 
     private static final Map<String, String> ARROW_MAP = new Map<String, String>() {
         {
@@ -32,13 +30,11 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
         return ARROW_MAP.get(direction);
     }
 
-    private List<DrawnComponent> components;
     private int scrollIndex;
     private Button scrollButton1, scrollButton2;
 
     public ComponentList(Frame frame, int x, int y, int width, int height) {
         super(frame);
-        components = new List<DrawnComponent>();
         scrollIndex = 2;
         initStyle(x, y, width, height);
     }
@@ -83,8 +79,8 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
         };
         scrollButton1.setAttribute("alignment", "center");
         scrollButton2.setAttribute("alignment", "center");
-        components.add(scrollButton1);
-        components.add(scrollButton2);
+        addComponent(scrollButton1);
+        addComponent(scrollButton2);
     }
 
     @Override
@@ -92,46 +88,33 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
         g.drawBackground(getX(), getY(), getWidth(), getHeight(), isHovered(), isPressed());
         g.attemptBorder(getX(), getY(), getWidth(), getHeight(), isHovered());
 
-        g.setStyle(components.get(0).getStyle());
-        components.get(0).updateGraphicsStyle(g);
-        g.setStyle(components.get(1).getStyle());
-        components.get(1).updateGraphicsStyle(g);
-        for (int i = scrollIndex; i < components.size(); i++) {
-            g.setStyle(components.get(i).getStyle());
-            components.get(i).updateGraphicsStyle(g);
+        g.setStyle(getComponent(0).getStyle());
+        getComponent(0).updateGraphicsStyle(g);
+        g.setStyle(getComponent(1).getStyle());
+        getComponent(1).updateGraphicsStyle(g);
+
+        for (int i = scrollIndex; i < getComponentCount(); i++) {
+            g.setStyle(getComponent(i).getStyle());
+            getComponent(i).updateGraphicsStyle(g);
         }
         g.setStyle(style);
         g.drawScrollbar(scrollButton1.getStyle(), getX(), getY(), getWidth(), getHeight(), scrollIndex,
-                components.size());
+                getComponentCount() - 1);
     }
 
     public void scroll(int amount) {
         scrollIndex += (amount * style.getIntAttribute("scrollMultiplier"));
         if (scrollIndex < 2)
             scrollIndex = 2;
-        if (scrollIndex > components.size() - 1)
-            scrollIndex = components.size() - 1;
+        if (scrollIndex > getComponentCount() - 1)
+            scrollIndex = getComponentCount() - 1;
         repositionComponents();
     }
 
-    @Override
-    public void addComponent(DrawnComponent component) {
-        components.add(component);
-        repositionComponents();
-    }
-
-    @Override
-    public void removeComponent(DrawnComponent component) {
-        components.remove(component);
-        repositionComponents();
-    }
-
-    public List<DrawnComponent> getComponents() {
-        return components;
-    }
 
     // Prefers Vertical scrolling but defaults to horizontal
     // Stops components from being drawn over the edge of the list
+    @Override
     public void repositionComponents() {
         int padding = style.getIntAttribute("padding");
         int border = style.getIntAttribute("borderWidth");
@@ -191,8 +174,8 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
                 }
             });
         }
-        for (int i = scrollIndex; i < components.size(); i++) {
-            DrawnComponent comp = components.get(i);
+        for (int i = scrollIndex; i < getComponentCount(); i++) {
+            DrawnComponent comp = getComponent(i);
             if (comp == scrollButton1 || comp == scrollButton2)
                 continue;
             final int finalTopY = topY;
@@ -233,32 +216,6 @@ public class ComponentList extends DrawnComponent implements Scrollable, Contain
                 leftX += comp.getWidth() + wallOffset;
             }
         }
-    }
-
-    @Override
-    public void click(int x, int y) {
-        for (DrawnComponent comp : components) {
-            if (comp.isHovered()) {
-                comp.click(x, y);
-                break;
-            }
-        }
-    }
-
-    @Override
-    public boolean mouseMoved(int x, int y) {
-        return false;
-    }
-
-    @Override
-    public void setHoveredCursor(int x, int y) {
-        for (DrawnComponent comp : components) {
-            if (comp.isHovered()) {
-                comp.setHoveredCursor(x, y);
-                return;
-            }
-        }
-        getFrame().setCursor(Frame.DEFAULT_CURSOR);
     }
 
 }
