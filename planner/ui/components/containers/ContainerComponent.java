@@ -20,7 +20,7 @@ public abstract class ContainerComponent extends DrawnComponent {
         return components;
     }
 
-    protected DrawnComponent getComponent(int i) {
+    public DrawnComponent getComponent(int i) {
         return components.get(i);
     }
 

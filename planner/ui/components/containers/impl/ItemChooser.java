@@ -42,6 +42,7 @@ public class ItemChooser extends ContainerComponent {
 		list.setAttribute("backgroundColor", Color.gray.toAttributeString());
 		list.setAttribute("backgroundHoverColor", Color.gray.toAttributeString());
 		list.setAttribute("backgroundPressColor", Color.gray.toAttributeString());
+		list.setAttribute("disabled", true);
 		super.addComponent(list);
 	}
 
@@ -64,7 +65,7 @@ public class ItemChooser extends ContainerComponent {
 				g.drawText(getX(), getY(), getWidth(), getHeight(), component.getAttribute("text"));
 			}
 		}
-		if (open) {
+		if (!list.getStyle().getBooleanAttribute("disabled")) {
 			list.updateGraphicsStyle(g);
 		}
 	}
@@ -77,6 +78,7 @@ public class ItemChooser extends ContainerComponent {
 		component.setAttribute("color", Color.white.toAttributeString());
 		component.setAttribute("backgroundColor", Color.gray.toAttributeString());
 		component.setAttribute("backgroundHoverColor", Color.darkGray.toAttributeString());
+		component.setAttribute("padding", 4);
 		list.addComponent(component);
 	}
 
@@ -88,11 +90,7 @@ public class ItemChooser extends ContainerComponent {
 	@Override
 	public void click(int x, int y) {
 		open = !open;
-		if (open) {
-			list.setAttribute("height", getHeight()*3);
-		} else {
-			list.setAttribute("height", getHeight());
-		}
+		list.setAttribute("disabled", open);
 	}
 
 }

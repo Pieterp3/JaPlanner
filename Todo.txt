@@ -1,1 +1,2 @@
 fix bug with hover cursors
+Emailer package

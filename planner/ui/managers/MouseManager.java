@@ -73,22 +73,38 @@ public class MouseManager {
         return lastPressedPosition.getIntY();
     }
 
+    private void click(DrawnComponent c, int x, int y) {
+        c.click(x, y);
+        if (c instanceof Focusable) {
+            frame.getActivePanel().setFocusableComponent((Focusable) c);
+        }
+    }
+
+    private boolean checkComponentClick(List<DrawnComponent> components, int x, int y, DrawnComponent container) {
+        for (DrawnComponent c : components) {
+            if (c instanceof ContainerComponent) {
+                if (!checkComponentClick(((ContainerComponent) c).getComponents(), x, y, c)) {
+                    if (c.contains(x, y)) {
+                        click(c, x, y);
+                        return true;
+                    }
+                }
+            } else if (c.contains(x, y)) {
+                if (container == null) {
+                    click(c, x, y);
+                } else {
+                    container.click(x, y);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void click() {
         if (System.currentTimeMillis() - lastClickTime < 5) return;
         lastClickTime = System.currentTimeMillis();
-        int y = getMouseY();
-        int x = getMouseX();
-        boolean setActiveTextComponent = false;
-        for (DrawnComponent c : frame.getActivePanel().getDrawnComponents()) {
-            if (c.contains(x, y)) {
-                c.click(x, y);
-                if (c instanceof Focusable) {
-                    frame.getActivePanel().setFocusableComponent((Focusable) c);
-                    setActiveTextComponent = true;
-                }
-            }
-        }
-        if (!setActiveTextComponent) {
+        if (!checkComponentClick(frame.getActivePanel().getDrawnComponents(), getMouseX(), getMouseY(), null)) {
             frame.getActivePanel().setFocusableComponent(null);
         }
     }
@@ -101,6 +117,7 @@ public class MouseManager {
     private DrawnComponent checkHovers(List<DrawnComponent> hovers) {
         DrawnComponent foundComponent = null;
         for (DrawnComponent c : hovers) {
+            if(c.getAttribute("disabled") != null && c.getStyle().getBooleanAttribute("disabled")) continue;
             c.setSetHovered(c.contains(getMouseX(), getMouseY()));
             if (c.isHovered()) {
                 c.setHoveredCursor(getMouseX(), getMouseY());

@@ -60,7 +60,7 @@ public class HomePanel extends Panel {
     }
 
     private void addOrbiters() {
-        Polygon rect = new Circle(getFrame(), getWidth() / 2 - 25, getHeight() / 2 - 25, 15);
+        Polygon rect = new Rectangle(getFrame(), getWidth() / 2 - 7, getHeight() / 2 - 8, 15, 15);
         rect.setAttributes(new Map<String, Object>() {
             {
                 put("borderColor", "000000");
@@ -90,16 +90,15 @@ public class HomePanel extends Panel {
         for (int i = 0; i < 10; i++) {
             double bigSize = 8 + Misc.getRandomNumber(2, 4);
             Polygon p = createOrbiter(rect, distance, bigSize);
-            distance += 6.0;
-            if (Misc.randomBoolean()) {
-                subDistance = bigSize;
-                for (int j = 0; j < Misc.getRandomNumber(4, 7); j++) {
+            distance += 12.0;
+            subDistance = bigSize;
+            if (i > 1)
+                for (int j = 0; j < Misc.getRandomNumber(i, i+3); j++) {
                     double size = 6 + Misc.getRandomNumber(1, 3);
-                    double d2 = subDistance + (j * 8) + 8;
+                    double d2 = subDistance + 8;
                     createOrbiter(p, d2, size);
-                    subDistance += d2;
                 }
-            }
+            distance += subDistance + 8;
         }
     }
 
