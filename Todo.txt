@@ -1,2 +1,6 @@
 fix bug with hover cursors
 Emailer package
+convert style to attribute system
+    - graphics attributes
+    - 
+add text to speech
