@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import ui.managers.ClipboardManager;
 import ui.managers.IOManager;
 import util.AttributeUseTracker;
+import util.engine.Engine;
 import util.events.EventManager;
 import util.events.EventTimer;
 import util.events.Event;
@@ -33,6 +34,7 @@ public class Frame {
     private boolean isIcon;
     private ClipboardManager clipboardManager;
     private EventManager eventManager;
+    private Engine engine;
 
     public static final int DEFAULT_CURSOR = 0;
     public static final int HAND_CURSOR = 12;
@@ -59,8 +61,11 @@ public class Frame {
         AttributeUseTracker.init();
     }
 
+    public void setEngine(Engine engine) {
+        this.engine = engine;
+    }
+
     public void beginEnter() {
-        System.out.println("Entering...");
         frame.requestFocus();
     }
 
@@ -77,6 +82,9 @@ public class Frame {
         ioManager.save();
         saveCommands();
         frame.dispose();
+        if (engine != null) {
+            engine.stop();
+        }
     }
 
     public void addCommand(String command) {

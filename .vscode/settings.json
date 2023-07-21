@@ -2,5 +2,10 @@
     "java.format.settings.url": "eclipse-formatter.xml",
     "[java]": {
         "editor.insertSpaces": false
-    }
+    },
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ],
+    "java.dependency.packagePresentation": "hierarchical",
+    "maven.view": "hierarchical"
 }

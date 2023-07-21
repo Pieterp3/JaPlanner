@@ -1,0 +1,8 @@
+#JSGF V1.0;
+
+grammar open;
+public <open> = (open | (close | exit | quit)) <file>;
+
+public <file> = (kodi | firefox | mozilla | roblox);
+public <number> = (one | two | three | four | five | six | seven | eight | nine | ten | eleven | twelve | thirteen | fourteen | fifteen | sixteen | seventeen | eighteen | nineteen | twenty | thirty | forty | fifty | sixty | seventy | eighty | ninety | hundred | thousand);
+public <direction> = (north | south | east | west | north-east | north-west | south-east | south-west | up | down | left | right);
