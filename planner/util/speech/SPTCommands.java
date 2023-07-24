@@ -14,8 +14,18 @@ public class SPTCommands {
 		openProcesses.put("roblox", "rundll32 SHELL32.DLL,ShellExec_RunDLL " + "C:\\Users\\Pbaro\\OneDrive\\Desktop\\Roblox Player.lnk");
 	}
 
+	/* Removes name from beginning of command */
+	private static String[] getCommand(String[] args) {
+		String[] command = new String[args.length - 1];
+		for (int i = 1; i < args.length; i++) {
+			command[i - 1] = args[i];
+		}
+		return command;
+	}
+
 	public static void executeCommand(String command) {
-		String[] args = command.split(" ");
+		Speaker.speak("I have heard and am acting upon the following command: " + command);
+		String[] args = getCommand(command.split(" "));
 		switch (args[0]) {
 			case "open":
 				openSomething(args);
@@ -27,7 +37,7 @@ public class SPTCommands {
 			break;
 			default:
 				System.out.println("Command not found: " + command);
-				Speech.speak("Command not found: " + command);
+				Speaker.speak("Command not found: " + command);
 			break;
 		}
 	}
@@ -37,7 +47,7 @@ public class SPTCommands {
 			System.out.println("Cannot close nothing.");
 			return;
 		}
-		Speech.speak("Closing " + args[1] + ".");
+		Speaker.speak("Closing " + args[1] + ".");
 		switch (args[1]) {
 			case "kodi":
 			case "mozilla":
@@ -57,7 +67,7 @@ public class SPTCommands {
 			break;
 			default:
 				System.out.println("Cannot close: " + args[1]);
-				Speech.speak("Cannot close: " + args[1]);
+				Speaker.speak("Cannot close: " + args[1]);
 				break;
 		}
 	}
@@ -67,7 +77,7 @@ public class SPTCommands {
 			System.out.println("Cannot open nothing.");
 			return;
 		}
-		Speech.speak("Opening " + args[1] + ".");
+		Speaker.speak("Opening " + args[1] + ".");
 		switch (args[1]) {
 			case "kodi":
 			case "mozilla":
@@ -81,7 +91,7 @@ public class SPTCommands {
 			break;
 			default:
 				System.out.println("Cannot open: " + args[1]);
-				Speech.speak("Cannot open: " + args[1]);
+				Speaker.speak("Cannot open: " + args[1]);
 				break;
 		}
 	}

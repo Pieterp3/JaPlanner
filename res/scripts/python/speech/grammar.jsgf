@@ -1,0 +1,12 @@
+#JSGF V1.0;
+
+grammar benjamin;
+
+public <benjamin> = benjamin [<action>];
+
+<action> = (open | (close | exit | quit)) [<object>] | (stop listening);
+<object> = <file>;
+
+<file> = (kodi | firefox | mozilla | roblox);
+<number> = (one | two | three | four | five | six | seven | eight | nine | ten | eleven | twelve | thirteen | fourteen | fifteen | sixteen | seventeen | eighteen | nineteen | twenty | thirty | forty | fifty | sixty | seventy | eighty | ninety | hundred | thousand);
+<direction> = (north | south | east | west | north-east | north-west | south-east | south-west | up | down | left | right);

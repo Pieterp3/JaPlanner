@@ -18,4 +18,8 @@ public class Load {
     public static List<String> loadData(String name) {
         return FileIO.read("res/data/" + name + ".dat");
     }
+
+    public static String loadSpeechResult(String name) {
+        return FileIO.read(name).get(0);
+    }
 }

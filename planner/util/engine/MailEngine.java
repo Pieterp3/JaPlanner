@@ -9,7 +9,6 @@ public class MailEngine extends Engine {
 
 	public MailEngine() {
 		this(60);
-		//TODO connect to the mail server
 	}
 
 	

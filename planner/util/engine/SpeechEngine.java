@@ -11,8 +11,8 @@ public class SpeechEngine extends Engine {
 	private ProcessExecutor executor;
 
 	public SpeechEngine() {
-		super(1000);
-		executor = new ProcessExecutor().command("python", "res/scripts/python/speechin.py")
+		super(100);
+		executor = new ProcessExecutor().command("python", "res/scripts/python/speech/speechin.py")
 				.redirectOutput(new LogOutputStream() {
 					@Override
 					protected void processLine(String line) {
@@ -50,10 +50,13 @@ public class SpeechEngine extends Engine {
 	}
 
 	private void processCommand(String line) {
-		if (line.startsWith("ERROR:"))
-            return;
-        if (line.trim().length() == 0)
-            return;
-        SPTCommands.executeCommand(line);
+		line=line.trim();
+		System.out.println("A: "+line);
+		if (line.startsWith("warn(")) return;
+		if (line.startsWith("C:")) return;
+		if (line.startsWith("ERROR")) return;
+		if (line.length() > 0) {
+			SPTCommands.executeCommand(line);
+		}
 	}
 }
