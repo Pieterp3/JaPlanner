@@ -1,10 +1,9 @@
 package ui.managers;
 
 import java.awt.event.KeyEvent;
-
-import ui.Frame;
 import ui.components.interfaces.Focusable;
 import ui.components.interfaces.RecievesText;
+import ui.frames.Frame;
 /**TODO
  * 15. Ctrl-s & Ctrl-o to frame as global hotkeys to save/load frame states
  * 

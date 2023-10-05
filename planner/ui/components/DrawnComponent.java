@@ -1,10 +1,9 @@
 package ui.components;
 
 
-import ui.Frame;
 import ui.Panel;
 import ui.components.style.Style;
-
+import ui.frames.Frame;
 import ui.graphics.Graphics;
 import util.structures.Map;
 

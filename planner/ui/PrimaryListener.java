@@ -1,5 +1,6 @@
 package ui;
 
+import ui.frames.Frame;
 import ui.managers.KeyManager;
 import ui.managers.MouseManager;
 

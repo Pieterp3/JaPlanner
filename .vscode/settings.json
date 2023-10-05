@@ -7,5 +7,9 @@
         "lib/**/*.jar"
     ],
     "java.dependency.packagePresentation": "hierarchical",
-    "maven.view": "hierarchical"
+    "maven.view": "hierarchical",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.autopep8"
+    },
+    "python.formatting.provider": "none"
 }

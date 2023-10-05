@@ -1,6 +1,6 @@
 package util.engine;
 
-import ui.Frame;
+import ui.frames.Frame;
 
 public class FrameEngine extends Engine {
 
@@ -17,7 +17,6 @@ public class FrameEngine extends Engine {
 	@Override
 	public void execute() {
 		frame.update();
-		frame.repaint();
 	}
 	
 }

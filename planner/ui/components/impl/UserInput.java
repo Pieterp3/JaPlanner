@@ -1,11 +1,11 @@
 package ui.components.impl;
 
 
-import ui.Frame;
 import ui.components.DrawnComponent;
 import ui.components.interfaces.Dragable;
 import ui.components.interfaces.RecievesText;
 import ui.components.style.Style;
+import ui.frames.Frame;
 import ui.managers.ClipboardManager;
 import ui.managers.KeyManager;
 import util.math.Misc;
@@ -41,7 +41,7 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
             }
         });
         style.addDefaultBorder();
-        style.setColorAttribute("placeholder", Color.gray);
+        style.setColorAttribute("placeholderColor", Color.gray);
         style.setColorAttribute("selectedTextColor", Color.gray);
         this.placeholder = placeholder;
     }

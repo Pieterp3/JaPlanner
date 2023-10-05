@@ -1,7 +1,7 @@
 package ui.components.containers;
 
-import ui.Frame;
 import ui.components.DrawnComponent;
+import ui.frames.Frame;
 import util.structures.List;
 /**TODO
  * 

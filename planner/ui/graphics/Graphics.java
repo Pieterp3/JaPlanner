@@ -68,12 +68,6 @@ public class Graphics {
         fillRect(x, y, width, height);
     }
 
-    public void drawCenteredText(int x, int y, int width, int height, String text) {
-        int textWidth = getStringWidth(text);
-        int textHeight = getFontHeight();
-        drawString(text, x + (width / 2) - (textWidth / 2), y + (height / 2) + (textHeight / 2));
-    }
-
     public void attemptBorder(int x, int y, int width, int height, boolean isHovered) {
         if (!style.hasBorder()) {
             return;
@@ -87,12 +81,20 @@ public class Graphics {
     public void drawText(int x, int y, int width, int height, String text) {
         setFont(style.getFont());
         int textWidth = getStringWidth(text);
+        if (textWidth > width) {
+            text = text.substring(0, text.length() - 3) + "...";
+            textWidth = getStringWidth(text);
+            while (textWidth > width + 1) {
+                text = text.substring(0, text.length() - 4) + "...";
+                textWidth = getStringWidth(text);
+            }
+        }
         String alignment = style.getAttribute("alignment");
         int padding = style.getIntAttribute("padding");
         int borderThickness = style.getIntAttribute("borderWidth");
         int wallOffset = borderThickness + padding;
 
-        x += alignment.equals("center") ? ((width / 2) - (textWidth / 2)) : // Centered
+        x += alignment.equals("center") ? ((width / 2) - (textWidth / 2))  : // Centered
                 alignment.equals("right") ? (width - textWidth - wallOffset) : // Right aligned
                         wallOffset;// Left aligned
 
@@ -180,6 +182,7 @@ public class Graphics {
         if (text.trim().length() == 0) {
             return;
         }
+        text=text.toUpperCase();
         String[] chars = text.split("");
         y -= font.getDrawnHeight();
         for (String s : chars) {
@@ -190,16 +193,15 @@ public class Graphics {
             for (int i = 0; i < characterData.length; i++) {
                 for (int j = 0; j < characterData[i].length; j++) {
                     if (characterData[i][j]) {
-                        int textX = x + (j * charIndex) + (j * font.getSize());
-                        int textY = y + (i * font.getSize());
-                        g.fillRect(textX, textY, font.getSize(), font.getSize());
+                        int textX = (int)(x + (j * charIndex) + (j * font.getSize()));
+                        int textY = (int)(y + (i * font.getSize()));
+                        g.fillRect(textX, textY, (int)font.getSize(), (int)font.getSize());
                     }
                 }
             }
             charIndex += 1;
-            x += font.getDrawnWidth(s) + font.getSize();
+            x += (font.getDrawnWidth(s) + font.getSize());
         }
-        // g.drawString(text, x, y);
     }
 
     public int getFontHeight() {

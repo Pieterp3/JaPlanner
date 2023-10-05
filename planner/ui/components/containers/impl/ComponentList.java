@@ -1,10 +1,10 @@
 package ui.components.containers.impl;
 
-import ui.Frame;
 import ui.components.DrawnComponent;
 import ui.components.containers.ContainerComponent;
 import ui.components.interfaces.Scrollable;
 import ui.components.style.Style;
+import ui.frames.Frame;
 import ui.components.impl.Button;
 
 import ui.graphics.Color;

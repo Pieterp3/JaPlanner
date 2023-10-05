@@ -1,9 +1,9 @@
 package ui.managers;
 
-import ui.Frame;
 import ui.components.DrawnComponent;
 import ui.components.containers.ContainerComponent;
 import ui.components.interfaces.Focusable;
+import ui.frames.Frame;
 import util.math.Point;
 import util.structures.List;
 

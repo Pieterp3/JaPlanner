@@ -1,8 +1,8 @@
 package ui.components.shapes;
 
 
-import ui.Frame;
 import ui.components.DrawnComponent;
+import ui.frames.Frame;
 import util.math.Point;
 import util.structures.List;
 

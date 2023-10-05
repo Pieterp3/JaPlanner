@@ -8,6 +8,7 @@ import ui.components.containers.ContainerComponent;
 import ui.components.interfaces.Dragable;
 import ui.components.interfaces.Focusable;
 import ui.components.interfaces.Scrollable;
+import ui.frames.Frame;
 import ui.graphics.Graphics;
 import util.structures.List;
 

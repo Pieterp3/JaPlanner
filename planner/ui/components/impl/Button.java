@@ -1,10 +1,9 @@
 package ui.components.impl;
 
 
-import ui.Frame;
 import ui.components.DrawnComponent;
 import ui.components.style.Style;
-
+import ui.frames.Frame;
 import ui.graphics.Color;
 import ui.graphics.Graphics;
 

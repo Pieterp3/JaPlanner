@@ -7,6 +7,7 @@ from array import array
 from struct import pack
 
 import pyaudio
+import os
 import wave
 
 from pydub import AudioSegment
@@ -17,15 +18,14 @@ from contextlib import redirect_stderr
 with open('filename.log', 'w') as stderr, redirect_stderr(stderr):
     a=1#stops error messages from printing. probably need to modify this
 
-THRESHOLD = 1400
+THRESHOLD = 1200
 TRIM_THRESHOLD = THRESHOLD * .75
 CHUNK_SIZE = 1024
 FORMAT = pyaudio.paInt16
 RATE = 16000
-debug = False
 wasSilent = True
 processing = False
-path="C:\\Users\\Pbaro\\OneDrive\\Desktop\\Fun\\Programming\\JaPlanner\\res\\scripts\\python\\speech\\"
+path="C:\\Users\\Pbaro\\OneDrive\\Desktop\\Fun\\Programming\\JaPlanner\\res\\scripts\\python\\speech\\temp\\"
 
 def is_silent(snd_data):
     "Returns 'True' if below the 'silent' threshold"
@@ -103,7 +103,6 @@ def record():
 
         silent = is_silent(snd_data)
         if (not silent and wasSilent):
-            print("<Recording>")
             wasSilent = False
 
         if silent and snd_started:
@@ -145,27 +144,32 @@ def strip(stringlist):
     return ret.strip()
 
 if __name__ == '__main__':
-    while True:
-        print("<Listening>")
-        record_to_file(path + 'microphone.wav')
-        sound = AudioSegment.from_wav(path + 'microphone.wav')  # can do same for mp3 and other formats
+    print("<Starting>", flush=True)
+    done = False
+    while not done:
+        print("<Listening>", flush=True)
+        record_to_file(path+'microphone.wav')
+        sound = AudioSegment.from_wav(path+'microphone.wav')  # can do same for mp3 and other formats
         raw = sound._data  # returns byte string 
-        with open("microphone.raw", "wb") as binary_file:
+        with open(path+"microphone.raw", "wb") as binary_file:
             binary_file.write(raw)
             binary_file.close()
         processing = True
         wasSilent = True
-        print("<Processing>")
+        os.remove(path+'microphone.wav')
         result = []
-        for phrase in AudioFile(path + 'microphone.raw', dict=path + 'dictionary.dict', jsgf=path + 'grammar.jsgf'):
+        for phrase in AudioFile(path+'microphone.raw', dict=path+'dictionary.dict', jsgf=path+'grammar.jsgf'):
             result.append(str(phrase))
         result = strip(result)
+        os.remove(path+'microphone.raw')
         if (len(result) == 0):
-            print("<None>")
+            print("<None>", flush=True)
             processing = False
-            continue
-        print(result)
+            break
+        print(result, flush=True)
         processing = False
+        print("<Done>", flush=True)
+        done = True
 
 #debug = True;
 

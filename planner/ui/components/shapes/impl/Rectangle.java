@@ -1,9 +1,9 @@
 package ui.components.shapes.impl;
 
 
-import ui.Frame;
 import ui.components.shapes.Polygon;
 import ui.components.style.Style;
+import ui.frames.Frame;
 import ui.graphics.Graphics;
 import util.math.Dimension;
 import util.math.Point;

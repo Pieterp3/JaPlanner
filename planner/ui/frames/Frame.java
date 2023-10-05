@@ -1,11 +1,13 @@
-package ui;
+package ui.frames;
 
 import javax.swing.JFrame;
-
+import ui.Panel;
+import ui.PrimaryListener;
 import ui.managers.ClipboardManager;
 import ui.managers.IOManager;
 import util.AttributeUseTracker;
 import util.engine.Engine;
+import util.engine.FrameEngine;
 import util.events.EventManager;
 import util.events.EventTimer;
 import util.events.Event;
@@ -41,13 +43,12 @@ public class Frame {
     public static final int TEXT_CURSOR = 2;
     public static final int LOADING_CURSOR = 3;
     
-    public Frame() {
-        frame = new JFrame();
-        frame.setTitle("Java Floor Planner");
+    public Frame(String title, int width, int height) {
+        frame = new JFrame(title);
         ioManager = new IOManager(this);
         panelHistory = new List<Panel>();
         commandHistory = new Map<>();
-        frame.setSize(800, 600);
+        frame.setSize(width, height);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         primaryListener = new PrimaryListener(this);
@@ -59,10 +60,19 @@ public class Frame {
         clipboardManager = new ClipboardManager(this);
         eventManager = new EventManager();
         AttributeUseTracker.init();
+        new FrameEngine(this, 40).start();
+    }
+
+    public void setTitle(String title) {
+        frame.setTitle(title);
     }
 
     public void setEngine(Engine engine) {
         this.engine = engine;
+    }
+
+    public void dispose() {
+        frame.setVisible(false);
     }
 
     public void beginEnter() {
@@ -197,7 +207,18 @@ public class Frame {
 
     public void update() {
         eventManager.update();
-        getActivePanel().update();
+        if (activePanel != null) {
+            activePanel.update();
+        }
+        repaint();
+    }
+
+    public void removeCloseButton() {
+        frame.setUndecorated(true);
+    }
+
+    public void setAlwaysOnTop(boolean b) {
+        frame.setAlwaysOnTop(b);
     }
 
 }

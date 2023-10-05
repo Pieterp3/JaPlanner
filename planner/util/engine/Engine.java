@@ -24,7 +24,9 @@ public abstract class Engine {
 
     public void stop() {
         running = false;
-        if (thread == null) { return; }
+        if (thread == null) {
+            return;
+        }
         try {
             thread.join();
             thread = null;
@@ -36,14 +38,21 @@ public abstract class Engine {
 
     protected abstract void execute();
 
+    private long last = System.currentTimeMillis();
     private void loop() {
-        long timer = System.currentTimeMillis();
         while (running) {
             long now = System.currentTimeMillis();
-            if (timer - now < delay) {
-                try { Thread.sleep(delay - (timer - now)); } catch (InterruptedException e) { }
+            long timePassed = now - last;
+            if (timePassed >= delay) {
+                last = now;
+                execute();
+                continue;
+            } else {
+                try {
+                    Thread.sleep(delay - timePassed + 1);
+                } catch (InterruptedException e) {
+                }
             }
-            execute();
         }
     }
 

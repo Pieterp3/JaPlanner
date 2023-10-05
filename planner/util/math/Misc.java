@@ -6,9 +6,12 @@ public class Misc {
 		try {
 			Integer.parseInt(text);
 			return true;
-		} catch (NumberFormatException e) {
-		}
+		} catch (NumberFormatException e) {}
 		return false;
+	}
+
+	public static String pickRandom(String[] array) {
+		return array[getRandomNumber(0, array.length - 1)];
 	}
 
 	public static boolean randomBoolean() {
@@ -25,6 +28,10 @@ public class Misc {
 
 	public static double getRandomNumber(double min, double max) {
 		return (Math.random() * (max - min + 1)) + min;
+	}
+
+	public static String formatCurrency(double number) {
+		return "$" + formatDecimal(number, 2);
 	}
 
 }

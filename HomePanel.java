@@ -1,10 +1,10 @@
 
-import ui.Frame;
 import ui.Panel;
 import ui.components.containers.impl.ComponentList;
 import ui.components.containers.impl.ItemChooser;
 import ui.components.shapes.Polygon;
 import ui.components.shapes.impl.*;
+import ui.frames.Frame;
 import ui.components.impl.*;
 import ui.graphics.Color;
 import ui.graphics.fonts.impl.DefaultChar;

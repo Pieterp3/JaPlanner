@@ -1,28 +1,48 @@
 package util.speech;
 
-import com.sun.speech.freetts.Voice;
-import com.sun.speech.freetts.VoiceManager;
+import java.io.File;
+import javax.sound.sampled.*;
 
 public class Speaker {
 
-    static {
-        System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
-    }
-
     public static void speak(String words) {
-        System.out.println("Speaking: " + words);
-        System.setProperty("mbrola.base", "lib/freetts-mbrolla.jar");
-        VoiceManager voiceManager = VoiceManager.getInstance();
-        Voice voice = voiceManager.getVoices()[1];
-        System.out.println("Found voices: " + voiceManager.getVoices().length);
-        if (voice == null) {
-            System.err.println("Cannot find voice");
-            System.exit(1);
+        words = words.replaceAll("[^a-zA-Z0-9_-]", "");
+        String filename = convertToFileName(words);
+        try {
+            if (!new File(filename).exists()) {
+                ProcessBuilder pb = new ProcessBuilder("python", "res/scripts/python/speech/speaker.py", words);
+                Process create = pb.start();
+                create.waitFor();
+                play(filename);
+                create.destroy();
+            } else {
+                play(filename);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        System.out.println("Using voice: " + voice.getName());
-        voice.allocate();
-        voice.speak(words);
-        voice.deallocate();
+
     }
 
+    private static void play(String filename) throws Exception {
+        AudioInputStream stream;
+        AudioFormat format;
+        DataLine.Info info;
+        Clip clip;
+        File file = new File(filename);
+        stream = AudioSystem.getAudioInputStream(file);
+        format = stream.getFormat();
+        info = new DataLine.Info(Clip.class, format);
+        clip = (Clip) AudioSystem.getLine(info);
+        clip.open(stream);
+        clip.start();
+        Thread.sleep(clip.getMicrosecondLength() / 1000);
+        clip.close();
+        stream.close();
+    }
+
+    private static String convertToFileName(String words) {
+        String filename = "res/scripts/python/speech/temp/";
+        return filename + words + ".wav";
+    }
 }

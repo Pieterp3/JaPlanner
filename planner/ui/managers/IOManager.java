@@ -1,8 +1,7 @@
 package ui.managers;
 
+import ui.frames.Frame;
 import util.AttributeUseTracker;
-
-import ui.Frame;
 
 public class IOManager {
     private Frame frame;

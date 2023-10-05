@@ -104,6 +104,7 @@ public abstract class Font {
                 continue;
             }
             width += getDrawnWidth(s);
+            width += getSize();
         }
         return width;
     }
@@ -113,11 +114,12 @@ public abstract class Font {
         if (data == null) {
             return 0;
         }
-        return data.getData()[0].length * getSize();
+        int size = (int) (data.getData()[0].length * getSize());
+        return size;
     }
 
-    public int getSize() {
-        return size;
+    public double getSize() {
+        return Math.ceil(size);
     }
 
     public int getStyle() {
@@ -171,6 +173,6 @@ public abstract class Font {
     }
 
     public int getDrawnHeight() {
-        return maxHeight * getSize();
+        return (int)(maxHeight * getSize());
     }
 }
