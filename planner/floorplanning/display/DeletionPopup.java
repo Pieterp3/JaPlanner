@@ -6,7 +6,7 @@ import ui.components.impl.Label;
 import ui.frames.Frame;
 
 public class DeletionPopup {
-	
+
 	private Frame creationPopup;
 	private Panel popupPanel;
 	private PlannerTestPanel panel;
@@ -48,9 +48,7 @@ public class DeletionPopup {
 
 			private String getTitle(int displayIndex) {
 				String title = "Confirm Deletion of ";
-				title += displayIndex == PlannerTestPanel.COMPLISTINDEX ? "Company"
-						: displayIndex == PlannerTestPanel.CUSTLISTINDEX ? "Customer" : "Item";
-				return title;
+				return title += panel.getListInfo().getInfoType() + "?";
 			}
 
 			@Override
@@ -60,7 +58,7 @@ public class DeletionPopup {
 				creationLabel = new Label(creationPopup, getTitle(displayIndex), 0, y, getWidth(), compHeight);
 				creationLabel.setAttribute("alignment", "center");
 				addComponent(creationLabel);
-				create = new Button(creationPopup, "Delete", 10, y+=30, (getWidth() / 2) - 20, getHeight() - y - 10);
+				create = new Button(creationPopup, "Delete", 10, y += 30, (getWidth() / 2) - 20, getHeight() - y - 10);
 				cancel = new Button(creationPopup, "Cancel", 10, y, (getWidth() / 2) - 20, getHeight() - y - 10);
 				create.setAttribute("action", "delete");
 				cancel.setAttribute("action", "cancel");

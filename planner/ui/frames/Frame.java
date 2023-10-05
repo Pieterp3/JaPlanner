@@ -164,7 +164,6 @@ public class Frame {
 
     public void setActive(boolean active) {
         this.active = active;
-        System.out.println("Window is now " + (active ? "active" : "inactive") + ".");
     }
 
     public boolean isActive() {
@@ -178,7 +177,6 @@ public class Frame {
 
     public void setIconState(boolean isIcon) {
         this.isIcon = isIcon;
-        System.out.println("Window is now " + (isIcon ? "iconified" : "not iconified") + ".");
     }
 
     public PrimaryListener getListener() {

@@ -9,7 +9,7 @@ public class Main {
     public static final boolean DEBUG = true;
 
     public static void main(String[] args) {
-        frame = new Frame("Java Floor planner", 800, 600);
+        frame = new Frame("Java Floor planner", 1200, 840);
         panels = new List<Panel>();
         panels.add(new PlannerTestPanel(frame));
         Panel devPanel = panels.get(DEBUG ? panels.size() - 1 : 0);

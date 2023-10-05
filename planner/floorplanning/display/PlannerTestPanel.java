@@ -3,7 +3,6 @@ package floorplanning.display;
 import floorplanning.FloorplanningManager;
 import floorplanning.entity.Company;
 import floorplanning.entity.Customer;
-import floorplanning.entity.Entity;
 import floorplanning.items.FlooringItemManager;
 import floorplanning.items.Pricing;
 import ui.Panel;
@@ -21,20 +20,15 @@ public class PlannerTestPanel extends Panel {
 
 	private FloorplanningManager manager;
 	private ComponentList[] lists;
+	private ComponentList selectedList;
 	public static final int SPACING = 9;
-	public static final int COMPLISTINDEX = 0;
-	public static final int CUSTLISTINDEX = 1;
-	public static final int PRICELISTINDEX = 2;
 	private static final String hoveredColor = "222222";
 	private static String defaultColor;
 
-	private Company selectedCompany;
-	private Customer selectedCustomer;
-	private Pricing selectedItem;
-	private int selectedListIndex = 0;
-
 	private Label[] listDisplayedLabels;
 	private Button[] modButtons;
+
+	private ListInfo listInfo = ListInfo.COMPANY;
 
 	public PlannerTestPanel(Frame frame) {
 		super(frame, "plannertestpanel");
@@ -78,9 +72,10 @@ public class PlannerTestPanel extends Panel {
 			addComponent(list);
 			lists[i] = list;
 		}
-		defaultColor = lists[selectedListIndex].getAttribute("backgroundColor");
-		lists[selectedListIndex].setAttribute("backgroundColor", hoveredColor);
-		lists[selectedListIndex].setAttribute("backgroundHoverColor", hoveredColor);
+		selectedList = lists[0];
+		defaultColor = selectedList.getAttribute("backgroundColor");
+		selectedList.setAttribute("backgroundColor", hoveredColor);
+		selectedList.setAttribute("backgroundHoverColor", hoveredColor);
 	}
 
 	private void addLabels() {
@@ -133,8 +128,8 @@ public class PlannerTestPanel extends Panel {
 			listDisplayedLabels[i + 5].setAttribute("x", listWidth + SPACING * 3);
 			listDisplayedLabels[i + 5].setAttribute("width", listWidth);
 		}
-		for (int i = 0;i<lists.length;i++) {
-			if (i==selectedListIndex) {
+		for (int i = 0; i < lists.length; i++) {
+			if (selectedList.equals(lists[i])) {
 				lists[i].setAttribute("backgroundColor", hoveredColor);
 				lists[i].setAttribute("backgroundHoverColor", hoveredColor);
 			} else {
@@ -142,56 +137,24 @@ public class PlannerTestPanel extends Panel {
 				lists[i].setAttribute("backgroundHoverColor", defaultColor);
 			}
 		}
-		listDisplayedLabels[0].setAttribute("text", "NAME");
+		for (int i = 0; i < 5; i++) {
+			listDisplayedLabels[i].setAttribute("text", listInfo.getLabelInfo()[i]);
+			if (listInfo.selectedDisplayValues != null)
+				listDisplayedLabels[i + 5].setAttribute("text", listInfo.selectedDisplayValues[i]);
+		}
+		for (int i = 2; i < 6; i++) {
+			modButtons[i].setAttribute("text", "Modify " + listInfo.getLabelInfo()[i - 1]);
+		}
+		// listDisplayedLabels[0].setAttribute("text", "NAME");
 		String createNewText = "CREATE NEW ";
 		String deleteText = "DELETE ";
-		switch (selectedListIndex) {
-			case COMPLISTINDEX:
-			case CUSTLISTINDEX:
-				listDisplayedLabels[1].setAttribute("text", "ADDRESS");
-				listDisplayedLabels[2].setAttribute("text", "PHONE NUMBER");
-				listDisplayedLabels[3].setAttribute("text", "EMAIL");
-				listDisplayedLabels[4].setAttribute("text", "NOTES");
-				createNewText += selectedListIndex == COMPLISTINDEX ? "COMPANY" : "CUSTOMER";
-				deleteText += selectedListIndex == COMPLISTINDEX ? "COMPANY" : "CUSTOMER";
-				modButtons[2].setAttribute("text", "MODIFY ADDRESS");
-				modButtons[3].setAttribute("text", "MODIFY PHONE NUMBER");
-				modButtons[4].setAttribute("text", "MODIFY EMAIL");
-				modButtons[5].setAttribute("text", "MODIFY NOTES");
-				Entity selected = selectedListIndex == COMPLISTINDEX ? selectedCompany : selectedCustomer;
-				if (selected != null) {
-					listDisplayedLabels[5].setAttribute("text", selected.getName());
-					listDisplayedLabels[6].setAttribute("text", selected.getAddress());
-					listDisplayedLabels[7].setAttribute("text", selected.getPhoneNumber());
-					listDisplayedLabels[8].setAttribute("text", selected.getEmail());
-					listDisplayedLabels[9].setAttribute("text", selected.getNotes());
-				}
-				break;
-			case PRICELISTINDEX:
-				listDisplayedLabels[1].setAttribute("text", "INSTALL PRICE");
-				listDisplayedLabels[2].setAttribute("text", "MATERIAL PRICE");
-				listDisplayedLabels[3].setAttribute("text", "REMOVAL PRICE");
-				listDisplayedLabels[4].setAttribute("text", "MOVE AND REPLACE PRICE");
-				listDisplayedLabels[5].setAttribute("text", selectedItem.getName());
-				listDisplayedLabels[6].setAttribute("text", Misc.formatCurrency(selectedItem.getInstallPrice()));
-				listDisplayedLabels[7].setAttribute("text", Misc.formatCurrency(selectedItem.getMaterialPrice()));
-				listDisplayedLabels[8].setAttribute("text", Misc.formatCurrency(selectedItem.getRemovalPrice()));
-				listDisplayedLabels[9].setAttribute("text", Misc.formatCurrency(selectedItem.getMoveAndReplacePrice()));
-				createNewText += "ITEM";
-				deleteText += "ITEM";
-				modButtons[2].setAttribute("text", "MODIFY INSTALL PRICE");
-				modButtons[3].setAttribute("text", "MODIFY MATERIAL PRICE");
-				modButtons[4].setAttribute("text", "MODIFY REMOVAL PRICE");
-				modButtons[5].setAttribute("text", "MODIFY MOVE AND REPLACE PRICE");
-				break;
-		}
 		modButtons[0].setAttribute("text", createNewText);
 		modButtons[1].setAttribute("text", deleteText);
 	}
 
 	@Override
 	public void handleAction(String command) {
-		System.out.println("Processing PlannerTestPanel action: " + command);
+		System.out.println("PlannerTestPanel: ()" + command + "()");
 		if (command.startsWith("display")) {
 			command = command.substring(7);
 			String[] parts = command.split("=");
@@ -203,18 +166,21 @@ public class PlannerTestPanel extends Panel {
 
 	private void display(String displayType, String displayName) {
 		int displayTypeInt = Integer.parseInt(displayType);
+		selectedList = lists[displayTypeInt];
 		switch (displayTypeInt) {
-			case COMPLISTINDEX:
-				selectedCompany = manager.getCompany(displayName);
+			case 0:
+				listInfo = ListInfo.COMPANY;
+				listInfo.setSelectedCompany(manager.getCompany(displayName));
 				break;
-			case CUSTLISTINDEX:
-				selectedCustomer = manager.getCustomer(displayName);
+			case 1:
+				listInfo = ListInfo.CUSTOMER;
+				listInfo.setSelectedCustomer(manager.getCustomer(displayName));
 				break;
-			case PRICELISTINDEX:
-				selectedItem = FlooringItemManager.getPricing(displayName);
+			case 2:
+				listInfo = ListInfo.PRICING;
+				listInfo.setSelectedItem(FlooringItemManager.getPricing(displayName));
 				break;
 		}
-		selectedListIndex = displayTypeInt;
 	}
 
 	private void processModButton(int button) {
@@ -223,7 +189,7 @@ public class PlannerTestPanel extends Panel {
 				if (creationPopup == null) {
 					creationPopup = new CreationPopup(this);
 				}
-				creationPopup.display();
+				creationPopup.display(button);
 				break;
 			case 1:
 				if (deletionPopup == null) {
@@ -256,69 +222,60 @@ public class PlannerTestPanel extends Panel {
 	@Override
 	public void finishPanelDrawing() {}
 
+	public ListInfo getListInfo() {
+		return listInfo;
+	}
+
+	public String getModPlaceholder(int modificationIndex) {
+		return listInfo.getLabelInfo()[modificationIndex + 1];
+	}
+
+	enum ListInfo {
+		COMPANY(new String[] { "NAME", "ADDRESS", "PHONE NUMBER", "EMAIL", "NOTES" }), CUSTOMER(
+				new String[] { "NAME", "ADDRESS", "PHONE NUMBER", "EMAIL", "NOTES" }), PRICING(new String[] { "NAME",
+						"INSTALL PRICE", "MATERIAL PRICE", "REMOVAL PRICE", "MOVE AND REPLACE PRICE" });
+
+		private String[] labelInfo;
+		private String[] selectedDisplayValues;
+
+		ListInfo(String[] labelInfo) {
+			this.labelInfo = labelInfo;
+		}
+
+		public void setSelectedCompany(Company selectedCompany) {
+			this.selectedDisplayValues = new String[] { selectedCompany.getName(), selectedCompany.getAddress(),
+					selectedCompany.getPhoneNumber(), selectedCompany.getEmail(), selectedCompany.getNotes() };
+		}
+
+		public void setSelectedCustomer(Customer selectedCustomer) {
+			this.selectedDisplayValues = new String[] { selectedCustomer.getName(), selectedCustomer.getAddress(),
+					selectedCustomer.getPhoneNumber(), selectedCustomer.getEmail(), selectedCustomer.getNotes() };
+		}
+
+		public void setSelectedItem(Pricing selectedItem) {
+			this.selectedDisplayValues = new String[] { selectedItem.getName(),
+					Misc.formatCurrency(selectedItem.getInstallPrice()),
+					Misc.formatCurrency(selectedItem.getMaterialPrice()),
+					Misc.formatCurrency(selectedItem.getRemovalPrice()),
+					Misc.formatCurrency(selectedItem.getMoveAndReplacePrice()) };
+		}
+
+		public String[] getLabelInfo() {
+			return labelInfo;
+		}
+
+		public String getInfoType() {
+			return this == COMPANY ? "Company" : this == CUSTOMER ? "Customer" : "Item";
+		}
+	}
+
 	public int getSelectedListIndex() {
-		return selectedListIndex;
-	}
-
-    public String getModPlaceholder(int modificationIndex) {
-		modificationIndex -= 2;
-        switch (selectedListIndex) {
-			case COMPLISTINDEX:
-				getCompanyData(modificationIndex);
-				break;
-			case CUSTLISTINDEX:
-				getCustomerData(modificationIndex);
-				break;
-			case PRICELISTINDEX:
-				getPricingData(modificationIndex);
-				break;
+		for (int i = 0; i < ListInfo.values().length; i++) {
+			if (listInfo == ListInfo.values()[i]) {
+				return i;
+			}
 		}
-		return "";
-    }
-
-	private String getCompanyData(int modificationIndex) {
-		if (selectedCompany == null) return "";
-		switch (modificationIndex) {
-			case 0:
-				return selectedCompany.getAddress();
-			case 1:
-				return selectedCompany.getPhoneNumber();
-			case 2:
-				return selectedCompany.getEmail();
-			case 3:
-				return selectedCompany.getNotes();
-		}
-		return "";
-	}
-
-	private String getCustomerData(int modificationIndex) {
-		if (selectedCustomer == null) return "";
-		switch (modificationIndex) {
-			case 0:
-				return selectedCustomer.getAddress();
-			case 1:
-				return selectedCustomer.getPhoneNumber();
-			case 2:
-				return selectedCustomer.getEmail();
-			case 3:
-				return selectedCustomer.getNotes();
-		}
-		return "";
-	}
-
-	private String getPricingData(int modificationIndex) {
-		if (selectedItem == null) return "";
-		switch (modificationIndex) {
-			case 0:
-				return Misc.formatCurrency(selectedItem.getInstallPrice());
-			case 1:
-				return Misc.formatCurrency(selectedItem.getMaterialPrice());
-			case 2:
-				return Misc.formatCurrency(selectedItem.getRemovalPrice());
-			case 3:
-				return Misc.formatCurrency(selectedItem.getMoveAndReplacePrice());
-		}
-		return "";
+		return -1;
 	}
 
 }
