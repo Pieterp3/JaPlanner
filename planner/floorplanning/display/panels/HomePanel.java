@@ -113,7 +113,7 @@ public class HomePanel extends Panel {
 				//getFrame().setActivePanel(new FloorplanPanel(getFrame()));
 				break;
 			case "logout":
-				getFrame().setActivePanel(new WelcomePanel(getFrame()));
+				getFrame().setActivePanel(welcomePanel);
 				break;
 			case "changesettings":
 				//getFrame().setActivePanel(new SettingsPanel(getFrame()));

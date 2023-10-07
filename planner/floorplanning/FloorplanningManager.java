@@ -2,13 +2,11 @@ package floorplanning;
 
 import floorplanning.entity.Company;
 import floorplanning.entity.Customer;
-import floorplanning.items.FlooringItem;
 import floorplanning.items.FlooringItemManager;
 import floorplanning.room.Room;
 import util.io.Load;
 import util.io.Save;
 import util.structures.List;
-import util.structures.Map;
 
 /**
  * Manages walking the user through the floorplanning process
@@ -28,7 +26,6 @@ public class FloorplanningManager {
 	private List<Estimate> estimates;
 	private List<Floorplan> floorplans;
 	private List<String> companyNames, customerNames;
-	private boolean updateNames;
 
 	public FloorplanningManager() {
 		companies = new List<>();
@@ -196,6 +193,64 @@ public class FloorplanningManager {
 			}
 		}
 		return null;
+	}
+
+	public Estimate getEstimate(String id) {
+		for (Estimate estimate : estimates) {
+			if (estimate.getId().equals(id)) {
+				return estimate;
+			}
+		}
+		return null;
+	}
+
+	public void addFloorplan(Floorplan floorplan) {
+		floorplans.add(floorplan);
+	}
+
+	public List<Floorplan> getFloorplans() {
+		return floorplans;
+	}
+
+	public void removeCustomer(String name) {
+		for (int i = 0; i < customers.size(); i++) {
+			if (customers.get(i).getName().equals(name)) {
+				customers.remove(i);
+				customerNames.remove(i);
+				return;
+			}
+		}
+	}
+
+	public void removeCustomer(Customer customer) {
+		removeCustomer(customer.getName());
+	}
+
+	public void removeCompany(String name) {
+		for (int i = 0; i < companies.size(); i++) {
+			if (companies.get(i).getName().equals(name)) {
+				companies.remove(i);
+				companyNames.remove(i);
+				return;
+			}
+		}
+	}
+
+	public void removeCompany(Company company) {
+		removeCompany(company.getName());
+	}
+
+	public void removeEstimate(String id) {
+		for (int i = 0; i < estimates.size(); i++) {
+			if (estimates.get(i).getId().equals(id)) {
+				estimates.remove(i);
+				return;
+			}
+		}
+	}
+
+	public void removeEstimate(Estimate estimate) {
+		removeEstimate(estimate.getId());
 	}
 
 }

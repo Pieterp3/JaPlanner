@@ -7,6 +7,9 @@ package game.entity;
     c. Entity system
         - Player, NPC, GameObject
     d. Item/Inventory/Bank system
+    e. Combat system
+    f. Quest system
+    g. Dialogue system
  */
 public class Entity {
 	
