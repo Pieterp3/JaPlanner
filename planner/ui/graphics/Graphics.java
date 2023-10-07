@@ -8,42 +8,45 @@ import util.math.Point;
 import util.structures.List;
 import ui.graphics.fonts.CharacterData;
 
-/** TODO
- *  9. Create attributes
-    a. inputType (Text, Int, Float, Email, Phone, Password) - For TextInput
-    b. wrapText
-    c. displayLineNumbers
-    d. spellcheckEnabled
-    e. active (diabled doesnt draw or allow interactions, this will just gray it out)
-    f. resizeMode (Stretch, Stay, Flow)
-    g. shadowedText
-    h. borderRadius
-    i. scrollerlineColor
-    j. scrollerBorderColor
-    k. scrollbarBorderColor
-    l. tooltip
-    m. alpha
-    n. voiceRecognitionEnabled
-    o. backgroundImage
-    p. displayAsCarousel
-    q. autoPlayVideo
-    r. downloadStreamedVideos
-    s. tabIndex
-    t. selectionMode
-    u. shapeBorderStyle
+/**
+ * TODO
+ * 9. Create attributes
+ * a. inputType (Text, Int, Float, Email, Phone, Password) - For TextInput
+ * b. wrapText
+ * c. displayLineNumbers
+ * d. spellcheckEnabled
+ * e. active (diabled doesnt draw or allow interactions, this will just gray it
+ * out)
+ * f. resizeMode (Stretch, Stay, Flow)
+ * g. shadowedText
+ * h. borderRadius
+ * i. scrollerlineColor
+ * j. scrollerBorderColor
+ * k. scrollbarBorderColor
+ * l. tooltip
+ * m. alpha
+ * n. voiceRecognitionEnabled
+ * o. backgroundImage
+ * p. displayAsCarousel
+ * q. autoPlayVideo
+ * r. downloadStreamedVideos
+ * s. tabIndex
+ * t. selectionMode
+ * u. shapeBorderStyle
  * 
  * Enable these attributes in here
  * 
- * create a subclass of this for shape graphics to make sure attributes are still used
- *      but stop this class from being bloated
+ * create a subclass of this for shape graphics to make sure attributes are
+ * still used
+ * but stop this class from being bloated
  * 
  * 11. Account for font styles in graphics
  * 
  * 28. Allow shape border attibute to be
-    a. snug
-    b. bounderies
-
-    
+ * a. snug
+ * b. bounderies
+ * 
+ * 
  * 
  */
 
@@ -56,6 +59,10 @@ public class Graphics {
 
     public void updateGraphics(Graphics2D g) {
         this.g = g;
+    }
+    
+    public void setStyle(Style style) {
+        this.style = style;
     }
 
     public void drawBackground(int x, int y, int width, int height, boolean isHovered, boolean isPressed) {
@@ -94,14 +101,14 @@ public class Graphics {
         int borderThickness = style.getIntAttribute("borderWidth");
         int wallOffset = borderThickness + padding;
 
-        x += alignment.equals("center") ? ((width / 2) - (textWidth / 2))  : // Centered
+        x += alignment.equals("center") ? ((width / 2) - (textWidth / 2)) : // Centered
                 alignment.equals("right") ? (width - textWidth - wallOffset) : // Right aligned
                         wallOffset;// Left aligned
 
         if (!alignment.equals("center") && style.hasBorder()) {
             x += (borderThickness * (alignment.equals("left") ? 1 : -1));
         }
-        int drawY = (int) (y + (height / 2) + (getFontHeight()*.85));
+        int drawY = (int) (y + (height / 2) + (getFontHeight() * .85));
         drawString(text, x, drawY);
     }
 
@@ -182,20 +189,19 @@ public class Graphics {
         if (text.trim().length() == 0) {
             return;
         }
-        text=text.toUpperCase();
+        text = text.toUpperCase();
         String[] chars = text.split("");
         y -= font.getDrawnHeight();
         for (String s : chars) {
             CharacterData data = font.getCharacterData(s);
             boolean[][] characterData = data.getData();
             int charIndex = 0;
-
             for (int i = 0; i < characterData.length; i++) {
                 for (int j = 0; j < characterData[i].length; j++) {
                     if (characterData[i][j]) {
-                        int textX = (int)(x + (j * charIndex) + (j * font.getSize()));
-                        int textY = (int)(y + (i * font.getSize()));
-                        g.fillRect(textX, textY, (int)font.getSize(), (int)font.getSize());
+                        int textX = (int) (x + (j * charIndex) + (j * font.getSize()));
+                        int textY = (int) (y + (i * font.getSize()));
+                        g.fillRect(textX, textY, (int) font.getSize(), (int) font.getSize());
                     }
                 }
             }
@@ -214,10 +220,6 @@ public class Graphics {
 
     public int getFontCharWidth(char charAt) {
         return font.getDrawnWidth(String.valueOf(charAt));
-    }
-
-    public void setStyle(Style style) {
-        this.style = style;
     }
 
     public void fillShape(List<Point> points) {
