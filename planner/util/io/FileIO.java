@@ -35,7 +35,7 @@ public class FileIO {
                     lines.add(line);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error: Could not read file: " + file);
         }
         return lines;
     }

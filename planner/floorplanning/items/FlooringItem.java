@@ -29,6 +29,10 @@ public class FlooringItem {
 		return price.getPrice(priceTypes) * quantity;
 	}
 
+    public String getName() {
+       return price.getName();
+    }
+
 
 
 

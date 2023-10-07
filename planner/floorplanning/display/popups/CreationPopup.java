@@ -1,4 +1,6 @@
-package floorplanning.display;
+package floorplanning.display.popups;
+
+import floorplanning.display.PlannerTestPanel;
 
 public class CreationPopup extends Popup {
 
@@ -8,7 +10,7 @@ public class CreationPopup extends Popup {
 
 	@Override
 	protected void initPanel() {
-		setTitle("Create New "+getPanel().getListInfo().getInfoType());
+		setTitle("Create New " + getPanel().getListInfo().getInfoType());
 		for (int i = 0; i < getPanel().getListInfo().getLabelInfo().length; i++) {
 			addUserInput(getPanel().getListInfo().getLabelInfo()[i]);
 		}
@@ -17,7 +19,7 @@ public class CreationPopup extends Popup {
 
 	@Override
 	protected void updatePanel() {
-		setTitle("Create New "+getPanel().getListInfo().getInfoType());
+		setTitle("Create New " + getPanel().getListInfo().getInfoType());
 		for (int i = 0; i < getPanel().getListInfo().getLabelInfo().length; i++) {
 			updateUserInput(i, getPanel().getListInfo().getLabelInfo()[i]);
 		}

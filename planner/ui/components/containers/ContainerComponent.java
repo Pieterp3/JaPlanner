@@ -33,6 +33,11 @@ public abstract class ContainerComponent extends DrawnComponent {
         repositionComponents();
     }
 
+    public void removeAllComponents() {
+        components.clear();
+        repositionComponents();
+    }
+
     public void removeComponent(DrawnComponent component) {
         components.remove(component);
         repositionComponents();

@@ -1,5 +1,6 @@
-package floorplanning.display;
+package floorplanning.display.popups;
 
+import floorplanning.display.PlannerTestPanel;
 import ui.Panel;
 import ui.components.impl.Button;
 import ui.components.impl.Label;

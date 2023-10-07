@@ -1,32 +1,33 @@
 package floorplanning.display;
 
 import floorplanning.FloorplanningManager;
-import floorplanning.entity.Company;
-import floorplanning.entity.Customer;
+import floorplanning.display.popups.CreationPopup;
+import floorplanning.display.popups.DeletionPopup;
+import floorplanning.display.popups.ModifyPopup;
 import floorplanning.items.FlooringItemManager;
-import floorplanning.items.Pricing;
 import ui.Panel;
 import ui.components.containers.impl.ComponentList;
 import ui.components.impl.Button;
 import ui.components.impl.Label;
 import ui.frames.Frame;
-import util.math.Misc;
 
 public class PlannerTestPanel extends Panel {
 
 	private DeletionPopup deletionPopup;
 	private CreationPopup creationPopup;
 	private ModifyPopup modifyPopup;
-
-	private FloorplanningManager manager;
+	
 	private ComponentList[] lists;
 	private ComponentList selectedList;
-	public static final int SPACING = 9;
-	private static final String hoveredColor = "222222";
-	private static String defaultColor;
 
 	private Label[] listDisplayedLabels;
 	private Button[] modButtons;
+	private Button[] firstListDisplayButtons;
+
+	private FloorplanningManager manager;
+	public static final int SPACING = 9;
+	private static final String hoveredColor = "222222";
+	private static String defaultColor;
 
 	private ListInfo listInfo = ListInfo.COMPANY;
 
@@ -60,7 +61,6 @@ public class PlannerTestPanel extends Panel {
 		for (int i = 0; i < FlooringItemManager.getFlooringItemNames().size(); i++) {
 			names[2][i] = FlooringItemManager.getFlooringItemNames().get(i);
 		}
-
 		for (int i = 0; i < names.length; i++) {
 			ComponentList list = new ComponentList(getFrame(), 0, 50, 0, 300);
 			for (int j = 0; j < names[i].length; j++) {
@@ -105,6 +105,17 @@ public class PlannerTestPanel extends Panel {
 			b.setAttribute("action", "MOD=" + i);
 			modButtons[i] = b;
 		}
+
+		String[] displayFirstListButtons = new String[] { "Companies", "Customers",
+				"Price lists" };
+		firstListDisplayButtons = new Button[displayFirstListButtons.length];
+		for (int i = 0; i < displayFirstListButtons.length; i++) {
+			Button b = new Button(getFrame(), displayFirstListButtons[i], 0, 520 + (i * (SPACING + 25)), 1, 25);
+			b.setAttribute("alignment", "center");
+			addComponent(b);
+			b.setAttribute("action", "firstlist" + i + "=" + b.getAttribute("text"));
+			firstListDisplayButtons[i] = b;
+		}
 	}
 
 	@Override
@@ -121,6 +132,9 @@ public class PlannerTestPanel extends Panel {
 			Button b = modButtons[i];
 			b.setAttribute("x", (listWidth * 2) + (4 * SPACING));
 			b.setAttribute("width", listWidth);
+		}
+		for (int i = 0;i<firstListDisplayButtons.length;i++) {
+			
 		}
 		for (int i = 0; i < 5; i++) {
 			listDisplayedLabels[i].setAttribute("x", SPACING * 2);
@@ -139,8 +153,8 @@ public class PlannerTestPanel extends Panel {
 		}
 		for (int i = 0; i < 5; i++) {
 			listDisplayedLabels[i].setAttribute("text", listInfo.getLabelInfo()[i]);
-			if (listInfo.selectedDisplayValues != null)
-				listDisplayedLabels[i + 5].setAttribute("text", listInfo.selectedDisplayValues[i]);
+			if (listInfo.getSelectedDisplayValues() != null)
+				listDisplayedLabels[i + 5].setAttribute("text", listInfo.getSelectedDisplayValues()[i]);
 		}
 		for (int i = 2; i < 6; i++) {
 			modButtons[i].setAttribute("text", "Modify " + listInfo.getLabelInfo()[i - 1]);
@@ -228,45 +242,6 @@ public class PlannerTestPanel extends Panel {
 
 	public String getModPlaceholder(int modificationIndex) {
 		return listInfo.getLabelInfo()[modificationIndex + 1];
-	}
-
-	enum ListInfo {
-		COMPANY(new String[] { "NAME", "ADDRESS", "PHONE NUMBER", "EMAIL", "NOTES" }), CUSTOMER(
-				new String[] { "NAME", "ADDRESS", "PHONE NUMBER", "EMAIL", "NOTES" }), PRICING(new String[] { "NAME",
-						"INSTALL PRICE", "MATERIAL PRICE", "REMOVAL PRICE", "MOVE AND REPLACE PRICE" });
-
-		private String[] labelInfo;
-		private String[] selectedDisplayValues;
-
-		ListInfo(String[] labelInfo) {
-			this.labelInfo = labelInfo;
-		}
-
-		public void setSelectedCompany(Company selectedCompany) {
-			this.selectedDisplayValues = new String[] { selectedCompany.getName(), selectedCompany.getAddress(),
-					selectedCompany.getPhoneNumber(), selectedCompany.getEmail(), selectedCompany.getNotes() };
-		}
-
-		public void setSelectedCustomer(Customer selectedCustomer) {
-			this.selectedDisplayValues = new String[] { selectedCustomer.getName(), selectedCustomer.getAddress(),
-					selectedCustomer.getPhoneNumber(), selectedCustomer.getEmail(), selectedCustomer.getNotes() };
-		}
-
-		public void setSelectedItem(Pricing selectedItem) {
-			this.selectedDisplayValues = new String[] { selectedItem.getName(),
-					Misc.formatCurrency(selectedItem.getInstallPrice()),
-					Misc.formatCurrency(selectedItem.getMaterialPrice()),
-					Misc.formatCurrency(selectedItem.getRemovalPrice()),
-					Misc.formatCurrency(selectedItem.getMoveAndReplacePrice()) };
-		}
-
-		public String[] getLabelInfo() {
-			return labelInfo;
-		}
-
-		public String getInfoType() {
-			return this == COMPANY ? "Company" : this == CUSTOMER ? "Customer" : "Item";
-		}
 	}
 
 	public int getSelectedListIndex() {

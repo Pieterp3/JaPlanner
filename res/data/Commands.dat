@@ -1,9 +1,2 @@
-display1=Ol Place (2 times): 44.0s 11.0s
-MOD=2 (2 times): 43.0s 27.0s
-MOD=3 (2 times): 41.0s 17.0s
-MOD=4 (3 times): 40.0s 33.0s 26.0s
-MOD=5 (2 times): 39.0s 31.0s
-display0=Toms Flooring (1 times): 28.0s
-MOD=1 (1 times): 21.0s
-display2=Floating Vinyl (1 times): 18.0s
-display0=Peerless Flooring (1 times): 10.0s
+login (1 times): 15.0s
+viewcustomers (1 times): 2.0s

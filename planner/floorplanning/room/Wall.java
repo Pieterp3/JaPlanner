@@ -22,7 +22,25 @@ public class Wall {
 		newTrim = new List<>();
 	}
 
-	public void addExistingTrim(FlooringItem trim) {
+	public Wall(String wallString) {
+		String[] wallInfo = wallString.split(":");
+		start = new Point(Double.parseDouble(wallInfo[0]), Double.parseDouble(wallInfo[1]));
+		end = new Point(Double.parseDouble(wallInfo[2]), Double.parseDouble(wallInfo[3]));
+		arcRadius = Double.parseDouble(wallInfo[4]);
+		type = WallType.valueOf(wallInfo[5]);
+		existingTrim = new List<>();
+		newTrim = new List<>();
+		String[] existingTrimStrings = wallInfo[6].split(",");
+		for (String trimString : existingTrimStrings) {
+			existingTrim.add(new FlooringItem(trimString, 1));
+		}
+		String[] newTrimStrings = wallInfo[7].split(",");
+		for (String trimString : newTrimStrings) {
+			newTrim.add(new FlooringItem(trimString, 1));
+		}
+	}
+
+    public void addExistingTrim(FlooringItem trim) {
 		existingTrim.add(trim);
 	}
 
@@ -72,5 +90,18 @@ public class Wall {
 		}
 		return cost;
 	}
+
+    public String getWallString() {
+        String wallString = "";
+		wallString += start.getX() + ":" + start.getY() + ":" + end.getX() + ":" + end.getY() + ":" + arcRadius + ":" + type + ":";
+		for (FlooringItem trim : existingTrim) {
+			wallString += trim.getName() + ":";
+		}
+		wallString += ",";
+		for (FlooringItem trim : newTrim) {
+			wallString += trim.getName() + ":";
+		}
+		return wallString.substring(0, wallString.length() - 1);
+    }
 
 }

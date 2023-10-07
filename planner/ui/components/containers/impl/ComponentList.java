@@ -108,6 +108,12 @@ public class ComponentList extends ContainerComponent implements Scrollable {
         repositionComponents();
     }
 
+    @Override
+    public void removeAllComponents() {
+        while(getComponentCount() > 2) {
+            removeComponent(getComponent(2));
+        }
+    }
 
     // Prefers Vertical scrolling but defaults to horizontal
     // Stops components from being drawn over the edge of the list

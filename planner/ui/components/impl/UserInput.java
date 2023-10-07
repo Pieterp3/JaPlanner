@@ -26,6 +26,7 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
     private long lastCursorUpdate = 0;
     private boolean cursorVisible = false;
     private int selectedStartIndex, selectedStopIndex;
+    private Button fireOnEnter;
 
     public UserInput(Frame frame, String text, int x, int y, int width, int height, String placeholder) {
         super(frame);
@@ -77,10 +78,16 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
             g.setColor(style.getColorAttribute("placeholderColor"));
         } else {
             g.setColor(style.getColorAttribute("color"));
+            if (style.getBooleanAttribute("password")) {
+                text = text.replaceAll(".", "*");
+            }
         }
-
         g.drawText(getX(), getY(), getWidth(), getHeight(), text);
         drawCursor(g, text, style);
+    }
+
+    public void setActionButton(Button b) {
+        fireOnEnter = b;
     }
 
     public String getText() {
@@ -89,6 +96,7 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
 
     public void setText(String text) {
         style.setAttribute("text", text);
+        cursorPosition = Math.min(cursorPosition, text.length());
     }
 
     public String getPlaceholder() {
@@ -131,13 +139,23 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
         }
         if (!cursorVisible)
             return;
+        if (placeholder != null && placeholder.equals(text))
+            cursorPosition = text.length();
         g.setColor(style.getColorAttribute("color"));
         int endIndex = Math.min(cursorPosition, text.length());
         int x = getX() + g.getStringWidth(text.substring(0, endIndex)) - 2;
+        String alignment = style.getAttribute("alignment");
         int padding = style.getIntAttribute("padding");
         int borderThickness = style.getIntAttribute("borderWidth");
         int wallOffset = borderThickness + padding;
-        x += wallOffset;
+        if (!alignment.equals("center")) {
+            x += (wallOffset * (alignment.equals("left") ? 1 : -1));
+        } else if (alignment.equals("center")) {
+            x += (getWidth() / 2);
+            x -= (g.getStringWidth(text) / 2);
+            x += (text.length());
+        }
+
         int y = getY() + wallOffset;
         g.fillRect(x, y, 1, getHeight() - 8);
     }
@@ -266,6 +284,13 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
                 cursorPosition += nextWhitespace;
                 return true;
             }
+        } else if (keyCode == KeyManager.ENTER) {
+            if (fireOnEnter != null)
+                fireOnEnter.click(0, 0);
+            return true;
+        } else if (keyCode == KeyManager.ESCAPE) {
+            getPanel().setFocusableComponent(null);
+            return true;
         }
         return false;
     }
@@ -332,6 +357,11 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
             setText(newText);
             cursorPosition = Math.max(0, getSelectedStartIndex()) + text.length();
             resetSelectedText();
+            return;
+        }
+        if (currentText.length() == 0) {
+            setText(text);
+            cursorPosition = text.length();
             return;
         }
         String newText = currentText.substring(0, cursorPosition) + text + currentText.substring(cursorPosition);

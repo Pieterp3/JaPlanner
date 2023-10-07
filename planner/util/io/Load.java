@@ -21,7 +21,12 @@ public class Load {
     }
 
     public static List<String> loadData(String name) {
-        return FileIO.read("res/data/" + name + ".dat");
+        try {
+            return FileIO.read("res/data/" + name + ".dat");
+        } catch (Exception e) {
+            System.out.println("Error: Could not locate data file: " + name + ".dat");
+            return new List<>();
+        }
     }
 
     public static String loadSpeechResult(String name) {
