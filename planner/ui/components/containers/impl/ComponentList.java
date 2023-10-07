@@ -68,7 +68,6 @@ public class ComponentList extends ContainerComponent implements Scrollable {
             @Override
             public void click(int x, int y) {
                 scroll(-1);
-                System.out.println("Clicked");
             }
         };
         scrollButton2 = new Button(getFrame(), getArrow("down")) {

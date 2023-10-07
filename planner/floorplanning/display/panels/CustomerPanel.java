@@ -8,6 +8,8 @@ import ui.components.impl.Button;
 import ui.components.impl.Label;
 import ui.components.impl.UserInput;
 import ui.frames.Frame;
+import util.events.Event;
+import util.events.EventTimer;
 import util.structures.List;
 
 /**
@@ -58,22 +60,24 @@ public class CustomerPanel extends Panel {
 	@Override
 	public void update() {
 		buildCustomerList();
+		modifyPositions();
+	}
+
+	private void modifyPositions() {
 		customerViewLabel.setAttribute("width", getWidth());
-		customerList.setAttribute("y", 60);
-		customerList.setAttribute("height", getHeight() - 70);
-		estimateList.setAttribute("y", 60);
-		estimateList.setAttribute("height", getHeight() - 510);
-		companyList.setAttribute("y", getHeight() - 440);
-		companyList.setAttribute("height", 430);
+		customerList.setAttribute("height", getHeight() - 10 - customerList.getY());
+		estimateList.setAttribute("height", getHeight() * .7);
+		companyList.setAttribute("y", estimateList.getY() + estimateList.getHeight() + 10);
+		companyList.setAttribute("height", getHeight() - 10 - companyList.getY());
 		for (int i = 0; i < informationLabels.length; i++) {
-			informationLabels[i].setAttribute("width", getWidth() - 500);
+			informationLabels[i].setAttribute("width", getWidth() - 10 - informationLabels[i].getX());
 		}
 		for (int i = 0; i < modButtons.length; i++) {
-			modButtons[i].setAttribute("width", getWidth() - 490);
+			modButtons[i].setAttribute("width", getWidth() - 10 - modButtons[i].getX());
 		}
-		searchInput.setAttribute("width", getWidth() - 490);
-		searchButton.setAttribute("width", getWidth() - 490);
-		backButton.setAttribute("width", getWidth() - 490);
+		searchInput.setAttribute("width", getWidth() - 10 - searchInput.getX());
+		searchButton.setAttribute("width", getWidth() - 10 - searchButton.getX());
+		backButton.setAttribute("width", getWidth() - 10 - backButton.getX());
 	}
 
 	private void buildCustomerList() {

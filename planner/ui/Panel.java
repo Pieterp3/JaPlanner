@@ -41,7 +41,7 @@ public abstract class Panel implements Comparable<Panel> {
         };
         panel.setName(name);
         this.frame = frame;
-        panel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+        panel.setBounds(0, 0, frame.getWidth() - 14, frame.getHeight()-36);
         components = new List<DrawnComponent>();
         init();
     }

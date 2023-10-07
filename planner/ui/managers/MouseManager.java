@@ -8,7 +8,7 @@ import util.math.Point;
 import util.structures.List;
 
 public class MouseManager {
-    
+
     private Point mousePosition;
     private boolean mousePressed;
     private Point lastPressedPosition;
@@ -36,7 +36,7 @@ public class MouseManager {
         x = fixX(x);
         mousePosition.setLocation(x, y);
         checkHovers();
-        //frame.getActivePanel().mouseMoved(x, y, mousePressed);
+        // frame.getActivePanel().mouseMoved(x, y, mousePressed);
     }
 
     public void setLastMousePosition(int x, int y) {
@@ -102,7 +102,8 @@ public class MouseManager {
     }
 
     private void click() {
-        if (System.currentTimeMillis() - lastClickTime < 5) return;
+        if (System.currentTimeMillis() - lastClickTime < 5)
+            return;
         lastClickTime = System.currentTimeMillis();
         if (!checkComponentClick(frame.getActivePanel().getDrawnComponents(), getMouseX(), getMouseY(), null)) {
             frame.getActivePanel().setFocusableComponent(null);
@@ -114,33 +115,58 @@ public class MouseManager {
         checkHovers();
     }
 
-    private DrawnComponent checkHovers(List<DrawnComponent> hovers) {
-        DrawnComponent foundComponent = null;
+    private List<DrawnComponent> checkHovers(List<DrawnComponent> hovers) {
+        List<DrawnComponent> foundComponents = new List<>();
         for (DrawnComponent c : hovers) {
-            if(c.getAttribute("disabled") != null && c.getStyle().getBooleanAttribute("disabled")) continue;
+            if (c.getAttribute("disabled") != null && c.getStyle().getBooleanAttribute("disabled"))
+                continue;
             c.setSetHovered(c.contains(getMouseX(), getMouseY()));
             if (c.isHovered()) {
-                c.setHoveredCursor(getMouseX(), getMouseY());
+                foundComponents.add(c);
                 c.setPressed(mousePressed);
-                foundComponent = c;
             } else {
                 c.setPressed(false);
             }
-            if (c instanceof ContainerComponent) {
-                if (foundComponent instanceof Focusable) {frame.getActivePanel().setFocusableComponent((Focusable) foundComponent);}
-                foundComponent = checkHovers(((ContainerComponent) c).getComponents());
-            }
         }
-        return foundComponent;
+        return foundComponents;
     }
 
     public void checkHovers() {
-        DrawnComponent foundComponent = checkHovers(frame.getActivePanel().getDrawnComponents());
-        if (foundComponent == null) {
+        List<DrawnComponent> foundComponents = checkHovers(frame.getActivePanel().getDrawnComponents());
+        if (foundComponents.isEmpty()) {
             frame.setCursor(Frame.DEFAULT_CURSOR);
-        } else if (foundComponent instanceof Focusable) {
-            frame.getActivePanel().setFocusableComponent((Focusable) foundComponent);
+            return;
         }
+        ContainerComponent container;
+        if ((container = componentsContainsContainer(foundComponents)) != null) {
+            foundComponents = checkHovers(container.getComponents());
+        }
+        if (foundComponents.isEmpty()) {
+            frame.setCursor(Frame.DEFAULT_CURSOR);
+            return;
+        }
+        if (foundComponents.size() > 1) {
+            for (DrawnComponent c : foundComponents) {
+                if (c instanceof Focusable) {
+                    frame.getActivePanel().setFocusableComponent((Focusable) c);
+                }
+            }
+        } else {
+            DrawnComponent foundComponent = foundComponents.get(0);
+            if (foundComponent instanceof Focusable) {
+                frame.getActivePanel().setFocusableComponent((Focusable) foundComponent);
+            }
+        }
+        foundComponents.get(0).setHoveredCursor(getMouseX(), getMouseY());
+    }
+
+    private ContainerComponent componentsContainsContainer(List<DrawnComponent> components) {
+        for (DrawnComponent c : components) {
+            if (c instanceof ContainerComponent) {
+                return (ContainerComponent) c;
+            }
+        }
+        return null;
     }
 
     public void press(int x, int y) {
@@ -161,5 +187,5 @@ public class MouseManager {
             }
         }
     }
-    
+
 }
