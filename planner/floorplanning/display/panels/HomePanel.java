@@ -4,10 +4,7 @@ import floorplanning.FloorplanningManager;
 import ui.Panel;
 import ui.components.impl.Button;
 import ui.components.impl.Label;
-import ui.components.impl.UserInput;
 import ui.frames.Frame;
-import util.events.Event;
-import util.events.EventTimer;
 
 /**
  * The user logged in successfully
