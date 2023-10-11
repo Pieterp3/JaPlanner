@@ -77,7 +77,7 @@ public class KeyManager {
 
     public void release(int keyCode) {
         // if (keyCode == 0) return;
-        // keyReleases[keyCode] = System.currentTimeMillis();
+        keyReleases[keyCode] = System.currentTimeMillis();
         // if (keyReleases[keyCode] - keyPresses[keyCode] < 500) {
         // keyTyped(keyCode);
         // }

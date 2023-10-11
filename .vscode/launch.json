@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ItemEditor",
+            "request": "launch",
+            "mainClass": "game.tools.editors.ItemEditor",
+            "projectName": "JaPlanner_4d5d0619"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"

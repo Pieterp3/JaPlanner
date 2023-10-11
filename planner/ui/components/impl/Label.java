@@ -44,4 +44,8 @@ public class Label extends DrawnComponent {
         getFrame().setCursor(Frame.DEFAULT_CURSOR);
     }
 
+    public String getText() {
+        return getAttribute("text");
+    }
+
 }

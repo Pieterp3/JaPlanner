@@ -13,7 +13,7 @@ public class Save {
         String[] lines = new String[data.size()];
         int i = 0;
         for (String key : data.getKeys()) {
-            lines[i] = key + "  " + data.get(key);
+            lines[i] = key + "=" + data.get(key);
             i++;
         }
         FileIO.write(file, lines);

@@ -51,6 +51,12 @@ public class List<T> implements Iterable<T>, Comparable<List<T>> {
         this.size++;
     }
 
+    public void add(T[] data) {
+        for (int i = 0; i < data.length; i++) {
+            this.add(data[i]);
+        }
+    }
+
     public void add(T data, int index) {
         if (index < 0 || index > this.size) {
             throw new IndexOutOfBoundsException();

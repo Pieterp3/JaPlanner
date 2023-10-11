@@ -99,6 +99,10 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
         cursorPosition = Math.min(cursorPosition, text.length());
     }
 
+    public void updateCursorPosition() {
+        cursorPosition = Math.max(cursorPosition, getText().length());
+    }
+
     public String getPlaceholder() {
         return placeholder;
     }
@@ -207,7 +211,7 @@ public class UserInput extends DrawnComponent implements RecievesText, Dragable 
             resetSelectedText();
             return;
         }
-        if (cursorPosition > 0) {
+        if (cursorPosition > 0 && currentText.length() > 0) {
             String newText = currentText.substring(0, cursorPosition - 1) + currentText.substring(cursorPosition);
             setText(newText);
             cursorPosition--;

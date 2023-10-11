@@ -46,6 +46,14 @@ public class ItemChooser extends ContainerComponent {
 		super.addComponent(list);
 	}
 
+	public String getDisplayedText() {
+		return list.getComponents().get(selectedIndex+2).getAttribute("text");
+	}
+
+	public int getSelectedIndex() {
+		return selectedIndex;
+	}
+
 	@Override
 	public void repositionComponents() {
 		if (list != null) {
@@ -91,6 +99,10 @@ public class ItemChooser extends ContainerComponent {
 	public void click(int x, int y) {
 		open = !open;
 		list.setAttribute("disabled", open);
+	}
+
+	public void setSelectedIndex(int selectedIndex) {
+		this.selectedIndex = selectedIndex;
 	}
 
 }

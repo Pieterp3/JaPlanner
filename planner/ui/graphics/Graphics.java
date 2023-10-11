@@ -88,14 +88,14 @@ public class Graphics {
     public void drawText(int x, int y, int width, int height, String text) {
         setFont(style.getFont());
         int textWidth = getStringWidth(text);
-        if (textWidth > width) {
-            text = text.substring(0, text.length() - 3) + "...";
-            textWidth = getStringWidth(text);
-            while (textWidth > width + 1) {
-                text = text.substring(0, text.length() - 4) + "...";
-                textWidth = getStringWidth(text);
-            }
-        }
+        // if (textWidth > width) {
+        //     text = text.substring(0, text.length() - 3) + "...";
+        //     textWidth = getStringWidth(text);
+        //     while (textWidth > width + 1) {
+        //         text = text.substring(0, text.length() - 4) + "...";
+        //         textWidth = getStringWidth(text);
+        //     }
+        // }
         String alignment = style.getAttribute("alignment");
         int padding = style.getIntAttribute("padding");
         int borderThickness = style.getIntAttribute("borderWidth");
