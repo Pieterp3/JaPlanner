@@ -1,7 +1,7 @@
 package game.maps.pathfinding;
 
 import game.maps.tilemap.Tile;
-import util.structures.List;
+import util.structures.lists.List;
 
 /**
  * Stores a path found by the pathfinder

@@ -1,5 +1,7 @@
 package util.structures;
 
+import util.structures.lists.List;
+
 public class Map<K, V> implements Comparable<Map<K, V>> {
 
     private List<MapNode<K, V>> table = new List<MapNode<K, V>>();

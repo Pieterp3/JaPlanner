@@ -2,7 +2,7 @@ package floorplanning;
 
 import floorplanning.entity.*;
 import floorplanning.room.Room;
-import util.structures.List;
+import util.structures.lists.List;
 
 /**
  * Stores all of the estimate information

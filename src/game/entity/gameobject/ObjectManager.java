@@ -2,7 +2,7 @@ package game.entity.gameobject;
 
 import game.entity.Entity;
 import game.entity.EntityManager;
-import util.structures.List;
+import util.structures.lists.List;
 
 public class ObjectManager extends EntityManager {
 

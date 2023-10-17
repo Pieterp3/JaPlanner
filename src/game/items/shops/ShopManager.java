@@ -2,7 +2,7 @@ package game.items.shops;
 
 import game.GameManager;
 import game.items.Item;
-import util.structures.List;
+import util.structures.lists.List;
 
 public class ShopManager {
 	

@@ -11,7 +11,7 @@ import game.items.market.MarketManager;
 import game.items.shops.ShopManager;
 import game.maps.location.Location;
 import game.saving.SaveManager;
-import util.structures.List;
+import util.structures.lists.List;
 
 public class GameManager {
 

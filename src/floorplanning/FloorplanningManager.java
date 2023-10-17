@@ -6,7 +6,7 @@ import floorplanning.items.FlooringItemManager;
 import floorplanning.room.Room;
 import util.io.Load;
 import util.io.Save;
-import util.structures.List;
+import util.structures.lists.List;
 
 /**
  * Manages walking the user through the floorplanning process

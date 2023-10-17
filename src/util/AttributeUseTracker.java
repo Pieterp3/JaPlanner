@@ -1,8 +1,8 @@
 package util;
 
 import util.io.Save;
-import util.structures.List;
 import util.structures.Map;
+import util.structures.lists.List;
 
 public class AttributeUseTracker {
 

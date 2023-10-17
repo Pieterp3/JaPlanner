@@ -6,7 +6,7 @@ import ui.components.impl.Button;
 import ui.components.impl.Label;
 import ui.components.impl.UserInput;
 import ui.frames.Frame;
-import util.structures.List;
+import util.structures.lists.List;
 
 public abstract class Popup {
 

@@ -10,7 +10,7 @@ import ui.components.interfaces.Focusable;
 import ui.components.interfaces.Scrollable;
 import ui.frames.Frame;
 import ui.graphics.Graphics;
-import util.structures.List;
+import util.structures.lists.List;
 
 /**
  * TODO
@@ -64,6 +64,12 @@ public abstract class Panel implements Comparable<Panel> {
 
     public void addComponent(DrawnComponent c) {
         components.add(c);
+    }
+
+    public void addcomponents(DrawnComponent... c) {
+        for (DrawnComponent comp : c) {
+            components.add(comp);
+        }
     }
 
     public void setFocusableComponent(Focusable c) {

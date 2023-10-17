@@ -1,7 +1,7 @@
 package floorplanning.room;
 
 import floorplanning.items.FlooringItem;
-import util.structures.List;
+import util.structures.lists.List;
 
 /**
  * Stores info about a room

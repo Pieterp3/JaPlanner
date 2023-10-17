@@ -4,8 +4,8 @@ import game.definitions.impl.ItemCombatDefinition;
 import game.definitions.impl.ItemDefinition;
 import util.io.Load;
 import util.io.Save;
-import util.structures.List;
 import util.structures.Map;
+import util.structures.lists.List;
 
 /**
  * Manipulates items.

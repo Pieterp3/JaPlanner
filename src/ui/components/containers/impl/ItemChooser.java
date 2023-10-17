@@ -6,8 +6,8 @@ import ui.components.style.Style;
 import ui.frames.Frame;
 import ui.graphics.Color;
 import ui.graphics.Graphics;
-import util.structures.List;
 import util.structures.Map;
+import util.structures.lists.List;
 
 public class ItemChooser extends ContainerComponent {
 

@@ -5,7 +5,7 @@ import ui.components.containers.ContainerComponent;
 import ui.components.interfaces.Focusable;
 import ui.frames.Frame;
 import util.math.Point;
-import util.structures.List;
+import util.structures.lists.List;
 
 public class MouseManager {
 

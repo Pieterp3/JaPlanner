@@ -3,7 +3,7 @@ package game.items.market;
 import game.entity.live.LiveEntity;
 import game.items.Item;
 import game.items.shops.ShopManager;
-import util.structures.List;
+import util.structures.lists.List;
 
 /**
  * Contains an offer for the market

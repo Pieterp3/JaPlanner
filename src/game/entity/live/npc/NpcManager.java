@@ -3,7 +3,7 @@ package game.entity.live.npc;
 import game.entity.Entity;
 import game.entity.EntityManager;
 import game.maps.location.Location;
-import util.structures.List;
+import util.structures.lists.List;
 
 public class NpcManager extends EntityManager {
 

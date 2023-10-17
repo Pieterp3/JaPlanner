@@ -1,6 +1,6 @@
 package util.events;
 
-import util.structures.List;
+import util.structures.lists.List;
 
 public class EventManager {
 

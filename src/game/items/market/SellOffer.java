@@ -2,7 +2,7 @@ package game.items.market;
 
 import game.entity.live.LiveEntity;
 import game.items.Item;
-import util.structures.List;
+import util.structures.lists.List;
 
 public class SellOffer extends Offer {
 

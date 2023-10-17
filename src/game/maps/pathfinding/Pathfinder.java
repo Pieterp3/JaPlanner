@@ -2,8 +2,8 @@ package game.maps.pathfinding;
 
 import game.maps.tilemap.Tile;
 import game.maps.tilemap.TileMap;
-import util.structures.List;
 import util.structures.Map;
+import util.structures.lists.List;
 
 /**
  * A* pathfinding

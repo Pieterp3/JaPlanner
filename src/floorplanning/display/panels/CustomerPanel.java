@@ -8,7 +8,7 @@ import ui.components.impl.Button;
 import ui.components.impl.Label;
 import ui.components.impl.UserInput;
 import ui.frames.Frame;
-import util.structures.List;
+import util.structures.lists.List;
 
 /**
  * Displays all customers in a list and lets the user select one

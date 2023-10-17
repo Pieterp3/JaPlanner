@@ -1,7 +1,7 @@
 package util.io;
 
 import java.io.*;
-import util.structures.List;
+import util.structures.lists.List;
 /**
  * TODO
     a. Allow for SQL, JSON, TXT and xml

@@ -1,7 +1,7 @@
 package ui.graphics.fonts;
 
-import util.structures.List;
 import util.structures.Map;
+import util.structures.lists.List;
 
 public abstract class Font {
 

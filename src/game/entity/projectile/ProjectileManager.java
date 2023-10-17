@@ -2,7 +2,7 @@ package game.entity.projectile;
 
 import game.entity.Entity;
 import game.entity.EntityManager;
-import util.structures.List;
+import util.structures.lists.List;
 
 public class ProjectileManager extends EntityManager {
 

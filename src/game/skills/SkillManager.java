@@ -2,7 +2,7 @@ package game.skills;
 
 import game.entity.Entity;
 import game.skills.impl.Health;
-import util.structures.List;
+import util.structures.lists.List;
 
 /**
  * Todo

@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SpriteMaker",
+            "request": "launch",
+            "mainClass": "spritemaker.SpriteMaker",
+            "projectName": "JaPlanner_4d5d0619"
+        },
+        {
+            "type": "java",
             "name": "ItemEditor",
             "request": "launch",
             "mainClass": "game.tools.editors.ItemEditor",

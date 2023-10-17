@@ -7,7 +7,7 @@ import game.definitions.impl.NpcDefinition;
 import game.entity.live.LiveEntity;
 import game.entity.live.npc.Npc;
 import util.math.Misc;
-import util.structures.List;
+import util.structures.lists.List;
 
 public class NpcCSM extends CombatSystemManager {
 

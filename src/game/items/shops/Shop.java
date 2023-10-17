@@ -3,7 +3,7 @@ package game.items.shops;
 import game.entity.live.LiveEntity;
 import game.items.Item;
 import game.items.ItemContainer;
-import util.structures.List;
+import util.structures.lists.List;
 
 public class Shop extends ItemContainer {
 

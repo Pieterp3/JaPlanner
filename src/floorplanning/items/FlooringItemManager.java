@@ -1,8 +1,8 @@
 package floorplanning.items;
 
 import util.io.Load;
-import util.structures.List;
 import util.structures.Map;
+import util.structures.lists.List;
 
 public class FlooringItemManager {
 

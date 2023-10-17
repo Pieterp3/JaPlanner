@@ -2,7 +2,7 @@ package ui.components.containers;
 
 import ui.components.DrawnComponent;
 import ui.frames.Frame;
-import util.structures.List;
+import util.structures.lists.List;
 /**TODO
  * 
 18. Make ContainerComponent abstract class and extend drawnComponent
@@ -65,5 +65,16 @@ public abstract class ContainerComponent extends DrawnComponent {
     }
 
     public abstract void repositionComponents();
+
+    
+    public DrawnComponent getComponentByText(String name) {
+        for (DrawnComponent comp : components) {
+            String text = comp.getAttribute("text");
+            if (text != null && text.equals(name)) {
+                return comp;
+            }
+        }
+        return null;
+    }
 
 }

@@ -1,7 +1,7 @@
 package game.entity;
 
 import game.maps.location.Location;
-import util.structures.List;
+import util.structures.lists.List;
 
 public abstract class EntityManager {
 	

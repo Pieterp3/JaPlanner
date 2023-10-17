@@ -4,8 +4,8 @@ import game.GameManager;
 import game.entity.live.LiveEntity;
 import game.items.inventory.Inventory;
 import game.items.shops.ShopManager;
-import util.structures.List;
 import util.structures.Map;
+import util.structures.lists.List;
 
 public class MarketManager {
 

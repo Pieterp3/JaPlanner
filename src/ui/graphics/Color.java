@@ -34,6 +34,10 @@ public class Color {
         return this.r;
     }
 
+    public String toString() {
+        return "Color[r=" + r + ",g=" + g + ",b=" + b + "]";
+    }
+
     public void setG(int g) {
         this.g = g;
     }
@@ -119,6 +123,52 @@ public class Color {
 
     public static Color randomDefaultColor() {
         return defaultColors[(int) (Math.random() * defaultColors.length)];
+    }
+
+    /**
+     * Split all colors in a gradiant from red>green>blue>red
+     * Returns a color from the gradiant
+     */
+    public static Color getGradientColor(int stepIndex, int gradientSteps) {
+        int r = 0;
+        int g = 0;
+        int b = 0;
+        int step = (gradientSteps - 1) / 3;
+        if (stepIndex < step) {
+            r = 255;
+            g = (int) (255 * ((double) stepIndex / step));
+        } else if (stepIndex < 2 * step) {
+            r = (int) (255 * (1 - ((double) (stepIndex - step) / step)));
+            g = 255;
+        } else if (stepIndex < 3 * step) {
+            g = (int) (255 * (1 - ((double) (stepIndex - 2 * step) / step)));
+            b = 255;
+        } else {
+            g = 0;
+            b = (int) (255 * (1 - ((double) (stepIndex - 3 * step) / step)));
+        }
+        return new Color(r, g, b);
+    }
+
+    /**
+     * Splits colors in a gradient from white>@color>black
+     */
+    public static Color getGradientColor(Color color, int step, int stepCount) {
+        if (step < stepCount / 2) {
+            return getGradientColor(white, step, stepCount / 2, color);
+        } else {
+            return getGradientColor(color, step - stepCount / 2, stepCount / 2, black);
+        }
+    }
+
+    /**
+     * Splits colors in a gradient from @color1>@color2
+     */
+    public static Color getGradientColor(Color color1, int step, int stepCount, Color color2) {
+        int r = color1.getR() + (int) ((color2.getR() - color1.getR()) * ((double) step / stepCount));
+        int g = color1.getG() + (int) ((color2.getG() - color1.getG()) * ((double) step / stepCount));
+        int b = color1.getB() + (int) ((color2.getB() - color1.getB()) * ((double) step / stepCount));
+        return new Color(r, g, b);
     }
 
 }

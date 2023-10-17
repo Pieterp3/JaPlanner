@@ -5,7 +5,7 @@ import java.awt.Polygon;
 import ui.components.style.Style;
 import ui.graphics.fonts.Font;
 import util.math.Point;
-import util.structures.List;
+import util.structures.lists.List;
 import ui.graphics.fonts.CharacterData;
 
 /**

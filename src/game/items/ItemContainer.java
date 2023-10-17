@@ -1,7 +1,7 @@
 package game.items;
 
 import game.definitions.impl.ItemDefinition;
-import util.structures.List;
+import util.structures.lists.List;
 
 public class ItemContainer {
 

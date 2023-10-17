@@ -7,7 +7,7 @@ import ui.frames.Frame;
 import ui.graphics.Graphics;
 import util.math.Dimension;
 import util.math.Point;
-import util.structures.List;
+import util.structures.lists.List;
 
 public class Rectangle extends Polygon {
 

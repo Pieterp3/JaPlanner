@@ -1,6 +1,6 @@
 package floorplanning.items;
 
-import util.structures.List;
+import util.structures.lists.List;
 
 public class FlooringItem {
 	

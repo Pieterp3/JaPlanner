@@ -1,7 +1,7 @@
 package floorplanning.room;
 
 import util.math.Point;
-import util.structures.List;
+import util.structures.lists.List;
 import floorplanning.items.FlooringItem;
 
 public class Wall {

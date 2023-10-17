@@ -1,8 +1,8 @@
 package util.io;
 
 import java.io.File;
-import util.structures.List;
 import util.structures.Map;
+import util.structures.lists.List;
 
 public class Load {
 

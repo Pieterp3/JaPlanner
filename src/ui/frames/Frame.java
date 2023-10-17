@@ -12,8 +12,8 @@ import util.events.EventManager;
 import util.events.EventTimer;
 import util.events.Event;
 import util.io.Save;
-import util.structures.List;
 import util.structures.Map;
+import util.structures.lists.List;
 
 /**
  * TODO

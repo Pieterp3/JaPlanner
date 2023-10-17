@@ -6,8 +6,8 @@ import game.combat.KillLog;
 import game.entity.live.LiveEntity;
 import game.skills.Skill;
 import game.skills.SkillManager;
-import util.structures.List;
 import util.structures.Map;
+import util.structures.lists.List;
 
 /**
  * Manages the combat system for an entity
